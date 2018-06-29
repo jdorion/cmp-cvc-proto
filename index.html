@@ -197,7 +197,10 @@
                                 <a href="#">Home</a>
                             </li>
                             <!-- InstanceBeginEditable name="Breadcrumb" -->
-
+                            <li>
+                                <a href="#">Reports</a>
+                            </li>
+                            <li>Call vs claim</li>
                             <!-- InstanceEndEditable -->
                         </ol>
                     </div>
@@ -208,7 +211,7 @@
                                 <ul class="list-inline list-bullet-none">
                                     <li>
                                         <i class="fa fa-user fa-fw"></i>
-                                        <a href="#">Test User</a>
+                                        <a href="#">Peter Simons</a>
                                     </li>
                                     <li>
                                         <i class="fa fa-sign-out fa-fw"></i>
@@ -231,23 +234,462 @@
                 ********************     START OF MAIN CONTENT     *******************
                 ********************************************************************** -->
 
+        <h1 id="wb-cont" class="hd-collection-forecast page-header">Call vs claim report
+            <span class="hd-suffix">Survey:
+                <abbr title="Rabbit Cycle Survey">RCS</abbr> | Cycle: 05-2017</span>
+        </h1>
+        <section>
+            <div class="row">
+                <div class="col-md-9">
+                    <p class="small">Updated Thurs. February 15, 2018 - 15:27 </p>
+                    <div class="wb-inv">
+                        <h3>Interviewer view</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- report description -->
+        <div>
+            <p>The calls vs claims report displays details of individual interviewer performance and casework by survey.
+                <span>Select the desired view, choose necessary filters and press the
+                    <strong>Generate report</strong> button. Definitions are found in the
+                    <a href="#glossary">glossary</a> at the bottom of the page.</span>
+            </p>
+            <p>All fields marked with an asterisk (
+                <span class="text-outlier">*</span>) are mandatory.</p>
+        </div>
+        <!-- data selection filters -->
+        <div class="well width100 text-center center-block">
+            <div class="btn-group btn-group-lg width100 mrgn-bttm-lg">
+                <a href="#" role="button" class="btn btn-primary width50">Interviewer view</a>
+                <a href="#" role="button" class="btn btn-default width50">Survey view</a>
+            </div>
+            <div>
+                <form>
+                    <div class="row">
+                        <div class="col-sm-5 col-md-5">
+                            <div class="form-group text-left">
+                                <label for="startdate" class="width40 text-right">
+                                    <span class="text-outlier">*</span> From (
+                                    <abbr title="Four digits year, dash, two digits month, dash, two digits day">YYYY-MM-DD</abbr>)
+                                    <span class="datepicker-format"> (
+                                        <abbr title="Four digits year, dash, two digits month, dash, two digits day">YYYY-MM-DD</abbr>)</span>
+                                </label>
+                                <input class="form-control display-inline-block mrgn-rght-sm" type="text" id="startdate" name="startdate" value="2018-01-14"
+                                    size="10" maxlength="10">
+                            </div>
+                        </div>
+                        <div class="col-sm-7 col-md-7">
+                            <div class="form-group">
+                                <label for="survey" class="width20 text-right">
+                                    <span id="sur-mandatory" class="text-outlier">*</span> Survey</label>
+                                <select name="survey" class="form-control width70 display-inline-block" id="survey">
+                                    <option value="select">Select...</option>
+                                    <option value="RCS" selected>RCS - Rabbit Care Survey</option>
+                                    <option value="">-</option>
+                                    <option value="">-</option>
+                                    <option value="">-</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-5 col-md-5">
+                            <div class="form-group text-left">
+                                <label for="enddate" class="width40 text-right">To (
+                                    <abbr title="Four digits year, dash, two digits month, dash, two digits day">YYYY-MM-DD</abbr>)
+                                    <span class="datepicker-format"> (
+                                        <abbr title="Four digits year, dash, two digits month, dash, two digits day">YYYY-MM-DD</abbr>)</span>
+                                </label>
+                                <input class="form-control display-inline-block mrgn-rght-sm" type="text" id="enddate" name="enddate" value="2018-01-14"
+                                    size="10" maxlength="10">
+                            </div>
+                        </div>
+                        <div class="col-sm-7 col-md-7">
+                            <div class="form-group">
+                                <label for="cycle" class="width20 text-right">Cycle</label>
+                                <select name="cycle" class="form-control width70 display-inline-block" id="cycle">
+                                    <option value="select">Select...</option>
+                                    <option value="05-17" selected>05-17</option>
+                                    <option value="">-</option>
+                                    <option value="">-</option>
+                                    <option value="">-</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-5 col-md-5 text-left">
+                            <div class="width40 display-inline-block">&nbsp;</div>
+                            <a href="#mdl-int" role="button" class="btn btn-default display-inline-block wb-lbx lbx-modal">Select interviewers</a>
+                        </div>
+                        <div class="col-sm-7 col-md-7 text-left">
+                            <div class="width25 display-inline-block">&nbsp;</div>
+                            <div class="display-inline-block text-left">
+                                <input id="all-surveys" type="checkbox" value="">
+                                <label for="all-surveys" class="mrgn-lft-sm">Display all surveys</label>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-5 col-md-5 text-left">
+                            <div class="width40 display-inline-block">&nbsp;</div>
+                            <div class="text-left display-inline-block">
+                                <p>Interviewers:</p>
+                                <ul class="list-unstyled">
+                                    <li>April Gardiner - CATI Interviewer</li>
+                                    <li>Interviewer XXX - CATI Interviewer</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <input id="gen-report" class="btn btn-primary" type="submit" value="Generate report" disabled>
+                    </div>
+                </form>
+            </div>
 
-        <!--    **********************************************************************
-                ********************     START OF REACT CONTENT    *******************
-                ********************************************************************** -->
+
+        </div>
+        <section>
+            <div class="row mrgn-tp-xl mrgn-bttm-md">
+                <div class="col-md-9 col-sm-9">
+                    <h2 class="mrgn-0 pddng-bttm-sm">Interviewers</h2>
+                </div>
+                <div class="col-md-3 col-sm-3 text-right text-left-xs">
+                    <a href="#glossary-anchor" class="mrgn-rght-md">Glossary</a>&nbsp;
+                    <span class="wb-lbx lbx-modal">
+                        <a href="#mdl-legend">Legend</a>
+                    </span>
+                </div>
+            </div>
+
+
+
+
+<!--    **********************************************************************
+        ********************     START OF REACT CONTENT    *******************
+        ********************************************************************** -->
 
                 <div id="react-app"> </div>
                 <script src="./src/index.js"></script>
             
                 <script> 
-                    var translations = { text1: 'It works !!' } ;
+                    var translations = { text: 'It works !!' } ;
                     window.MyApp("#react-app"); 
                 </script>
 
-        <!--    *********************************************************************
-                ********************     END OF REACT CONTENT     *******************
-                ********************************************************************* -->
+<!--    *********************************************************************
+        ********************     END OF REACT CONTENT     *******************
+        ********************************************************************* -->
+        </section>
 
+
+
+
+        <!-- #BeginLibraryItem "/Library/Glossary.lbi" -->
+        <section>
+            <h2 class="mrgn-tp-lg">Glossary</h2>
+            <div class="accordin-operation">
+                <details class="acc-group mrgn-lft-md" id="glossary">
+                    <summary>
+                        <h3 class="titleOperations mrgn-tp-sm mrgn-bttm-0">Terms</h3>
+                    </summary>
+                    <dl>
+                        <dt id="glossary-anchor">Responses</dt>
+                        <dd>The number of resolving attempts with submitted responses that meet the Minimum Content Criteria
+                            and are not Out of Scope.</dd>
+                        <dt>Refusals</dt>
+                        <dd>The number of attempts with an outcome code in the 500 series.</dd>
+                        <dt>No contacts</dt>
+                        <dd>The number of attempts with an outcome code in the 100 and 200 series.</dd>
+                        <dt>Other outcomes</dt>
+                        <dd>The number of attempts with an outcome code that does not fall into the Response, Refusals, and No
+                            Contacts categories.</dd>
+                        <dt>Interview length</dt>
+                        <dd>Time spent inside the electronic questionnaire within an attempt.</dd>
+                        <dt>System time</dt>
+                        <dd>Total time spent on an attempt. Includes time contacting respondent, performing the interview, and
+                            applying an outcome code.</dd>
+                        <dt>Calls</dt>
+                        <dd>The number of attempts made via telephone during this period.</dd>
+                        <dt>Visits</dt>
+                        <dd>The number of attempts made via a field visit during this period.</dd>
+                        <dt>Unique cases touched</dt>
+                        <dd>The number of unique cases for which attempts have been made during this period.</dd>
+                        <dt>Surveys</dt>
+                        <dd>The number of surveys for which an attempt has been made during this period.</dd>
+                        <dt>Total off system time</dt>
+                        <dd>The total amount of time where an interviewer was not making an attempt during this period, measured
+                            between the first and last attempt of the day.</dd>
+                        <dt>Access method</dt>
+                        <dd>How the case was delivered to the interviewer for this attempt. Possible values are:
+                            <ul>
+                                <li>Assigned: A</li>
+                                <li>Self-Assigned: SA</li>
+                                <li>Call Scheduler: CS</li>
+                                <li>Call Scheduler - Appointment: CSA</li>
+                            </ul>
+                        </dd>
+                        <dt>Attempted via</dt>
+                        <dd>Whether the attempt was made via a telephone call (
+                            <i class="fa fa-phone"></i>), or a field visit (
+                            <i class="fa fa-user"></i>).</dd>
+                    </dl>
+                </details>
+            </div>
+        </section>
+        <!-- #EndLibraryItem -->
+        <hr class="mrgn-bttm-0 mrgn-tp-lg">
+        <div>
+            <a href="#" class="btn btn-link">
+                <i class="fa fa-reply"></i> Return to reports</a>
+        </div>
+        <div class="text-center">
+            <a href="#wb-cont" id="backToTop">Top of page</a>
+        </div>
+
+        <!-- *************************** Legend Modal **************************************** -->
+        <section id="mdl-legend" class="mfp-hide modal-dialog modal-content overlay-def responsive mdl-sm">
+            <header class="modal-header">
+                <h3 class="modal-title">Legend</h3>
+            </header>
+            <button title="Close overlay (escape key)" type="button" class="mfp-close fa fa-times"></button>
+            <div class="modal-body">
+                <div class="width60 center-block">
+                    <h4>Casework details</h4>
+                    <table class="mrgn-auto width100">
+                        <tr>
+                            <td class="bg-res pddng-sm width10"></td>
+                            <td class="width40 pddng-sm" rowspan="2">Responses</td>
+                            <td class="bg-other-sur pddng-sm width10" rowspan="2"></td>
+                            <td class="width40 pddng-sm" rowspan="2">Other surveys</td>
+                        </tr>
+                        <tr>
+                            <td class="bg-res-2 pddng-sm width10"></td>
+                        </tr>
+                        <tr>
+                            <td class="pddng-sm" colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <td class="bg-ref pddng-sm width10"></td>
+                            <td class="width40 pddng-sm" rowspan="2">Refusals</td>
+                            <td class="brdr-tp brdr-bttm brdr-rght brdr-lft pddng-sm width10" rowspan="2"></td>
+                            <td class="width40 pddng-sm" rowspan="2">Off system time</td>
+                        </tr>
+                        <tr>
+                            <td class="bg-ref-2 pddng-sm width10"></td>
+                        </tr>
+                        <tr>
+                            <td class="pddng-sm" colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <td class="bg-nocon pddng-sm width10"></td>
+                            <td class="width40 pddng-sm" rowspan="3">No contacts</td>
+                            <td class="pddng-sm width10 text-center" rowspan="3"></td>
+                            <td class="width40 pddng-sm" rowspan="3"></td>
+                        </tr>
+                        <tr>
+                            <td class="bg-nocon-2 pddng-sm width10"></td>
+                        </tr>
+                        <tr>
+                            <td class="bg-nocon-3 pddng-sm width10"></td>
+                        </tr>
+                        <tr>
+                            <td class="pddng-sm" colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <td class="bg-other pddng-sm width10"></td>
+                            <td class="width40 pddng-sm" rowspan="3">Other outcomes</td>
+                            <td rowspan="3"></td>
+                            <td rowspan="3"></td>
+                        </tr>
+                        <tr>
+                            <td class="bg-other-2 pddng-sm width10"></td>
+                        </tr>
+                        <tr>
+                            <td class="bg-other-3 pddng-sm width10"></td>
+                        </tr>
+                    </table>
+                    <h4>Pay claims</h4>
+                    <table class="mrgn-auto width100">
+                        <tr>
+                            <td class="bg-claimed pddng-sm width10"></td>
+                            <td class="width40 pddng-sm">Interviewing time</td>
+                            <td class="bg-other-task pddng-sm width10"></td>
+                            <td class="width40 pddng-sm">Other tasks</td>
+                        </tr>
+                        <tr>
+                            <td class="pddng-sm" colspan="4"></td>
+                        </tr>
+                        <tr>
+                            <td class="bg-other-claim pddng-sm width10"></td>
+                            <td class="width40 pddng-sm">Other surveys</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- *************************** Interviewers Modal **************************************** -->
+        <section id="mdl-int" class="mfp-hide modal-dialog modal-content overlay-def responsive cvc-mdl">
+            <header class="modal-header">
+                <h3 class="modal-title">
+                    <i class="fa fa-users"></i> Select interviewers</h3>
+            </header>
+            <div class="modal-body">
+                <form>
+                    <section class="alert alert-danger" id="limitMsg-int">
+                        <h4>Attention</h4>
+                        <p>Please select a
+                            <strong>maximum of 5</strong> interviewers.</p>
+                    </section>
+                    <p>Please select
+                        <strong>a maximum of 5 interviewers</strong> and press the
+                        <strong>View</strong> button.</p>
+                    <div class="row mrgn-bttm-md mrgn-lft-sm" id="tags-int"></div>
+                    <div class="row">
+                        <div class="col-sm-4 col-md-4">
+                            <div class="form-group">
+                                <label for="office" class="text-right">Select a Regional office</label>
+                                <select name="office" class="width100 form-control display-inline-block" id="office">
+                                    <option value="">Select...</option>
+                                    <option value="Halifax" selected>Halifax - RO</option>
+                                    <option value="">-</option>
+                                    <option value="">-</option>
+                                    <option value="">-</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-8 col-md-8">
+                            <table class="table table-striped table-condensed interviewerTable" id="mdlTbl-int">
+                                <thead>
+                                    <tr>
+                                        <th class="wb-inv">Interviewers</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="checkbox mrgn-tp-0 mrgn-bttm-0">
+                                                <label for="chbx40">Interviewer AAA</label>
+                                                <input id="chbx40" type="checkbox" value="">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="checkbox mrgn-tp-0 mrgn-bttm-0">
+                                                <label for="chbx41">Interviewer BBB</label>
+                                                <input id="chbx41" type="checkbox" value="">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="checkbox mrgn-tp-0 mrgn-bttm-0">
+                                                <label for="chbx42">Interviewer CCC</label>
+                                                <input id="chbx42" type="checkbox" value="">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="checkbox mrgn-tp-0 mrgn-bttm-0">
+                                                <label for="chbx43">Interviewer DDD</label>
+                                                <input id="chbx43" type="checkbox" value="">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="checkbox mrgn-tp-0 mrgn-bttm-0">
+                                                <label for="chbx44">Interviewer EEE</label>
+                                                <input id="chbx44" type="checkbox" value="">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="checkbox mrgn-tp-0 mrgn-bttm-0">
+                                                <label for="chbx45">Interviewer FFF</label>
+                                                <input id="chbx45" type="checkbox" value="">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="checkbox mrgn-tp-0 mrgn-bttm-0">
+                                                <label for="chbx46">Interviewer GGG</label>
+                                                <input id="chbx46" type="checkbox" value="">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="checkbox mrgn-tp-0 mrgn-bttm-0">
+                                                <label for="chbx47">Interviewer HHH</label>
+                                                <input id="chbx47" type="checkbox" value="">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="checkbox mrgn-tp-0 mrgn-bttm-0">
+                                                <label for="chbx48">Interviewer III</label>
+                                                <input id="chbx48" type="checkbox" value="">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="checkbox mrgn-tp-0 mrgn-bttm-0">
+                                                <label for="chbx49">Interviewer JJJ</label>
+                                                <input id="chbx49" type="checkbox" value="">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="checkbox mrgn-tp-0 mrgn-bttm-0">
+                                                <label for="chbx50">Interviewer KKK</label>
+                                                <input id="chbx50" type="checkbox" value="">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="checkbox mrgn-tp-0 mrgn-bttm-0">
+                                                <label for="chbx51">Interviewer LLL</label>
+                                                <input id="chbx51" type="checkbox" value="">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="checkbox mrgn-tp-0 mrgn-bttm-0">
+                                                <label for="chbx52">Interviewer MMM</label>
+                                                <input id="chbx52" type="checkbox" value="">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <footer class="modal-footer">
+                <button id="sbmtBtn-int" class="btn btn-primary popup-modal-dismiss" type="submit" onclick="location.href='../interviewerTab/interviewerTab_cati.html';"
+                    title="View options">View
+                </button>
+                <button class="btn btn-link popup-modal-dismiss" type="button" title="Cancel options">Cancel</button>
+            </footer>
+        </section>
+        <!-- end-->
         <!-- InstanceEndEditable -->
         <dl id="wb-dtmd">
             <dt>Version:</dt>
