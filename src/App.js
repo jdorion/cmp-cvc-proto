@@ -1,14 +1,36 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
 
+class App extends React.Component {
+    render() {
+        const days = [];
+        cvcData.days.forEach(element => {
+            days.push(
+                <DateAccordion
+                    key={element.date}
+                    formattedDate={element.formattedDate}
+                    shifts={element.shifts}
+                />
+            );
+        });
+
+        return days;
+    }
+}
+
 class DateAccordion extends React.Component {
     render() {
+        const shifts = [];
+        this.props.shifts.forEach(element => {
+            shifts.push(<InterviewerShift key={element.username} shift={element} />);
+        });
+
         return (
             <details className="acc-group mrgn-bttm-md" open>
                 <summary className="panel-heading-collapsible pddng-sm h3">
-                    Sun. January 14, 2018
+                    {this.props.formattedDate}
                 </summary>
-                <InterviewerShift />
+                {shifts}
             </details>
         );
     }
@@ -20,7 +42,7 @@ class InterviewerShift extends React.Component {
             <div className=" mrgn-bttm-md" id="day1">
                 <div className="well well-sm">
                     <h4 className="panel-title">
-                        April Gardiner - CATI Interviewer
+                        {this.props.shift.name} - {this.props.shift.position}
                         <span className="pull-right">
                             <a href="./interviewer_printView.html">
                                 <i className="fa fa-print" />
@@ -30,7 +52,7 @@ class InterviewerShift extends React.Component {
                 </div>
                 <div className="wb-tabs">
                     <div className="tabpanels">
-                        <ShiftSummaryTab />
+                        <ShiftSummaryTab shift={this.props.shift} />
                     </div>
                 </div>
             </div>
@@ -40,75 +62,6 @@ class InterviewerShift extends React.Component {
 
 class ShiftSummaryTab extends React.Component {
     render() {
-        const formattedDate = 'Sun. January 14, 2018';
-        const shiftStart = '11:30';
-        const shiftEnd = '13:30';
-        const calls = '18';
-        const casesTouched = '15';
-        const surveys = '1';
-        const totalOffSystemTime = '00:32:00';
-        const hoursClaimed = '01:45:00';
-
-        const hours = [
-            {
-                start: '11:00',
-                description: '11:00 - 11:59',
-                responses: '3',
-                refusals: '0',
-                nocontacts: '3',
-                otheroutcomes: '0',
-                hourLinkTarget: '#',
-            },
-            {
-                start: '12:00',
-                description: '12:00 - 12:59',
-                responses: '3',
-                refusals: '0',
-                nocontacts: '2',
-                otheroutcomes: '0',
-                hourLinkTarget: '#',
-            },
-            {
-                start: '13:00',
-                description: '13:00 - 13:59',
-                responses: '0',
-                refusals: '1',
-                nocontacts: '5',
-                otheroutcomes: '1',
-                hourLinkTarget: '#',
-            },
-        ];
-
-        const finalHourLabel = '14:00';
-        const renderLink = true;
-
-        const claims = [
-            {
-                id: 1,
-                time: '11:30 - 12:15',
-                pecode: '1234',
-                surveyAcronym: 'RCS',
-                surveyName: 'Rabbit Care Survey',
-                activity: '9 - Telephone interviewing',
-            },
-            {
-                id: 2,
-                time: '12:30 - 13:15',
-                pecode: '1234',
-                surveyAcronym: 'RCS',
-                surveyName: 'Rabbit Care Survey',
-                activity: '9 - Telephone interviewing',
-            },
-            {
-                id: 3,
-                time: '13:15 - 13:30',
-                pecode: '5678',
-                surveyAcronym: 'RCS',
-                surveyName: 'Rabbit Care Survey',
-                activity: '30 - Admin time',
-            },
-        ];
-
         return (
             <details id="day1_int1_sum" open>
                 <summary>Summary</summary>
@@ -118,35 +71,36 @@ class ShiftSummaryTab extends React.Component {
                             <div className="col-sm-3 col-md-3">
                                 <h5 className="mrgn-lft-md">
                                     <i className="fa fa-calendar" />
-                                    {formattedDate}
+                                    {this.props.shift.formattedDate}
                                 </h5>
                             </div>
                             <div className="col-sm-3 col-md-3">
                                 <h5>
-                                    <i className="fa fa-clock-o" /> {shiftStart} - {shiftEnd}{' '}
+                                    <i className="fa fa-clock-o" /> {this.props.shift.shiftStart} -{' '}
+                                    {this.props.shift.shiftEnd}
                                 </h5>
                             </div>
                         </div>
                         <div className="row">
                             <BarGraph
-                                hours={hours}
-                                finalHourLabel={finalHourLabel}
-                                renderLink={renderLink}
+                                hours={this.props.shift.hours}
+                                finalHourLabel={this.props.shift.finalHourLabel}
+                                renderLink={this.props.shift.renderLink}
                             />
                         </div>
                     </div>
                     <div className="col-sm-2 col-md-2">
                         <div className="text-right mrgn-tp-md">
-                            <p>Calls: omgomg {calls}</p>
-                            <p>Cases touched: {casesTouched}</p>
-                            <p>Surveys: {surveys}</p>
-                            <p>Total off system time: {totalOffSystemTime}</p>
-                            <p>Hours claimed: {hoursClaimed}</p>
+                            <p>Calls: {this.props.shift.calls}</p>
+                            <p>Cases touched: {this.props.shift.casesTouched}</p>
+                            <p>Surveys: {this.props.shift.surveys}</p>
+                            <p>Total off system time: {this.props.shift.totalOffSystemTime}</p>
+                            <p>Hours claimed: {this.props.shift.hoursClaimed}</p>
                         </div>
                     </div>
                 </div>
-                <SummaryCaseWorkDetailsAccordion hours={hours} />
-                <PayClaimSummaryAccordion claims={claims} />
+                <SummaryCaseWorkDetailsAccordion hours={this.props.shift.hours} />
+                <PayClaimSummaryAccordion claims={this.props.shift.claims} />
             </details>
         );
     }
@@ -451,12 +405,6 @@ class PayClaimSummaryRow extends React.Component {
                 <td>{this.props.claim.activity}</td>
             </tr>
         );
-    }
-}
-
-class App extends React.Component {
-    render() {
-        return <DateAccordion />;
     }
 }
 

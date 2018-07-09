@@ -377,6 +377,86 @@
 
             <script> 
                 var translations = { text: 'It works !!' };
+                var cvcData = {
+                    days: [
+                        {
+                            date: '2018-01-14',
+                            formattedDate: 'Sun. January 14, 2018',
+                            shifts: [
+                                {
+                                    username: 'gardapr',
+                                    name: 'April Gardiner',
+                                    position: 'CATI Interviewer',
+                                    calls: '18',
+                                    casesTouched: '15',
+                                    surveys: '1',
+                                    totalOffSystemTime: '00:32:00',
+                                    hoursClaimed: '01:45:00',
+                                    formattedDate: 'Sun. January 14, 2018',
+                                    shiftStart: '11:30',
+                                    shiftEnd: '13:30',
+                                    finalHourLabel: '14:00',
+                                    renderLink: true,
+                                    hours: [
+                                        {
+                                            start: '11:00',
+                                            description: '11:00 - 11:59',
+                                            responses: '3',
+                                            refusals: '0',
+                                            nocontacts: '3',
+                                            otheroutcomes: '0',
+                                            hourLinkTarget: '#',
+                                        },
+                                        {
+                                            start: '12:00',
+                                            description: '12:00 - 12:59',
+                                            responses: '3',
+                                            refusals: '0',
+                                            nocontacts: '2',
+                                            otheroutcomes: '0',
+                                            hourLinkTarget: '#',
+                                        },
+                                        {
+                                            start: '13:00',
+                                            description: '13:00 - 13:59',
+                                            responses: '0',
+                                            refusals: '1',
+                                            nocontacts: '5',
+                                            otheroutcomes: '1',
+                                            hourLinkTarget: '#',
+                                        },
+                                    ],
+                                    claims: [
+                                        {
+                                            id: 1,
+                                            time: '11:30 - 12:15',
+                                            pecode: '1234',
+                                            surveyAcronym: 'RCS',
+                                            surveyName: 'Rabbit Care Survey',
+                                            activity: '9 - Telephone interviewing',
+                                        },
+                                        {
+                                            id: 2,
+                                            time: '12:30 - 13:15',
+                                            pecode: '1234',
+                                            surveyAcronym: 'RCS',
+                                            surveyName: 'Rabbit Care Survey',
+                                            activity: '9 - Telephone interviewing',
+                                        },
+                                        {
+                                            id: 3,
+                                            time: '13:15 - 13:30',
+                                            pecode: '5678',
+                                            surveyAcronym: 'RCS',
+                                            surveyName: 'Rabbit Care Survey',
+                                            activity: '30 - Admin time',
+                                        },
+                                    ],
+                                }
+                            ]
+                        }
+                    ]
+                }
                 window.MyApp("#react-app"); 
             </script>
 
@@ -769,300 +849,301 @@
     </footer>
     <!--[if gte IE 9 | !IE ]><!-->
     <script src="./js/jquery/2.1.4/jquery.js"></script>
-    <script src="./js/wet-boew.js"></script>
-    <script src="./js/jquery-ui/1.9.2/jquery-ui.min.js"></script>
-    <script src="./js/statcan/jquery.maskedinput/jquery.maskedinput.js"></script>
-    <!--<![endif]-->
-    <!-- InstanceBeginEditable name="Footer-JS" -->
+    <<!--script src="./js/wet-boew.js">
+        </script>-->
+        <script src="./js/jquery-ui/1.9.2/jquery-ui.min.js"></script>
+        <script src="./js/statcan/jquery.maskedinput/jquery.maskedinput.js"></script>
+        <!--<![endif]-->
+        <!-- InstanceBeginEditable name="Footer-JS" -->
 
-    <!-- tabs js -->
-    <script type="application/javascript">
-        $(document).on("wb-ready.wb", function () {
+        <!-- tabs js -->
+        <script type="application/javascript">
+            $(document).on("wb-ready.wb", function () {
 
-            //back to top link closes all accordions
-            $("#backToTop").on("click", function () {
-                $(".acc-group").prop("open", false);
-            });
+                //back to top link closes all accordions
+                $("#backToTop").on("click", function () {
+                    $(".acc-group").prop("open", false);
+                });
 
-            //****************** DATE PICKER *****************************
-            $("#startdate, #enddate").datepicker({
-                defaultDate: "-1d",
-                maxDate: "-1d",
-                dateFormat: "yy-mm-dd",
-                constrainInput: true,
-                changeMonth: false,
-                changeYear: false,
-                showOn: "both",
-                buttonImage: "./images/icon_calendar.gif",
-                buttonImageOnly: true,
-                showButtonPanel: true
-            }).mask("9999-99-99");
+                //****************** DATE PICKER *****************************
+                $("#startdate, #enddate").datepicker({
+                    defaultDate: "-1d",
+                    maxDate: "-1d",
+                    dateFormat: "yy-mm-dd",
+                    constrainInput: true,
+                    changeMonth: false,
+                    changeYear: false,
+                    showOn: "both",
+                    buttonImage: "./images/icon_calendar.gif",
+                    buttonImageOnly: true,
+                    showButtonPanel: true
+                }).mask("9999-99-99");
 
-            /*****************************************************************
-             *                          FILTERS
-             *****************************************************************/
-            //If the checkbox is de-selected, the survey selector will enable.
-            //Selecting the Display all surveys checkbox will clear and disable the Survey and Cycle selectors.
-            $("#all-surveys").on("change", function () {
-                if (this.checked) {
+                /*****************************************************************
+                 *                          FILTERS
+                 *****************************************************************/
+                //If the checkbox is de-selected, the survey selector will enable.
+                //Selecting the Display all surveys checkbox will clear and disable the Survey and Cycle selectors.
+                $("#all-surveys").on("change", function () {
+                    if (this.checked) {
+                        disableCycle();
+                        disableSurvey();
+                    } else {
+                        enableSurvey();
+                    }
+                    toggleGenerateButton();
+                });
+
+                //Once a survey is selected, the cycle selector will enable.
+                $("#survey").on("change", function () {
+                    if ($(this).val() != "select") {
+                        $("#cycle").prop("disabled", false);
+                    } else {
+                        disableCycle();
+                    }
+                    toggleGenerateButton();
+                });
+
+                //Changing the date range will clear the Survey and Cycle selectors, and reselect the "Display all' checkbox.
+                $("#startdate, #enddate").on("change", function () {
                     disableCycle();
                     disableSurvey();
-                } else {
-                    enableSurvey();
-                }
-                toggleGenerateButton();
-            });
-
-            //Once a survey is selected, the cycle selector will enable.
-            $("#survey").on("change", function () {
-                if ($(this).val() != "select") {
-                    $("#cycle").prop("disabled", false);
-                } else {
-                    disableCycle();
-                }
-                toggleGenerateButton();
-            });
-
-            //Changing the date range will clear the Survey and Cycle selectors, and reselect the "Display all' checkbox.
-            $("#startdate, #enddate").on("change", function () {
-                disableCycle();
-                disableSurvey();
-                $("#all-surveys").prop("checked", true);
-                toggleGenerateButton();
-            });
-
-            //Once the required information is provided the generate report button will be enabled.
-            $("#startdate").on("change", function () {
-                var minDate = $(this).datepicker("getDate");
-                var maxDate = new Date();
-                maxDate.setDate(minDate.getDate() + 4);
-
-                $("#enddate").datepicker("option", "minDate", minDate);
-                $("#enddate").datepicker("option", "maxDate", maxDate);
-
-                toggleGenerateButton();
-            });
-
-            toggleGenerateButton();
-
-            //******************** VIEW CASE WORK DETAILS *******************
-            //make table paginated
-            $(".view-details").dataTable({
-                "ordering": false,
-                "info": false,
-                "searching": false
-            });
-
-            //view off system time checkbox
-            $(".show-off-sys").on("change", function () {
-                var table = $(this).closest(".view-details");
-                if (this.checked) {
-                    table.find(".bg-off-sys").closest("tr").show();
-                    table.on("draw.dt", function () {
-                        table.find(".bg-off-sys").closest("tr").show();
-                    });
-                } else {
-                    table.find(".bg-off-sys").closest("tr").hide();
-                    table.on("draw.dt", function () {
-                        table.find(".bg-off-sys").closest("tr").hide();
-                    });
-                }
-            });
-
-            /******************************************************************
-             *                          BAR GRAPH
-             ******************************************************************/
-            //***************** HOVER TOOLTIP ********************
-            //********************* TOOLTIP *****************************
-
-            $(".zoom").hover(function (e) {
-                // display different text depending on type - prototype purposes only
-                if ($(this).hasClass("bg-res") || $(this).hasClass("bg-res-2")) {
-                    var html = "<strong>Survey</strong><br>Rabbit Care<br><strong>PE code</strong><br>1234<br><strong>Outcome</strong><br>400 - Complete<br><strong>Total system time</strong><br>00:08:00";
-                } else if ($(this).hasClass("bg-ref") || $(this).hasClass("bg-ref-2")) {
-                    var html = "<strong>Survey</strong><br>Rabbit Care<br><strong>PE code</strong><br>1234<br><strong>Outcome</strong><br>503 - First refusal<br><strong>Total system time</strong><br>00:04:00";
-                } else if ($(this).hasClass("bg-nocon") || $(this).hasClass("bg-nocon-2") || $(this).hasClass("bg-nocon-3")) {
-                    var html = "<strong>Survey</strong><br>Rabbit Care<br><strong>PE code</strong><br>1234<br><strong>Outcome</strong><br>105 - Recorded message service<br><strong>Total system time</strong><br>00:00:30";
-                } else if ($(this).hasClass("bg-other") || $(this).hasClass("bg-other-2") || $(this).hasClass("bg-other-3")) {
-                    var html = "<strong>Survey</strong><br>Rabbit Care<br><strong>PE code</strong><br>1234<br><strong>Outcome</strong><br>300 - Out of scope<br><strong>Total system time</strong><br>00:01:15";
-                } else if ($(this).hasClass("bg-off-sys")) {
-                    var html = "<strong>Start time</strong><br>11:30:00<br><strong>End time</strong><br>11:45:00<strong><br>Off system time</strong><br>00:15:00"
-                } else if ($(this).hasClass("bg-other-sur")) {
-                    var html = "<strong>Survey</strong><br>Labour Force Survey<br><strong>PE code</strong><br>5678<br><strong>Outcome</strong><br>400 - Complete<br><strong>Total system time</strong><br>00:01:15";
-                    //CLAIMS
-                } else if ($(this).hasClass("bg-other-claim")) {
-                    var html = "<strong>Survey</strong><br>Labour Force Survey<br><strong>PE code</strong><br>5678<br><strong>Activity</strong><br>9 - Telephone interviewing<br><strong>Duration</strong><br>11:30 - 12:15";
-                } else if ($(this).hasClass("bg-other-task")) {
-                    var html = "<strong>Survey</strong><br>Rabbit Care<br><strong>PE code</strong><br>1234<br><strong>Activity</strong><br>30 - Admin time<br><strong>Duration</strong><br>11:30 - 12:15";
-                } else {
-                    var html = "<strong>Survey</strong><br>Rabbit Care<br><strong>PE code</strong><br>1234<br><strong>Activity</strong><br>9 - Telephone interviewing<br><strong>Duration</strong><br>11:30 - 12:15";
-                }
-                $('<span class="cvc-tooltip"></span>').html(html)
-                    .appendTo("body")
-                    .css('top', (e.pageY - 200) + 'px')
-                    .css('left', (e.pageX + 10) + 'px')
-                    .fadeIn('slow');
-            }, function () {
-                $(".cvc-tooltip").remove();
-            });
-
-            $(".zoom.clickable").bind("click", function () {
-                var details = $(this).closest(".row").siblings("details");
-                details.prop("open", true);
-
-                if ($("#" + $(this).data("row")).is(":visible")) {
-                    location = "#" + $(this).data("row");
-                } else {
-                    //TODO: find correct page and go to it
-                }
-            });
-
-            /******************************************************************
-             *                  INTERVIEWER MODAL - TABLE
-             ******************************************************************/
-
-            //************* SEARCH TABLE ******************
-            $("#mdlTbl-int").dataTable({
-                "ordering": false,
-                "info": false,
-                "lengthChange": false,
-                "language": { search: "" }
-            });
-
-            //************ TABLE FORMATTING *****************
-            var searchFilter = $("#mdlTbl-int_filter");
-            var searchLabel = $("#mdlTbl-int_filter label");
-            var searchInput = $("#mdlTbl-int_filter label input");
-            searchInput.addClass("form-control width98");
-            searchInput.prop("placeholder", "Search")
-            searchFilter.addClass("width100 center-block");
-            searchLabel.addClass("width100");
-
-            /*************************************************************
-             *                  INTERVIEWER MODAL - TAGS
-             *************************************************************/
-            //hide error message
-            $("#limitMsg-int").hide();
-
-            //hides tag and unchecks checkbox when click "x"
-            $("#tags-int").on("click", ".dismissTag", function () {
-                var section = $(this).closest("div").prop("id").split("-")[1]; //determine which section's modal the tag is in
-                var tagID = $(this).parent().prop("id");
-                var chbxID = (tagID.split("_"))[1];
-                $(this).parent().remove();
-                $("#" + chbxID).prop("checked", false);
-                $(".interviewerTable").on("draw.dt", function () {
-                    $("#" + chbxID).prop("checked", false);
+                    $("#all-surveys").prop("checked", true);
+                    toggleGenerateButton();
                 });
-                toggleViewButton(section);
+
+                //Once the required information is provided the generate report button will be enabled.
+                $("#startdate").on("change", function () {
+                    var minDate = $(this).datepicker("getDate");
+                    var maxDate = new Date();
+                    maxDate.setDate(minDate.getDate() + 4);
+
+                    $("#enddate").datepicker("option", "minDate", minDate);
+                    $("#enddate").datepicker("option", "maxDate", maxDate);
+
+                    toggleGenerateButton();
+                });
+
+                toggleGenerateButton();
+
+                //******************** VIEW CASE WORK DETAILS *******************
+                //make table paginated
+                $(".view-details").dataTable({
+                    "ordering": false,
+                    "info": false,
+                    "searching": false
+                });
+
+                //view off system time checkbox
+                $(".show-off-sys").on("change", function () {
+                    var table = $(this).closest(".view-details");
+                    if (this.checked) {
+                        table.find(".bg-off-sys").closest("tr").show();
+                        table.on("draw.dt", function () {
+                            table.find(".bg-off-sys").closest("tr").show();
+                        });
+                    } else {
+                        table.find(".bg-off-sys").closest("tr").hide();
+                        table.on("draw.dt", function () {
+                            table.find(".bg-off-sys").closest("tr").hide();
+                        });
+                    }
+                });
+
+                /******************************************************************
+                 *                          BAR GRAPH
+                 ******************************************************************/
+                //***************** HOVER TOOLTIP ********************
+                //********************* TOOLTIP *****************************
+
+                $(".zoom").hover(function (e) {
+                    // display different text depending on type - prototype purposes only
+                    if ($(this).hasClass("bg-res") || $(this).hasClass("bg-res-2")) {
+                        var html = "<strong>Survey</strong><br>Rabbit Care<br><strong>PE code</strong><br>1234<br><strong>Outcome</strong><br>400 - Complete<br><strong>Total system time</strong><br>00:08:00";
+                    } else if ($(this).hasClass("bg-ref") || $(this).hasClass("bg-ref-2")) {
+                        var html = "<strong>Survey</strong><br>Rabbit Care<br><strong>PE code</strong><br>1234<br><strong>Outcome</strong><br>503 - First refusal<br><strong>Total system time</strong><br>00:04:00";
+                    } else if ($(this).hasClass("bg-nocon") || $(this).hasClass("bg-nocon-2") || $(this).hasClass("bg-nocon-3")) {
+                        var html = "<strong>Survey</strong><br>Rabbit Care<br><strong>PE code</strong><br>1234<br><strong>Outcome</strong><br>105 - Recorded message service<br><strong>Total system time</strong><br>00:00:30";
+                    } else if ($(this).hasClass("bg-other") || $(this).hasClass("bg-other-2") || $(this).hasClass("bg-other-3")) {
+                        var html = "<strong>Survey</strong><br>Rabbit Care<br><strong>PE code</strong><br>1234<br><strong>Outcome</strong><br>300 - Out of scope<br><strong>Total system time</strong><br>00:01:15";
+                    } else if ($(this).hasClass("bg-off-sys")) {
+                        var html = "<strong>Start time</strong><br>11:30:00<br><strong>End time</strong><br>11:45:00<strong><br>Off system time</strong><br>00:15:00"
+                    } else if ($(this).hasClass("bg-other-sur")) {
+                        var html = "<strong>Survey</strong><br>Labour Force Survey<br><strong>PE code</strong><br>5678<br><strong>Outcome</strong><br>400 - Complete<br><strong>Total system time</strong><br>00:01:15";
+                        //CLAIMS
+                    } else if ($(this).hasClass("bg-other-claim")) {
+                        var html = "<strong>Survey</strong><br>Labour Force Survey<br><strong>PE code</strong><br>5678<br><strong>Activity</strong><br>9 - Telephone interviewing<br><strong>Duration</strong><br>11:30 - 12:15";
+                    } else if ($(this).hasClass("bg-other-task")) {
+                        var html = "<strong>Survey</strong><br>Rabbit Care<br><strong>PE code</strong><br>1234<br><strong>Activity</strong><br>30 - Admin time<br><strong>Duration</strong><br>11:30 - 12:15";
+                    } else {
+                        var html = "<strong>Survey</strong><br>Rabbit Care<br><strong>PE code</strong><br>1234<br><strong>Activity</strong><br>9 - Telephone interviewing<br><strong>Duration</strong><br>11:30 - 12:15";
+                    }
+                    $('<span class="cvc-tooltip"></span>').html(html)
+                        .appendTo("body")
+                        .css('top', (e.pageY - 200) + 'px')
+                        .css('left', (e.pageX + 10) + 'px')
+                        .fadeIn('slow');
+                }, function () {
+                    $(".cvc-tooltip").remove();
+                });
+
+                $(".zoom.clickable").bind("click", function () {
+                    var details = $(this).closest(".row").siblings("details");
+                    details.prop("open", true);
+
+                    if ($("#" + $(this).data("row")).is(":visible")) {
+                        location = "#" + $(this).data("row");
+                    } else {
+                        //TODO: find correct page and go to it
+                    }
+                });
+
+                /******************************************************************
+                 *                  INTERVIEWER MODAL - TABLE
+                 ******************************************************************/
+
+                //************* SEARCH TABLE ******************
+                $("#mdlTbl-int").dataTable({
+                    "ordering": false,
+                    "info": false,
+                    "lengthChange": false,
+                    "language": { search: "" }
+                });
+
+                //************ TABLE FORMATTING *****************
+                var searchFilter = $("#mdlTbl-int_filter");
+                var searchLabel = $("#mdlTbl-int_filter label");
+                var searchInput = $("#mdlTbl-int_filter label input");
+                searchInput.addClass("form-control width98");
+                searchInput.prop("placeholder", "Search")
+                searchFilter.addClass("width100 center-block");
+                searchLabel.addClass("width100");
+
+                /*************************************************************
+                 *                  INTERVIEWER MODAL - TAGS
+                 *************************************************************/
+                //hide error message
+                $("#limitMsg-int").hide();
+
+                //hides tag and unchecks checkbox when click "x"
+                $("#tags-int").on("click", ".dismissTag", function () {
+                    var section = $(this).closest("div").prop("id").split("-")[1]; //determine which section's modal the tag is in
+                    var tagID = $(this).parent().prop("id");
+                    var chbxID = (tagID.split("_"))[1];
+                    $(this).parent().remove();
+                    $("#" + chbxID).prop("checked", false);
+                    $(".interviewerTable").on("draw.dt", function () {
+                        $("#" + chbxID).prop("checked", false);
+                    });
+                    toggleViewButton(section);
+                });
+
+                //shows tag when select checkbox, removes tag when deselect checkbox
+                $(".interviewerTable").on("change", ".checkbox input", function () {
+                    var section = $(this).closest("table").prop("id").split("-")[1]; //determine which section's modal the checkbox is in
+                    var chbxHTML = $(this).siblings("label").text();
+                    var chbxID = $(this).prop("id");
+                    var tagID = "tag_" + chbxID;
+
+                    //limit 5 interviewers and error msg
+                    var tagContainer = $("#tags-" + section);
+                    if ((tagContainer.children("span").length) > 4) {
+                        if (this.checked) {
+                            this.checked = false;
+                            $("#limitMsg-" + section).show();
+                            return;
+                        }
+                    }
+
+                    if (this.checked) {
+                        $("#tags-" + section).append(createTag(chbxID, chbxHTML));
+                    } else {
+                        $("#" + tagID).remove();
+                    }
+                    toggleViewButton(section);
+                });
+
+                toggleViewButton("int");
             });
 
-            //shows tag when select checkbox, removes tag when deselect checkbox
-            $(".interviewerTable").on("change", ".checkbox input", function () {
-                var section = $(this).closest("table").prop("id").split("-")[1]; //determine which section's modal the checkbox is in
-                var chbxHTML = $(this).siblings("label").text();
-                var chbxID = $(this).prop("id");
-                var tagID = "tag_" + chbxID;
 
-                //limit 5 interviewers and error msg
+            /********************************************************************
+             *                  INTERVIEWER MODAL - TAGS
+             * @param id    :id of checkbox creating tag element
+             * @param name  :name of interviewer from checkbox
+             * @returns {jQuery}    :html element of tag as jquery object
+             ********************************************************************/
+
+            function createTag(id, name) {
+                var tag = $("<span id=\"tag_" + id + "\" class=\"filterTag mrgn-lft-sm mrgn-tp-sm\"></span>").html(
+                    "<span class=\"interviewerName\">" + name + "</span><a class=\"dismissTag btn\"><i class=\"fa fa-times\"></i></a>");
+
+                return tag;
+            };
+
+            function toggleViewButton(section) {
                 var tagContainer = $("#tags-" + section);
-                if ((tagContainer.children("span").length) > 4) {
-                    if (this.checked) {
-                        this.checked = false;
-                        $("#limitMsg-" + section).show();
-                        return;
+
+                if (tagContainer.children("span").length == 0) {
+                    $("#sbmtBtn-" + section).prop("disabled", true);
+                } else {
+                    $("#sbmtBtn-" + section).prop("disabled", false);
+                }
+            }
+
+            /*****************************************************************
+             *                       FILTERS
+             ****************************************************************/
+
+            function disableSurvey() {
+                $("#survey").prop("disabled", true);
+                $("#survey").val("select");
+                $("#sur-mandatory").addClass("display-none");
+            }
+
+            function enableSurvey() {
+                $("#survey").prop("disabled", false);
+                $("#sur-mandatory").removeClass("display-none");
+            }
+
+            function disableCycle() {
+                $("#cycle").prop("disabled", true);
+                $("#cycle").val("select");
+            }
+
+            function toggleGenerateButton() {
+                if (surveyEnabled()) {
+                    if (($("#startdate").val() != "") && ($("#survey").val() != "select")) {
+                        $("#gen-report").prop("disabled", false);
+                    } else {
+                        $("#gen-report").prop("disabled", true);
+                    }
+                } else {
+                    if (($("#startdate").val() != "")) {
+                        $("#gen-report").prop("disabled", false);
+                    } else {
+                        $("#gen-report").prop("disabled", true);
                     }
                 }
-
-                if (this.checked) {
-                    $("#tags-" + section).append(createTag(chbxID, chbxHTML));
-                } else {
-                    $("#" + tagID).remove();
-                }
-                toggleViewButton(section);
-            });
-
-            toggleViewButton("int");
-        });
-
-
-        /********************************************************************
-         *                  INTERVIEWER MODAL - TAGS
-         * @param id    :id of checkbox creating tag element
-         * @param name  :name of interviewer from checkbox
-         * @returns {jQuery}    :html element of tag as jquery object
-         ********************************************************************/
-
-        function createTag(id, name) {
-            var tag = $("<span id=\"tag_" + id + "\" class=\"filterTag mrgn-lft-sm mrgn-tp-sm\"></span>").html(
-                "<span class=\"interviewerName\">" + name + "</span><a class=\"dismissTag btn\"><i class=\"fa fa-times\"></i></a>");
-
-            return tag;
-        };
-
-        function toggleViewButton(section) {
-            var tagContainer = $("#tags-" + section);
-
-            if (tagContainer.children("span").length == 0) {
-                $("#sbmtBtn-" + section).prop("disabled", true);
-            } else {
-                $("#sbmtBtn-" + section).prop("disabled", false);
             }
-        }
 
-        /*****************************************************************
-         *                       FILTERS
-         ****************************************************************/
-
-        function disableSurvey() {
-            $("#survey").prop("disabled", true);
-            $("#survey").val("select");
-            $("#sur-mandatory").addClass("display-none");
-        }
-
-        function enableSurvey() {
-            $("#survey").prop("disabled", false);
-            $("#sur-mandatory").removeClass("display-none");
-        }
-
-        function disableCycle() {
-            $("#cycle").prop("disabled", true);
-            $("#cycle").val("select");
-        }
-
-        function toggleGenerateButton() {
-            if (surveyEnabled()) {
-                if (($("#startdate").val() != "") && ($("#survey").val() != "select")) {
-                    $("#gen-report").prop("disabled", false);
-                } else {
-                    $("#gen-report").prop("disabled", true);
-                }
-            } else {
-                if (($("#startdate").val() != "")) {
-                    $("#gen-report").prop("disabled", false);
-                } else {
-                    $("#gen-report").prop("disabled", true);
+            function surveyEnabled() {
+                if ($("#survey").prop("disabled") == false) {
+                    return true;
                 }
             }
-        }
 
-        function surveyEnabled() {
-            if ($("#survey").prop("disabled") == false) {
-                return true;
-            }
-        }
+        </script>
 
-    </script>
-
-    <!-- charting js -->
-    <script src="./js/statcan/jquery.flot/jquery.flot.js"></script>
-    <script src="./js/statcan/jquery.flot/jquery.flot.resize.js"></script>
-    <script src="./js/statcan/jquery.flot/jquery.flot.categories.js"></script>
-    <script src="./js/statcan/jquery.flot/jquery.flot.orderBars.js"></script>
-    <script src="./js/statcan/jquery.flot/jquery.flot.axislabels.js"></script>
-    <link rel="stylesheet" href="./js/dataTables/dataTables.css" />
-    <script src="./js/dataTables/dataTables.min.js"></script>
-    <!-- InstanceEndEditable -->
+        <!-- charting js -->
+        <script src="./js/statcan/jquery.flot/jquery.flot.js"></script>
+        <script src="./js/statcan/jquery.flot/jquery.flot.resize.js"></script>
+        <script src="./js/statcan/jquery.flot/jquery.flot.categories.js"></script>
+        <script src="./js/statcan/jquery.flot/jquery.flot.orderBars.js"></script>
+        <script src="./js/statcan/jquery.flot/jquery.flot.axislabels.js"></script>
+        <link rel="stylesheet" href="./js/dataTables/dataTables.css" />
+        <script src="./js/dataTables/dataTables.min.js"></script>
+        <!-- InstanceEndEditable -->
 </body>
 <!-- InstanceEnd -->
 
