@@ -5,12 +5,26 @@ class App extends React.Component {
     render() {
         const days = [];
         cvcData.days.forEach(element => {
+            const shifts = [];
+            element.shifts.forEach(element => {
+                shifts.push(
+                    <InterviewerShift
+                        key={element.username}
+                        shift={element}
+                        isPrintView={cvcData.isPrintView}
+                    />
+                );
+            });
             days.push(
-                <DateAccordion
+                <Accordion
                     key={element.date}
-                    formattedDate={element.formattedDate}
+                    title={element.formattedDate}
+                    includeH3={true}
+                    isOpen={true}
                     shifts={element.shifts}
-                />
+                >
+                    {shifts}
+                </Accordion>
             );
         });
 
@@ -18,19 +32,60 @@ class App extends React.Component {
     }
 }
 
-class DateAccordion extends React.Component {
+class Container extends React.Component {
     render() {
-        const shifts = [];
-        this.props.shifts.forEach(element => {
-            shifts.push(<InterviewerShift key={element.username} shift={element} />);
-        });
+        if (this.props.isPrintView) {
+            return <PrintViewPanel title={this.props.title}>{this.props.children}</PrintViewPanel>;
+        } else {
+            return (
+                <Accordion
+                    title={this.props.title}
+                    includeH3={this.props.includeH3}
+                    isOpen={this.props.isOpen}
+                >
+                    {this.props.children}
+                </Accordion>
+            );
+        }
+    }
+}
 
+class PrintViewPanel extends React.Component {
+    render() {
         return (
-            <details className="acc-group mrgn-bttm-md" open>
-                <summary className="panel-heading-collapsible pddng-sm h3">
-                    {this.props.formattedDate}
+            <div>
+                <h4 className="pddng-sm">View case work details</h4>
+                {this.props.children}
+            </div>
+        );
+    }
+}
+
+class Accordion extends React.Component {
+    getCssClasses(includeH3) {
+        var classes = 'panel-heading-collapsible pddng-sm';
+        if (includeH3) {
+            classes += ' h3';
+        }
+
+        return classes;
+    }
+
+    getOpenStatus(isOpen) {
+        return isOpen ? 'open' : '';
+    }
+
+    render() {
+        // the magic line in the details element only adds the open attribute if the prop is true
+        return (
+            <details
+                className="acc-group mrgn-bttm-md"
+                {...(this.props.isOpen ? { open: 'open' } : {})}
+            >
+                <summary className={this.getCssClasses(this.props.includeH3)}>
+                    {this.props.title}
                 </summary>
-                {shifts}
+                {this.props.children}
             </details>
         );
     }
@@ -52,7 +107,10 @@ class InterviewerShift extends React.Component {
                 </div>
                 <div className="wb-tabs">
                     <div className="tabpanels">
-                        <ShiftSummaryTab shift={this.props.shift} />
+                        <ShiftSummaryTab
+                            shift={this.props.shift}
+                            isPrintView={this.props.isPrintView}
+                        />
                     </div>
                 </div>
             </div>
@@ -99,8 +157,14 @@ class ShiftSummaryTab extends React.Component {
                         </div>
                     </div>
                 </div>
-                <SummaryCaseWorkDetailsAccordion hours={this.props.shift.hours} />
-                <PayClaimSummaryAccordion claims={this.props.shift.claims} />
+                <SummaryCaseWorkDetailsAccordion
+                    hours={this.props.shift.hours}
+                    isPrintView={this.props.isPrintView}
+                />
+                <PayClaimSummaryAccordion
+                    claims={this.props.shift.claims}
+                    isPrintView={this.props.isPrintView}
+                />
             </details>
         );
     }
@@ -109,82 +173,11 @@ class ShiftSummaryTab extends React.Component {
 class BarGraph extends React.Component {
     render() {
         return (
-            <div className="col-sm-12 col-md-12 cvc-barGraph">
+            <div className="col-sm-12 col-md-12 cvc-barGraph mrgn-bttm-md">
                 <br />
                 <BarGraphLine1 shiftStart={this.props.shiftStart} shiftEnd={this.props.shiftEnd} />
-                <table className="mrgn-lft-md width100">
-                    <tbody>
-                        <tr className="brdr-bttm brdr-lft brdr-rght">
-                            <td style={{ width: '16.67%' }} className="bg-off-sys ln-hght-30px">
-                                &nbsp;
-                            </td>
-                            <td
-                                style={{ width: '0.28%' }}
-                                className="zoom bg-off-sys brdr-lft-drk"
-                            />
-                            <td style={{ width: '0.28%' }} className="zoom bg-nocon" />
-                            <td style={{ width: '0.28%' }} className="zoom bg-off-sys" />
-                            <td style={{ width: '0.28%' }} className="zoom bg-nocon-2" />
-                            <td style={{ width: '0.14%' }} className="zoom bg-off-sys" />
-                            <td style={{ width: '4.31%' }} className="zoom bg-res" />
-                            <td style={{ width: '0.28%' }} className="zoom bg-off-sys" />
-                            <td style={{ width: '0.69%' }} className="zoom bg-nocon" />
-                            <td style={{ width: '1.11%' }} className="zoom bg-off-sys" />
-                            <td style={{ width: '5.14%' }} className="zoom bg-res" />
-                            <td style={{ width: '0.28%' }} className="zoom bg-off-sys" />
-                            <td style={{ width: '5.00%' }} className="zoom bg-res-2" />
-
-                            <td style={{ width: '0.42%' }} className="zoom bg-off-sys" />
-                            <td style={{ width: '0.42%' }} className="zoom bg-nocon" />
-                            <td style={{ width: '0.28%' }} className="zoom bg-off-sys" />
-                            <td style={{ width: '4.72%' }} className="zoom bg-res" />
-                            <td style={{ width: '9.03%' }} className="zoom bg-off-sys" />
-                            <td style={{ width: '0.28%' }} className="zoom bg-nocon" />
-                            <td style={{ width: '0.14%' }} className="zoom bg-off-sys" />
-                            <td style={{ width: '5.00%' }} className="zoom bg-res" />
-                            <td style={{ width: '0.56%' }} className="zoom bg-off-sys" />
-                            <td style={{ width: '3.89%' }} className="zoom bg-other-sur" />
-                            <td style={{ width: '0.28%' }} className="zoom bg-off-sys" />
-                            <td style={{ width: '4.17%' }} className="zoom bg-res" />
-                            <td style={{ width: '3.33%' }} className="zoom bg-off-sys" />
-
-                            <td style={{ width: '0.56%' }} className="zoom bg-nocon" />
-                            <td style={{ width: '0.14%' }} className="zoom bg-off-sys" />
-                            <td style={{ width: '0.42%' }} className="zoom bg-nocon-2" />
-                            <td style={{ width: '0.56%' }} className="zoom bg-off-sys" />
-                            <td style={{ width: '0.28%' }} className="zoom bg-nocon-3" />
-                            <td style={{ width: '0.28%' }} className="zoom bg-off-sys" />
-                            <td style={{ width: '2.78%' }} className="zoom bg-ref" />
-                            <td style={{ width: '0.28%' }} className="zoom bg-off-sys" />
-                            <td style={{ width: '0.42%' }} className="zoom bg-nocon" />
-                            <td style={{ width: '0.42%' }} className="zoom bg-off-sys" />
-                            <td style={{ width: '0.42%' }} className="zoom bg-nocon-2" />
-                            <td style={{ width: '0.14%' }} className="zoom bg-off-sys" />
-                            <td style={{ width: '0.69%' }} className="zoom bg-other" />
-                            <td style={{ width: '8.75%' }} className="zoom bg-off-sys" />
-                            <td style={{ width: '16.67%' }} className="bg-off-sys brdr-lft-drk" />
-                        </tr>
-                    </tbody>
-                </table>
-                <table className="mrgn-lft-md width100">
-                    <tbody>
-                        <tr className="brdr-lft brdr-rght brdr-bttm">
-                            <td
-                                style={{ width: '16.67%' }}
-                                className="bg-off-sys brdr-rght ln-hght-30px"
-                            >
-                                &nbsp;
-                            </td>
-                            <td style={{ width: '25%' }} className="zoom bg-claimed brdr-lft-drk" />
-                            <td style={{ width: '8.33%' }} className="zoom bg-off-sys" />
-                            <td style={{ width: '6.3%' }} className="zoom bg-claimed" />
-                            <td style={{ width: '3.89%' }} className="zoom bg-other-claim" />
-                            <td style={{ width: '14.81%' }} className="zoom bg-claimed" />
-                            <td style={{ width: '8.33%' }} className="zoom bg-other-task" />
-                            <td style={{ width: '16.67%' }} className="bg-off-sys brdr-lft-drk" />
-                        </tr>
-                    </tbody>
-                </table>
+                <BarGraphLine2 />
+                <BarGraphLine3 />
                 <table className="mrgn-lft-md width100">
                     <tbody>
                         <BarGraphLine4 hours={this.props.hours} />
@@ -229,6 +222,90 @@ class BarGraphLine1 extends React.Component {
                         </td>
                         <td style={this.getDivStyle(this.getWidth2())} className="brdr-lft-drk" />
                         <td style={this.getDivStyle(this.getWidth3())} className="brdr-lft-drk" />
+                    </tr>
+                </tbody>
+            </table>
+        );
+    }
+}
+
+class BarGraphLine2 extends React.Component {
+    render() {
+        return (
+            <table className="mrgn-lft-md width100">
+                <tbody>
+                    <tr className="brdr-bttm brdr-lft brdr-rght">
+                        <td style={{ width: '16.67%' }} className="bg-off-sys ln-hght-30px">
+                            &nbsp;
+                        </td>
+                        <td style={{ width: '0.28%' }} className="zoom bg-off-sys brdr-lft-drk" />
+                        <td style={{ width: '0.28%' }} className="zoom bg-nocon" />
+                        <td style={{ width: '0.28%' }} className="zoom bg-off-sys" />
+                        <td style={{ width: '0.28%' }} className="zoom bg-nocon-2" />
+                        <td style={{ width: '0.14%' }} className="zoom bg-off-sys" />
+                        <td style={{ width: '4.31%' }} className="zoom bg-res" />
+                        <td style={{ width: '0.28%' }} className="zoom bg-off-sys" />
+                        <td style={{ width: '0.69%' }} className="zoom bg-nocon" />
+                        <td style={{ width: '1.11%' }} className="zoom bg-off-sys" />
+                        <td style={{ width: '5.14%' }} className="zoom bg-res" />
+                        <td style={{ width: '0.28%' }} className="zoom bg-off-sys" />
+                        <td style={{ width: '5.00%' }} className="zoom bg-res-2" />
+
+                        <td style={{ width: '0.42%' }} className="zoom bg-off-sys" />
+                        <td style={{ width: '0.42%' }} className="zoom bg-nocon" />
+                        <td style={{ width: '0.28%' }} className="zoom bg-off-sys" />
+                        <td style={{ width: '4.72%' }} className="zoom bg-res" />
+                        <td style={{ width: '9.03%' }} className="zoom bg-off-sys" />
+                        <td style={{ width: '0.28%' }} className="zoom bg-nocon" />
+                        <td style={{ width: '0.14%' }} className="zoom bg-off-sys" />
+                        <td style={{ width: '5.00%' }} className="zoom bg-res" />
+                        <td style={{ width: '0.56%' }} className="zoom bg-off-sys" />
+                        <td style={{ width: '3.89%' }} className="zoom bg-other-sur" />
+                        <td style={{ width: '0.28%' }} className="zoom bg-off-sys" />
+                        <td style={{ width: '4.17%' }} className="zoom bg-res" />
+                        <td style={{ width: '3.33%' }} className="zoom bg-off-sys" />
+
+                        <td style={{ width: '0.56%' }} className="zoom bg-nocon" />
+                        <td style={{ width: '0.14%' }} className="zoom bg-off-sys" />
+                        <td style={{ width: '0.42%' }} className="zoom bg-nocon-2" />
+                        <td style={{ width: '0.56%' }} className="zoom bg-off-sys" />
+                        <td style={{ width: '0.28%' }} className="zoom bg-nocon-3" />
+                        <td style={{ width: '0.28%' }} className="zoom bg-off-sys" />
+                        <td style={{ width: '2.78%' }} className="zoom bg-ref" />
+                        <td style={{ width: '0.28%' }} className="zoom bg-off-sys" />
+                        <td style={{ width: '0.42%' }} className="zoom bg-nocon" />
+                        <td style={{ width: '0.42%' }} className="zoom bg-off-sys" />
+                        <td style={{ width: '0.42%' }} className="zoom bg-nocon-2" />
+                        <td style={{ width: '0.14%' }} className="zoom bg-off-sys" />
+                        <td style={{ width: '0.69%' }} className="zoom bg-other" />
+                        <td style={{ width: '8.75%' }} className="zoom bg-off-sys" />
+                        <td style={{ width: '16.67%' }} className="bg-off-sys brdr-lft-drk" />
+                    </tr>
+                </tbody>
+            </table>
+        );
+    }
+}
+
+class BarGraphLine3 extends React.Component {
+    render() {
+        return (
+            <table className="mrgn-lft-md width100">
+                <tbody>
+                    <tr className="brdr-lft brdr-rght brdr-bttm">
+                        <td
+                            style={{ width: '16.67%' }}
+                            className="bg-off-sys brdr-rght ln-hght-30px"
+                        >
+                            &nbsp;
+                        </td>
+                        <td style={{ width: '25%' }} className="zoom bg-claimed brdr-lft-drk" />
+                        <td style={{ width: '8.33%' }} className="zoom bg-off-sys" />
+                        <td style={{ width: '6.3%' }} className="zoom bg-claimed" />
+                        <td style={{ width: '3.89%' }} className="zoom bg-other-claim" />
+                        <td style={{ width: '14.81%' }} className="zoom bg-claimed" />
+                        <td style={{ width: '8.33%' }} className="zoom bg-other-task" />
+                        <td style={{ width: '16.67%' }} className="bg-off-sys brdr-lft-drk" />
                     </tr>
                 </tbody>
             </table>
@@ -305,10 +382,12 @@ class SummaryCaseWorkDetailsAccordion extends React.Component {
         });
 
         return (
-            <details className="acc-group mrgn-bttm-md mrgn-tp-md">
-                <summary className="panel-heading-collapsible pddng-sm">
-                    View case work details
-                </summary>
+            <Container
+                title={'View case work details'}
+                isPrintView={this.props.isPrintView}
+                includeH3={false}
+                isOpen={false}
+            >
                 <div>
                     <table className="table table-striped mrgn-bttm-0">
                         <thead>
@@ -340,7 +419,7 @@ class SummaryCaseWorkDetailsAccordion extends React.Component {
                         <tbody>{rows}</tbody>
                     </table>
                 </div>
-            </details>
+            </Container>
         );
     }
 }
@@ -370,8 +449,12 @@ class PayClaimSummaryAccordion extends React.Component {
         });
 
         return (
-            <details className="acc-group mrgn-bttm-md">
-                <summary className="panel-heading-collapsible pddng-sm">Pay claim summary</summary>
+            <Container
+                title={'Pay claim summary'}
+                isPrintView={this.props.isPrintView}
+                includeH3={false}
+                isOpen={false}
+            >
                 <div>
                     <table className="table table-striped mrgn-bttm-0">
                         <thead>
@@ -390,7 +473,7 @@ class PayClaimSummaryAccordion extends React.Component {
                         <tbody>{rows}</tbody>
                     </table>
                 </div>
-            </details>
+            </Container>
         );
     }
 }
