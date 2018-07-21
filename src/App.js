@@ -2,6 +2,7 @@ import React from 'react';
 import { hot } from 'react-hot-loader';
 import ShiftSummaryTab from './components/ShiftSummary';
 import Container from './components/Container';
+import HourlyTab from './components/Hourly';
 
 class App extends React.Component {
     render() {
@@ -54,6 +55,7 @@ class InterviewerShift extends React.Component {
                             shift={this.props.shift}
                             isPrintView={this.props.isPrintView}
                         />
+                        <HourlyTab />
                     </div>
                 </div>
             </div>

@@ -9202,6 +9202,8 @@ if ( typeof noGlobal === strundefined ) {
 	window.jQuery = window.$ = jQuery;
 }
 
+// dirty hack
+window.jQuery = window.$ = jQuery;
 
 
 
