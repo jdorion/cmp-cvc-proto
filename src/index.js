@@ -8,6 +8,7 @@ import outcomeCategories from './codesets/outcomeCategories';
 import operationTypes from './codesets/operationTypes';
 import attemptedVias from './codesets/attemptedVias';
 import accessMethods from './codesets/accessMethods';
+import claimTypes from './codesets/claimTypes';
 
 window.accessMethods = accessMethods;
 
@@ -28,6 +29,12 @@ window.attemptedVias = attemptedVias;
 
 console.log('source attemptedVias: ', attemptedVias);
 console.log('target attemptedVias: ', window.attemptedVias);
+
+window.claimTypes = claimTypes;
+
+console.log('source claimTypes: ', claimTypes);
+console.log('target claimTypes: ', window.claimTypes);
+
 /* end codeset import */
 
 window.MyApp = function MyApp(divId) {

@@ -1,6 +1,7 @@
 import React from 'react';
 import BarGraph from '/src/components/BarGraph';
 import Container from '/src/components/Container';
+import claimTypes from '../../codesets/claimTypes';
 
 class ShiftSummaryTab extends React.Component {
     render() {
@@ -25,7 +26,9 @@ class ShiftSummaryTab extends React.Component {
                         </div>
                         <div className="row">
                             <BarGraph
+                                duration={this.props.shift.durationSeconds}
                                 hours={this.props.shift.hours}
+                                claims={this.props.shift.claims}
                                 finalHourLabel={this.props.shift.finalHourLabel}
                                 renderLink={this.props.shift.renderLink}
                             />
@@ -125,7 +128,9 @@ class PayClaimSummaryAccordion extends React.Component {
     render() {
         const rows = [];
         this.props.claims.map(element => {
-            rows.push(<PayClaimSummaryRow key={element.id.toString()} claim={element} />);
+            if (element.claimtype !== claimTypes.OFF_SYSTEM_TIME) {
+                rows.push(<PayClaimSummaryRow key={element.id.toString()} claim={element} />);
+            }
         });
 
         return (

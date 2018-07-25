@@ -1,4 +1,5 @@
 import React from 'react';
+import claimTypes from '../../codesets/claimTypes';
 
 class BarGraph extends React.Component {
     render() {
@@ -7,7 +8,7 @@ class BarGraph extends React.Component {
                 <br />
                 <BarGraphLine1 shiftStart={this.props.shiftStart} shiftEnd={this.props.shiftEnd} />
                 <BarGraphLine2 />
-                <BarGraphLine3 />
+                <BarGraphLine3 duration={this.props.duration} claims={this.props.claims} />
                 <table className="mrgn-lft-md width100">
                     <tbody>
                         <BarGraphLine4 hours={this.props.hours} />
@@ -118,25 +119,62 @@ class BarGraphLine2 extends React.Component {
 }
 
 class BarGraphLine3 extends React.Component {
+    getClassName(claim, index) {
+        var className = '';
+
+        if (claim.claimtype !== claimTypes.OFF_SYSTEM_TIME) {
+            className += 'zoom';
+        }
+
+        // is the first element
+        if (index === 0) {
+            className += ' brdr-rght-drk ln-hght-30px';
+        }
+
+        // is the last element
+        if (index === this.props.claims.length - 1) {
+            className += ' brdr-lft-drk';
+        }
+
+        if (claim.claimtype === claimTypes.OFF_SYSTEM_TIME) {
+            className += ' bg-off-sys';
+        } else if (claim.claimtype === claimTypes.CLAIMED) {
+            className += ' bg-claimed';
+        } else if (claim.claimtype === claimTypes.CLAIMED_OTHER) {
+            className += ' bg-other-claim';
+        } else if (claim.claimtype === claimTypes.OTHER_TASK) {
+            className += ' bg-other-task';
+        }
+
+        return className;
+    }
+
+    getWidth(claimduration) {
+        var calculatedWidth = 0;
+        if (this.props.duration > 0) {
+            calculatedWidth = ((claimduration / this.props.duration) * 100).toFixed(2);
+        }
+        return { width: calculatedWidth + '%' };
+    }
+
     render() {
+        const rows = [];
+        for (var i = 0; i < this.props.claims.length; i++) {
+            rows.push(
+                <td
+                    key={this.props.claims[i].id}
+                    style={this.getWidth(this.props.claims[i].durationSeconds)}
+                    className={this.getClassName(this.props.claims[i], i)}
+                >
+                    &nbsp;
+                </td>
+            );
+        }
+
         return (
             <table className="mrgn-lft-md width100">
                 <tbody>
-                    <tr className="brdr-lft brdr-rght brdr-bttm">
-                        <td
-                            style={{ width: '16.67%' }}
-                            className="bg-off-sys brdr-rght ln-hght-30px"
-                        >
-                            &nbsp;
-                        </td>
-                        <td style={{ width: '25%' }} className="zoom bg-claimed brdr-lft-drk" />
-                        <td style={{ width: '8.33%' }} className="zoom bg-off-sys" />
-                        <td style={{ width: '6.3%' }} className="zoom bg-claimed" />
-                        <td style={{ width: '3.89%' }} className="zoom bg-other-claim" />
-                        <td style={{ width: '14.81%' }} className="zoom bg-claimed" />
-                        <td style={{ width: '8.33%' }} className="zoom bg-other-task" />
-                        <td style={{ width: '16.67%' }} className="bg-off-sys brdr-lft-drk" />
-                    </tr>
+                    <tr className="brdr-lft brdr-rght brdr-bttm">{rows}</tr>
                 </tbody>
             </table>
         );
