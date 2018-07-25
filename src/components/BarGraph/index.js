@@ -176,7 +176,7 @@ class BarGraphLine5 extends React.Component {
 
     getTDValue(hour, renderLink) {
         if (renderLink) {
-            return <a href={hour.hourLinkTarget}>{hour.start}</a>;
+            return <a href={'#' + hour.id}>{hour.start}</a>;
         } else {
             return hour.start;
         }

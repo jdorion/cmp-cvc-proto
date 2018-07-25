@@ -17,12 +17,12 @@ class HourlyTab extends React.Component {
 
     render() {
         return (
-            <details id="day1_int1_11am">
+            <details id={this.props.hour.id}>
                 <summary>{this.props.hour.start}</summary>
                 <div className="row">
                     <div className="col-sm-3 col-md-3">
                         <h5 className="mrgn-lft-md">
-                            <i className="fa fa-calendar" /> Sun. January 14, 2018
+                            <i className="fa fa-calendar" /> {this.props.hour.formattedDate}
                         </h5>
                     </div>
                     <div className="col-sm-3 col-md-3">
@@ -34,9 +34,9 @@ class HourlyTab extends React.Component {
                 </div>
                 <div className="row">
                     <div className="col-sm-2 col-md-2 text-right">
-                        <p>Calls: 6</p>
-                        <p>Cases touched: 6</p>
-                        <p>Total off system time: 00:04:15</p>
+                        <p>Calls: {this.props.hour.totalcalls}</p>
+                        <p>Cases touched: {this.props.hour.casestouched}</p>
+                        <p>Total off system {this.props.hour.totalOffSystemTime}</p>
                     </div>
                 </div>
                 <HourlyCaseWorkDetails calls={this.props.hour.calls} isCATI={this.props.isCATI} />

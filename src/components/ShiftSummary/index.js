@@ -110,7 +110,7 @@ class SummaryCaseWorkDetailsHourRow extends React.Component {
         return (
             <tr>
                 <td>
-                    <a href="#day1_int1_11am">{hour.description}</a>
+                    <a href={'#' + hour.id}>{hour.description}</a>
                 </td>
                 <td className="text-right">{hour.responses}</td>
                 <td className="text-right">{hour.refusals}</td>
