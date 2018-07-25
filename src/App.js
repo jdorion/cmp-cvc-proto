@@ -37,6 +37,13 @@ class App extends React.Component {
 
 class InterviewerShift extends React.Component {
     render() {
+        const hours = [];
+        this.props.shift.hours.forEach(element => {
+            hours.push(
+                <HourlyTab key={element.start} hour={element} isCATI={this.props.shift.isCATI} />
+            );
+        });
+
         return (
             <div className=" mrgn-bttm-md" id="day1">
                 <div className="well well-sm">
@@ -55,7 +62,7 @@ class InterviewerShift extends React.Component {
                             shift={this.props.shift}
                             isPrintView={this.props.isPrintView}
                         />
-                        <HourlyTab />
+                        {hours}
                     </div>
                 </div>
             </div>

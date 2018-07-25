@@ -1,157 +1,24 @@
 import React from 'react';
-import accessMethods from '../../codesets/accessMethods';
+//import accessMethods from '../../codesets/accessMethods';
 import outcomeCategories from '../../codesets/outcomeCategories';
-import operationTypes from '../../codesets/operationTypes';
+//import operationTypes from '../../codesets/operationTypes';
 import attemptedVias from '../../codesets/attemptedVias';
 //import BarGraph from '/src/components/BarGraph';
 //import Container from '/src/components/Container';
 
 class HourlyTab extends React.Component {
-    render() {
-        const calls = [
-            {
-                id: '1',
-                attempt: false,
-                starttime: '11:30:00',
-                endtime: '11:30:30',
-                duration: '00:00:30',
-            },
-            {
-                id: '2',
-                attempt: true,
-                outcomecategory: outcomeCategories.NO_CONTACTS,
-                outcome: '105 - Recorded message service',
-                survey: 'Rabbit Care',
-                cycle: '05-17',
-                operation: operationTypes.IE,
-                caseid: '123465',
-                starttime: '11:30:30',
-                endtime: '11:31:00',
-                interviewlength: '00:00:00',
-                totalsystemtime: '00:00:30',
-                accessmethod: accessMethods.CS,
-                attemptedvia: attemptedVias.PHONE,
-            },
-            {
-                id: '3',
-                attempt: false,
-                starttime: '11:31:00',
-                endtime: '11:31:30',
-                duration: '00:00:30',
-            },
-            {
-                id: '4',
-                attempt: true,
-                outcomecategory: outcomeCategories.NO_CONTACTS,
-                outcome: '105 - Recorded message service',
-                survey: 'Rabbit Care',
-                cycle: '05-17',
-                operation: operationTypes.IE,
-                caseid: '111213',
-                starttime: '11:31:30',
-                endtime: '11:32:00',
-                interviewlength: '00:00:00',
-                totalsystemtime: '00:00:30',
-                accessmethod: accessMethods.CS,
-                attemptedvia: attemptedVias.PHONE,
-            },
-            {
-                id: '5',
-                attempt: false,
-                starttime: '11:32:00',
-                endtime: '11:32:15',
-                duration: '00:00:15',
-            },
-            {
-                id: '6',
-                attempt: true,
-                outcomecategory: outcomeCategories.RESPONSES,
-                outcome: '400 - Complete',
-                survey: 'Rabbit Care',
-                cycle: '05-17',
-                operation: operationTypes.IE,
-                caseid: '141516',
-                starttime: '11:32:15',
-                endtime: '11:40:00',
-                interviewlength: '00:07:00',
-                totalsystemtime: '00:07:45',
-                accessmethod: accessMethods.CSA,
-                attemptedvia: attemptedVias.PHONE,
-            },
-            {
-                id: '7',
-                attempt: false,
-                starttime: '11:40:00',
-                endtime: '11:40:30',
-                duration: '00:00:30',
-            },
-            {
-                id: '8',
-                attempt: true,
-                outcomecategory: outcomeCategories.NO_CONTACTS,
-                outcome: '105 - Recorded message service',
-                survey: 'Rabbit Care',
-                cycle: '05-17',
-                operation: operationTypes.IE,
-                caseid: '141516',
-                starttime: '11:40:30',
-                endtime: '11:41:45',
-                interviewlength: '00:00:00',
-                totalsystemtime: '00:01:15',
-                accessmethod: accessMethods.A,
-                attemptedvia: attemptedVias.PHONE,
-            },
-            {
-                id: '9',
-                attempt: false,
-                starttime: '11:41:45',
-                endtime: '11:43:45',
-                duration: '00:02:00',
-            },
-            {
-                id: '10',
-                attempt: true,
-                outcomecategory: outcomeCategories.RESPONSES,
-                outcome: '400 - Complete',
-                survey: 'Rabbit Care',
-                cycle: '05-17',
-                operation: operationTypes.IE,
-                caseid: '141516',
-                starttime: '11:43:45',
-                endtime: '11:53:00',
-                interviewlength: '00:09:00',
-                totalsystemtime: '00:09:15',
-                accessmethod: accessMethods.A,
-                attemptedvia: attemptedVias.PHONE,
-            },
-            {
-                id: '11',
-                attempt: false,
-                starttime: '11:53:00',
-                endtime: '11:53:30',
-                duration: '00:00:30',
-            },
-            {
-                id: '12',
-                attempt: true,
-                outcomecategory: outcomeCategories.RESPONSES,
-                outcome: '400 - Complete',
-                survey: 'Rabbit Care',
-                cycle: '05-17',
-                operation: operationTypes.IE,
-                caseid: '141516',
-                starttime: '11:53:30',
-                endtime: '12:02:30',
-                interviewlength: '00:08:30',
-                totalsystemtime: '00:09:00',
-                accessmethod: accessMethods.A,
-                attemptedvia: attemptedVias.PHONE,
-            },
-        ];
+    static getAccessMethodClass(isCATI) {
+        return isCATI ? '' : ' display-none';
+    }
 
+    static getAttemptedViaClass(isCATI) {
+        return isCATI ? ' display-none' : '';
+    }
+
+    render() {
         return (
             <details id="day1_int1_11am">
-                <summary>11:00</summary>
+                <summary>{this.props.hour.start}</summary>
                 <div className="row">
                     <div className="col-sm-3 col-md-3">
                         <h5 className="mrgn-lft-md">
@@ -160,7 +27,8 @@ class HourlyTab extends React.Component {
                     </div>
                     <div className="col-sm-3 col-md-3">
                         <h5>
-                            <i className="fa fa-clock-o" /> 11:30 - 11:59{' '}
+                            <i className="fa fa-clock-o" />
+                            {' ' + this.props.hour.description + ' '}
                         </h5>
                     </div>
                 </div>
@@ -171,7 +39,7 @@ class HourlyTab extends React.Component {
                         <p>Total off system time: 00:04:15</p>
                     </div>
                 </div>
-                <HourlyCaseWorkDetails calls={calls} />
+                <HourlyCaseWorkDetails calls={this.props.hour.calls} isCATI={this.props.isCATI} />
             </details>
         );
     }
@@ -180,11 +48,16 @@ class HourlyTab extends React.Component {
 class HourlyCaseWorkDetails extends React.Component {
     render() {
         const rows = [];
+
         this.props.calls.forEach(element => {
             if (element.attempt) {
-                rows.push(<AttemptRow key={element.id} attempt={element} />);
+                rows.push(
+                    <AttemptRow key={element.id} attempt={element} isCATI={this.props.isCATI} />
+                );
             } else {
-                rows.push(<WhiteSpotRow key={element.id} whitespot={element} />);
+                rows.push(
+                    <WhiteSpotRow key={element.id} whitespot={element} isCATI={this.props.isCATI} />
+                );
             }
         });
 
@@ -232,10 +105,20 @@ class HourlyCaseWorkDetails extends React.Component {
                                         (<abbr title="hours, minutes and seconds">hh:mm:ss</abbr>)
                                     </span>
                                 </th>
-                                <th className="text-right">
+                                <th
+                                    className={
+                                        'text-right' +
+                                        HourlyTab.getAccessMethodClass(this.props.isCATI)
+                                    }
+                                >
                                     Access<br />method
                                 </th>
-                                <th className="text-right display-none">
+                                <th
+                                    className={
+                                        'text-right' +
+                                        HourlyTab.getAttemptedViaClass(this.props.isCATI)
+                                    }
+                                >
                                     Attempted<br />via
                                 </th>
                             </tr>
@@ -266,8 +149,8 @@ class WhiteSpotRow extends React.Component {
                 <td className="text-right">{this.props.whitespot.endtime}</td>
                 <td className="text-right" />
                 <td className="text-right">{this.props.whitespot.duration}</td>
-                <td className="text-right" />
-                <td className="text-center display-none" />
+                <td className={'text-right' + HourlyTab.getAccessMethodClass(this.props.isCATI)} />
+                <td className={'text-center' + HourlyTab.getAttemptedViaClass(this.props.isCATI)} />
             </tr>
         );
     }
@@ -294,9 +177,9 @@ class AttemptRow extends React.Component {
         var className = 'fa';
 
         if (this.props.attempt.attemptedvia === attemptedVias.FIELD) {
-            className += 'fa-user';
+            className += ' fa-user';
         } else if (this.props.attempt.attemptedvia === attemptedVias.PHONE) {
-            className += 'phone';
+            className += ' fa-phone';
         }
 
         return className;
@@ -323,12 +206,12 @@ class AttemptRow extends React.Component {
                 <td className="text-right">{this.props.attempt.endtime}</td>
                 <td className="text-right">{this.props.attempt.interviewlength}</td>
                 <td className="text-right">{this.props.attempt.totalsystemtime}</td>
-                <td className="text-right">
+                <td className={'text-right' + HourlyTab.getAccessMethodClass(this.props.isCATI)}>
                     <abbr title={this.props.attempt.accessmethod.text}>
                         {this.props.attempt.accessmethod.value}
                     </abbr>
                 </td>
-                <td className="text-center display-none">
+                <td className={'text-right' + HourlyTab.getAttemptedViaClass(this.props.isCATI)}>
                     <i className={this.getIconClassName()} />
                 </td>
             </tr>
