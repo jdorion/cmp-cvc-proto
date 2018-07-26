@@ -1,5 +1,6 @@
 import React from 'react';
 import claimTypes from '../../codesets/claimTypes';
+import outcomeCategories from '../../codesets/outcomeCategories';
 
 class BarGraph extends React.Component {
     render() {
@@ -7,7 +8,7 @@ class BarGraph extends React.Component {
             <div className="col-sm-12 col-md-12 cvc-barGraph mrgn-bttm-md">
                 <br />
                 <BarGraphLine1 shiftStart={this.props.shiftStart} shiftEnd={this.props.shiftEnd} />
-                <BarGraphLine2 />
+                <BarGraphLine2 duration={this.props.duration} calls={this.props.calls} />
                 <BarGraphLine3 duration={this.props.duration} claims={this.props.claims} />
                 <table className="mrgn-lft-md width100">
                     <tbody>
@@ -61,57 +62,73 @@ class BarGraphLine1 extends React.Component {
 }
 
 class BarGraphLine2 extends React.Component {
+    getClassName(attempt, index) {
+        var className = 'zoom';
+
+        // is the first element
+        if (index === 0) {
+            className += ' brdr-rght-drk ln-hght-30px';
+        }
+
+        // is the last element
+        if (index === this.props.calls.length - 1) {
+            className += ' brdr-lft-drk';
+        }
+
+        if (attempt.attempt) {
+            if (attempt.outcomecategory === outcomeCategories.RESPONSES) {
+                className += ' bg-res';
+            } else if (attempt.outcomecategory === outcomeCategories.REFUSALS) {
+                className += ' bg-ref';
+            } else if (attempt.outcomecategory === outcomeCategories.NO_CONTACTS) {
+                className += ' bg-nocon';
+            } else if (attempt.outcomecategory === outcomeCategories.OTHER_OUTCOMES) {
+                className += ' bg-other';
+            }
+        } else {
+            className += ' bg-off-sys';
+        }
+
+        return className;
+    }
+
+    getWidth(attemptduration) {
+        var calculatedWidth = 0;
+        if (this.props.duration > 0) {
+            calculatedWidth = ((attemptduration / this.props.duration) * 100).toFixed(2);
+        }
+        return { width: calculatedWidth + '%' };
+    }
+
     render() {
+        const rows = [];
+        for (var i = 0; i < this.props.calls.length; i++) {
+            var call = this.props.calls[i];
+            if (i === 0) {
+                rows.push(
+                    <td
+                        key={call.id}
+                        style={this.getWidth(call.durationSeconds)}
+                        className={this.getClassName(call, i)}
+                    >
+                        &nbsp;
+                    </td>
+                );
+            } else {
+                rows.push(
+                    <td
+                        key={call.id}
+                        style={this.getWidth(call.durationSeconds)}
+                        className={this.getClassName(call, i)}
+                    />
+                );
+            }
+        }
+
         return (
             <table className="mrgn-lft-md width100">
                 <tbody>
-                    <tr className="brdr-bttm brdr-lft brdr-rght">
-                        <td style={{ width: '16.67%' }} className="bg-off-sys ln-hght-30px">
-                            &nbsp;
-                        </td>
-                        <td style={{ width: '0.28%' }} className="zoom bg-off-sys brdr-lft-drk" />
-                        <td style={{ width: '0.28%' }} className="zoom bg-nocon" />
-                        <td style={{ width: '0.28%' }} className="zoom bg-off-sys" />
-                        <td style={{ width: '0.28%' }} className="zoom bg-nocon-2" />
-                        <td style={{ width: '0.14%' }} className="zoom bg-off-sys" />
-                        <td style={{ width: '4.31%' }} className="zoom bg-res" />
-                        <td style={{ width: '0.28%' }} className="zoom bg-off-sys" />
-                        <td style={{ width: '0.69%' }} className="zoom bg-nocon" />
-                        <td style={{ width: '1.11%' }} className="zoom bg-off-sys" />
-                        <td style={{ width: '5.14%' }} className="zoom bg-res" />
-                        <td style={{ width: '0.28%' }} className="zoom bg-off-sys" />
-                        <td style={{ width: '5.00%' }} className="zoom bg-res-2" />
-
-                        <td style={{ width: '0.42%' }} className="zoom bg-off-sys" />
-                        <td style={{ width: '0.42%' }} className="zoom bg-nocon" />
-                        <td style={{ width: '0.28%' }} className="zoom bg-off-sys" />
-                        <td style={{ width: '4.72%' }} className="zoom bg-res" />
-                        <td style={{ width: '9.03%' }} className="zoom bg-off-sys" />
-                        <td style={{ width: '0.28%' }} className="zoom bg-nocon" />
-                        <td style={{ width: '0.14%' }} className="zoom bg-off-sys" />
-                        <td style={{ width: '5.00%' }} className="zoom bg-res" />
-                        <td style={{ width: '0.56%' }} className="zoom bg-off-sys" />
-                        <td style={{ width: '3.89%' }} className="zoom bg-other-sur" />
-                        <td style={{ width: '0.28%' }} className="zoom bg-off-sys" />
-                        <td style={{ width: '4.17%' }} className="zoom bg-res" />
-                        <td style={{ width: '3.33%' }} className="zoom bg-off-sys" />
-
-                        <td style={{ width: '0.56%' }} className="zoom bg-nocon" />
-                        <td style={{ width: '0.14%' }} className="zoom bg-off-sys" />
-                        <td style={{ width: '0.42%' }} className="zoom bg-nocon-2" />
-                        <td style={{ width: '0.56%' }} className="zoom bg-off-sys" />
-                        <td style={{ width: '0.28%' }} className="zoom bg-nocon-3" />
-                        <td style={{ width: '0.28%' }} className="zoom bg-off-sys" />
-                        <td style={{ width: '2.78%' }} className="zoom bg-ref" />
-                        <td style={{ width: '0.28%' }} className="zoom bg-off-sys" />
-                        <td style={{ width: '0.42%' }} className="zoom bg-nocon" />
-                        <td style={{ width: '0.42%' }} className="zoom bg-off-sys" />
-                        <td style={{ width: '0.42%' }} className="zoom bg-nocon-2" />
-                        <td style={{ width: '0.14%' }} className="zoom bg-off-sys" />
-                        <td style={{ width: '0.69%' }} className="zoom bg-other" />
-                        <td style={{ width: '8.75%' }} className="zoom bg-off-sys" />
-                        <td style={{ width: '16.67%' }} className="bg-off-sys brdr-lft-drk" />
-                    </tr>
+                    <tr className="brdr-bttm brdr-lft brdr-rght">{rows}</tr>
                 </tbody>
             </table>
         );

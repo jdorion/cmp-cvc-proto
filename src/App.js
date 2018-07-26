@@ -36,11 +36,31 @@ class App extends React.Component {
 }
 
 class InterviewerShift extends React.Component {
+    filterCalls(calls, hour) {
+        var filteredCalls = [];
+
+        calls.forEach(element => {
+            if (
+                element.starttime.startsWith(hour + ':') ||
+                element.endtime.startsWith(hour + ':')
+            ) {
+                filteredCalls.push(element);
+            }
+        });
+
+        return filteredCalls;
+    }
+
     render() {
         const hours = [];
         this.props.shift.hours.forEach(element => {
             hours.push(
-                <HourlyTab key={element.start} hour={element} isCATI={this.props.shift.isCATI} />
+                <HourlyTab
+                    key={element.start}
+                    hour={element}
+                    isCATI={this.props.shift.isCATI}
+                    calls={this.filterCalls(this.props.shift.calls, element.hour)}
+                />
             );
         });
 

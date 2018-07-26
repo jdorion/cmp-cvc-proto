@@ -39,7 +39,7 @@ class HourlyTab extends React.Component {
                         <p>Total off system {this.props.hour.totalOffSystemTime}</p>
                     </div>
                 </div>
-                <HourlyCaseWorkDetails calls={this.props.hour.calls} isCATI={this.props.isCATI} />
+                <HourlyCaseWorkDetails calls={this.props.calls} isCATI={this.props.isCATI} />
             </details>
         );
     }

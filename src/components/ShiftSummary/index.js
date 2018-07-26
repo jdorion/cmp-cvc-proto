@@ -28,6 +28,7 @@ class ShiftSummaryTab extends React.Component {
                             <BarGraph
                                 duration={this.props.shift.durationSeconds}
                                 hours={this.props.shift.hours}
+                                calls={this.props.shift.calls}
                                 claims={this.props.shift.claims}
                                 finalHourLabel={this.props.shift.finalHourLabel}
                                 renderLink={this.props.shift.renderLink}
@@ -36,7 +37,7 @@ class ShiftSummaryTab extends React.Component {
                     </div>
                     <div className="col-sm-2 col-md-2">
                         <div className="text-right mrgn-tp-md">
-                            <p>Calls: {this.props.shift.calls}</p>
+                            <p>Calls: {this.props.shift.callsTaken}</p>
                             <p>Cases touched: {this.props.shift.casesTouched}</p>
                             <p>Surveys: {this.props.shift.surveys}</p>
                             <p>Total off system time: {this.props.shift.totalOffSystemTime}</p>
