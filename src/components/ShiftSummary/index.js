@@ -27,6 +27,7 @@ class ShiftSummaryTab extends React.Component {
                         <div className="row">
                             <BarGraph
                                 duration={this.props.shift.durationSeconds}
+                                hourkey="summary"
                                 hours={this.props.shift.hours}
                                 calls={this.props.shift.calls}
                                 claims={this.props.shift.claims}

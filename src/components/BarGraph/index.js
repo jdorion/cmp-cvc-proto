@@ -8,8 +8,16 @@ class BarGraph extends React.Component {
             <div className="col-sm-12 col-md-12 cvc-barGraph mrgn-bttm-md">
                 <br />
                 <BarGraphLine1 shiftStart={this.props.shiftStart} shiftEnd={this.props.shiftEnd} />
-                <BarGraphLine2 duration={this.props.duration} calls={this.props.calls} />
-                <BarGraphLine3 duration={this.props.duration} claims={this.props.claims} />
+                <BarGraphLine2
+                    duration={this.props.duration}
+                    calls={this.props.calls}
+                    hourkey={this.props.hourkey}
+                />
+                <BarGraphLine3
+                    duration={this.props.duration}
+                    claims={this.props.claims}
+                    hourkey={this.props.hourkey}
+                />
                 <table className="mrgn-lft-md width100">
                     <tbody>
                         <BarGraphLine4 hours={this.props.hours} />
@@ -61,6 +69,7 @@ class BarGraphLine1 extends React.Component {
     }
 }
 
+// this line of the bargraph renders all of the calls / visits for the given hour / shift
 class BarGraphLine2 extends React.Component {
     getClassName(attempt, index) {
         var className = 'zoom';
@@ -135,6 +144,7 @@ class BarGraphLine2 extends React.Component {
     }
 }
 
+// this line of the bargraph renders all of the pay claims for the given time / period
 class BarGraphLine3 extends React.Component {
     getClassName(claim, index) {
         var className = '';
@@ -166,7 +176,8 @@ class BarGraphLine3 extends React.Component {
         return className;
     }
 
-    getWidth(claimduration) {
+    getWidth(claim) {
+        var claimduration = claim.durations[this.props.hourkey];
         var calculatedWidth = 0;
         if (this.props.duration > 0) {
             calculatedWidth = ((claimduration / this.props.duration) * 100).toFixed(2);
@@ -180,7 +191,7 @@ class BarGraphLine3 extends React.Component {
             rows.push(
                 <td
                     key={this.props.claims[i].id}
-                    style={this.getWidth(this.props.claims[i].durationSeconds)}
+                    style={this.getWidth(this.props.claims[i])}
                     className={this.getClassName(this.props.claims[i], i)}
                 >
                     &nbsp;
@@ -198,6 +209,7 @@ class BarGraphLine3 extends React.Component {
     }
 }
 
+// this line of the bargraph renders the little grey dividers marking the hours
 class BarGraphLine4 extends React.Component {
     render() {
         const divideBy = this.props.hours.length * 2;
@@ -220,6 +232,7 @@ class BarGraphLine4 extends React.Component {
     }
 }
 
+// this line of the bargraph renders the hourly labels / links at the bottom
 class BarGraphLine5 extends React.Component {
     getClassName(index) {
         return index === 0 ? 'ln-hght-30px' : 'text-center';
