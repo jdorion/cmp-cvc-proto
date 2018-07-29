@@ -14,7 +14,7 @@ class ShiftSummaryTab extends React.Component {
                             <div className="col-sm-3 col-md-3">
                                 <h5 className="mrgn-lft-md">
                                     <i className="fa fa-calendar" />
-                                    {this.props.shift.formattedDate}
+                                    {this.props.formattedDate}
                                 </h5>
                             </div>
                             <div className="col-sm-3 col-md-3">

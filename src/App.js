@@ -7,24 +7,25 @@ import HourlyTab from './components/Hourly';
 class App extends React.Component {
     render() {
         const days = [];
-        cvcData.days.forEach(element => {
+        cvcData.days.forEach(day => {
             const shifts = [];
-            element.shifts.forEach(element => {
+            day.shifts.forEach(shift => {
                 shifts.push(
                     <InterviewerShift
-                        key={element.username}
-                        shift={element}
+                        key={shift.username}
+                        shift={shift}
                         isPrintView={cvcData.isPrintView}
+                        formattedDate={day.formattedDate}
                     />
                 );
             });
             days.push(
                 <Container
-                    key={element.date}
-                    title={element.formattedDate}
+                    key={day.date}
+                    title={day.formattedDate}
                     includeH3={true}
                     isOpen={true}
-                    shifts={element.shifts}
+                    shifts={day.shifts}
                 >
                     {shifts}
                 </Container>
@@ -58,6 +59,7 @@ class InterviewerShift extends React.Component {
                 <HourlyTab
                     key={element.start}
                     hour={element}
+                    formattedDate={this.props.formattedDate}
                     isCATI={this.props.shift.isCATI}
                     calls={this.filterCalls(this.props.shift.calls, element.hour)}
                 />
@@ -80,6 +82,7 @@ class InterviewerShift extends React.Component {
                     <div className="tabpanels">
                         <ShiftSummaryTab
                             shift={this.props.shift}
+                            formattedDate={this.props.formattedDate}
                             isPrintView={this.props.isPrintView}
                         />
                         {hours}
