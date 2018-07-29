@@ -55,15 +55,17 @@ class InterviewerShift extends React.Component {
     render() {
         const hours = [];
         this.props.shift.hours.forEach(element => {
-            hours.push(
-                <HourlyTab
-                    key={element.start}
-                    hour={element}
-                    formattedDate={this.props.formattedDate}
-                    isCATI={this.props.shift.isCATI}
-                    calls={this.filterCalls(this.props.shift.calls, element.hour)}
-                />
-            );
+            if (element.hasAttempt) {
+                hours.push(
+                    <HourlyTab
+                        key={element.start}
+                        hour={element}
+                        formattedDate={this.props.formattedDate}
+                        isCATI={this.props.shift.isCATI}
+                        calls={this.filterCalls(this.props.shift.calls, element.hour)}
+                    />
+                );
+            }
         });
 
         return (

@@ -62,7 +62,9 @@ class SummaryCaseWorkDetailsAccordion extends React.Component {
     render() {
         const rows = [];
         this.props.hours.forEach(element => {
-            rows.push(<SummaryCaseWorkDetailsHourRow key={element.start} hour={element} />);
+            if (element.hasAttempt) {
+                rows.push(<SummaryCaseWorkDetailsHourRow key={element.start} hour={element} />);
+            }
         });
 
         return (
