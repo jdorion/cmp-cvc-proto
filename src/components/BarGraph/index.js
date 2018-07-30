@@ -23,6 +23,7 @@ class BarGraph extends React.Component {
                         <BarGraphLine4 hours={this.props.hours} />
                         <BarGraphLine5
                             hours={this.props.hours}
+                            hourkey={this.props.hourkey}
                             finalHourLabel={this.props.finalHourLabel}
                             renderLink={this.props.renderLink}
                         />
@@ -101,7 +102,8 @@ class BarGraphLine2 extends React.Component {
         return className;
     }
 
-    getWidth(attemptduration) {
+    getWidth(attempt) {
+        var attemptduration = attempt.durations[this.props.hourkey];
         var calculatedWidth = 0;
         if (this.props.duration > 0) {
             calculatedWidth = ((attemptduration / this.props.duration) * 100).toFixed(2);
@@ -117,7 +119,7 @@ class BarGraphLine2 extends React.Component {
                 rows.push(
                     <td
                         key={call.id}
-                        style={this.getWidth(call.durationSeconds)}
+                        style={this.getWidth(call)}
                         className={this.getClassName(call, i)}
                     >
                         &nbsp;
@@ -127,7 +129,7 @@ class BarGraphLine2 extends React.Component {
                 rows.push(
                     <td
                         key={call.id}
-                        style={this.getWidth(call.durationSeconds)}
+                        style={this.getWidth(call)}
                         className={this.getClassName(call, i)}
                     />
                 );
@@ -212,23 +214,31 @@ class BarGraphLine3 extends React.Component {
 // this line of the bargraph renders the little grey dividers marking the hours
 class BarGraphLine4 extends React.Component {
     render() {
-        const divideBy = this.props.hours.length * 2;
-        const width = (100 / divideBy).toFixed(2);
-        var divStyle = {
-            width: width + '%',
-        };
+        if (this.props.hours) {
+            const divideBy = this.props.hours.length * 2;
+            const width = (100 / divideBy).toFixed(2);
+            var divStyle = {
+                width: width + '%',
+            };
+            const rows = [];
+            this.props.hours.forEach(element => {
+                rows.push(
+                    <td key={element.start + '-1'} style={divStyle}>
+                        &nbsp;
+                    </td>
+                );
+                rows.push(<td key={element.start + '-2'} style={divStyle} className="brdr-rght" />);
+            });
 
-        const rows = [];
-        this.props.hours.forEach(element => {
-            rows.push(
-                <td key={element.start + '-1'} style={divStyle}>
-                    &nbsp;
-                </td>
+            return <tr className="brdr-lft brdr-rght text-center">{rows}</tr>;
+        } else {
+            return (
+                <tr className="brdr-lft brdr-rght text-center">
+                    <td style={{ width: '50%' }}>&nbsp;</td>
+                    <td style={{ width: '50%' }}>&nbsp;</td>
+                </tr>
             );
-            rows.push(<td key={element.start + '-2'} style={divStyle} className="brdr-rght" />);
-        });
-
-        return <tr className="brdr-lft brdr-rght text-center">{rows}</tr>;
+        }
     }
 }
 
@@ -251,24 +261,35 @@ class BarGraphLine5 extends React.Component {
     }
 
     render() {
-        const rows = [];
-        for (var i = 0; i < this.props.hours.length; i++) {
-            rows.push(
-                <td
-                    key={this.props.hours[i].start}
-                    className={this.getClassName(i)}
-                    colSpan={this.getColSpan(i)}
-                >
-                    {this.getTDValue(this.props.hours[i], this.props.renderLink)}
-                </td>
+        if (this.props.hours) {
+            const rows = [];
+            for (var i = 0; i < this.props.hours.length; i++) {
+                rows.push(
+                    <td
+                        key={this.props.hours[i].start}
+                        className={this.getClassName(i)}
+                        colSpan={this.getColSpan(i)}
+                    >
+                        {this.getTDValue(this.props.hours[i], this.props.renderLink)}
+                    </td>
+                );
+            }
+            return (
+                <tr>
+                    {rows}
+                    <td className="text-right">{this.props.finalHourLabel}</td>
+                </tr>
+            );
+        } else {
+            const startHourLabel = this.props.hourkey + ':00';
+            const endHourLabel = this.props.hourkey + 1 + ':00';
+            return (
+                <tr>
+                    <td>{startHourLabel}</td>
+                    <td className={'text-right'}>{endHourLabel}</td>
+                </tr>
             );
         }
-        return (
-            <tr>
-                {rows}
-                <td className="text-right">{this.props.finalHourLabel}</td>
-            </tr>
-        );
     }
 }
 

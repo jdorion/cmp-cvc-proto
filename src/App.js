@@ -52,17 +52,30 @@ class InterviewerShift extends React.Component {
         return filteredCalls;
     }
 
+    filterClaims(claims, hour) {
+        var filteredClaims = [];
+
+        claims.forEach(element => {
+            if (element.time && element.time.includes(hour + ':')) {
+                filteredClaims.push(element);
+            }
+        });
+
+        return filteredClaims;
+    }
+
     render() {
         const hours = [];
         this.props.shift.hours.forEach(element => {
             if (element.hasAttempt) {
                 hours.push(
                     <HourlyTab
-                        key={element.start}
+                        key={element.hour}
                         hour={element}
                         formattedDate={this.props.formattedDate}
                         isCATI={this.props.shift.isCATI}
                         calls={this.filterCalls(this.props.shift.calls, element.hour)}
+                        claims={this.filterClaims(this.props.shift.claims, element.hour)}
                     />
                 );
             }

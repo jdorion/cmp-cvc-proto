@@ -1,4 +1,5 @@
 import React from 'react';
+import BarGraph from '../BarGraph';
 //import accessMethods from '../../codesets/accessMethods';
 import outcomeCategories from '../../codesets/outcomeCategories';
 //import operationTypes from '../../codesets/operationTypes';
@@ -33,6 +34,16 @@ class HourlyTab extends React.Component {
                     </div>
                 </div>
                 <div className="row">
+                    <div className="col-sm-10 col-md-10 cvc-barGraph">
+                        <BarGraph
+                            duration="3600"
+                            hourkey={this.props.hour.hour}
+                            hour={this.props.hour}
+                            calls={this.props.calls}
+                            claims={this.props.claims}
+                            renderLink={false}
+                        />
+                    </div>
                     <div className="col-sm-2 col-md-2 text-right">
                         <p>Calls: {this.props.hour.totalcalls}</p>
                         <p>Cases touched: {this.props.hour.casestouched}</p>
