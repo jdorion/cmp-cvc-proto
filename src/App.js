@@ -52,11 +52,29 @@ class InterviewerShift extends React.Component {
         return filteredCalls;
     }
 
+    claimBelongsInHour(claim, hour) {
+        console.log('claim: ', claim);
+        // if the claim starts inside the given hour, include it
+        if (claim.starttime.startsWith(hour + ':')) {
+            return true;
+        }
+        // if the claim ends right at the start of the given hour, don't include it
+        if (claim.endtime.startsWith(hour + ':00')) {
+            return false;
+        }
+        // if the claim ends within the given hour, include it
+        if (claim.endtime.startsWith(hour + ':')) {
+            return true;
+        }
+
+        return false;
+    }
+
     filterClaims(claims, hour) {
         var filteredClaims = [];
 
         claims.forEach(element => {
-            if (element.time && element.time.includes(hour + ':')) {
+            if (this.claimBelongsInHour(element, hour)) {
                 filteredClaims.push(element);
             }
         });

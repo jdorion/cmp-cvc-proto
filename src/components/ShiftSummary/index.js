@@ -171,7 +171,7 @@ class PayClaimSummaryRow extends React.Component {
     render() {
         return (
             <tr>
-                <td>{this.props.claim.time}</td>
+                <td>{this.props.claim.starttime + ' - ' + this.props.claim.endtime}</td>
                 <td>{this.props.claim.pecode}</td>
                 <td>{this.props.claim.surveyAcronym}</td>
                 <td>{this.props.claim.activity}</td>
