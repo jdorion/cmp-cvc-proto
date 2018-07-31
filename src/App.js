@@ -1,15 +1,11 @@
 import React from 'react';
 import { hot } from 'react-hot-loader';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import ShiftSummaryTab from './components/ShiftSummary';
 import Container from './components/Container';
 import HourlyTab from './components/Hourly';
-import ReactTooltip from 'react-tooltip';
 
 class App extends React.Component {
-    componentDidMount() {
-        ReactTooltip.rebuild();
-    }
-
     render() {
         const days = [];
         cvcData.days.forEach(day => {
@@ -38,26 +34,7 @@ class App extends React.Component {
             );
         });
 
-        return (
-            <div>
-                <a data-tip data-for="happyFace">
-                    {' '}
-                    d(`･∀･)b{' '}
-                </a>
-                <ReactTooltip id="happyFace" type="error">
-                    <span>Show happy face</span>
-                </ReactTooltip>
-                <a data-tip data-for="sadFace">
-                    {' '}
-                    இдஇ{' '}
-                </a>
-                <ReactTooltip id="sadFace" type="warning" effect="solid">
-                    <span>Show sad face</span>
-                </ReactTooltip>
-                {days}
-            </div>
-        );
-        //return days;
+        return days;
     }
 }
 
@@ -107,12 +84,23 @@ class InterviewerShift extends React.Component {
     }
 
     render() {
-        const hours = [];
+        const filteredHours = [];
         this.props.shift.hours.forEach(element => {
             if (element.hasAttempt) {
-                hours.push(
+                filteredHours.push(element);
+            }
+        });
+
+        const hourlist = [];
+        filteredHours.forEach(element => {
+            hourlist.push(<Tab key={element.hour}>{element.hour + ':00'}</Tab>);
+        });
+
+        const hours = [];
+        filteredHours.forEach(element => {
+            hours.push(
+                <TabPanel key={element.hour + 'panel'}>
                     <HourlyTab
-                        key={element.hour}
                         date={this.props.date}
                         username={this.props.shift.username}
                         hour={element}
@@ -121,8 +109,8 @@ class InterviewerShift extends React.Component {
                         calls={this.filterCalls(this.props.shift.calls, element.hour)}
                         claims={this.filterClaims(this.props.shift.claims, element.hour)}
                     />
-                );
-            }
+                </TabPanel>
+            );
         });
 
         return (
@@ -137,16 +125,23 @@ class InterviewerShift extends React.Component {
                         </span>
                     </h4>
                 </div>
-                <div className="wb-tabs">
-                    <div className="tabpanels">
+                <Tabs forceRenderTabPanel>
+                    <TabList>
+                        <Tab>Summary</Tab>
+                        {hourlist}
+                    </TabList>
+                    <TabPanel>
                         <ShiftSummaryTab
                             shift={this.props.shift}
                             date={this.props.date}
                             formattedDate={this.props.formattedDate}
                             isPrintView={this.props.isPrintView}
                         />
-                        {hours}
-                    </div>
+                    </TabPanel>
+                    {hours}
+                </Tabs>
+                <div className="wb-tabs">
+                    <div className="tabpanels">{hours}</div>
                 </div>
             </div>
         );

@@ -8,20 +8,6 @@ class BarGraph extends React.Component {
         return (
             <div className="col-sm-12 col-md-12 cvc-barGraph mrgn-bttm-md">
                 <br />
-                <a data-tip data-for="happyFace">
-                    {' '}
-                    d(`･∀･)b{' '}
-                </a>
-                <ReactTooltip id="happyFace" type="error">
-                    <span>Show happy face</span>
-                </ReactTooltip>
-                <a data-tip data-for="sadFace">
-                    {' '}
-                    இдஇ{' '}
-                </a>
-                <ReactTooltip id="sadFace" type="warning" effect="solid">
-                    <span>Show sad face</span>
-                </ReactTooltip>
                 <BarGraphLine1 shiftStart={this.props.shiftStart} shiftEnd={this.props.shiftEnd} />
                 <BarGraphLine2
                     duration={this.props.duration}

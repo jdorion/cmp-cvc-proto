@@ -57,6 +57,8 @@
     <!-- InstanceBeginEditable name="Head-CSS" -->
     <!-- to be added into main css -->
 
+
+
     <!-- end tab css (to be added to main css) -->
 
     <!-- InstanceEndEditable -->
@@ -350,46 +352,65 @@
                 </div>
             </div>
 
-
-            <!--
-attempt:
-<span class="cvc-tooltip">
-    <strong>Survey</strong><br/>
-    Rabbit Care<br/>
-    <strong>PE code</strong><br/>
-    1234<br/>
-    <strong>Outcome</strong><br/>
-    400 - Complete<br/>
-    <strong>Total system time</strong><br/>
-    00:08:00
-</span>
-
-white spot:
-<span class="cvc-tooltip">
-    <strong>Start time</strong><br/>
-    11:30:00<br/>
-    <strong>End time</strong><br/>
-    11:45:00<strong><br/>
-    Off system time</strong><br/>
-    00:15:00
-</span>
-
-claim:
-<span class="cvc-tooltip">
-    <strong>Survey</strong><br/>
-    Labour Force Survey<br/>
-    <strong>PE code</strong><br/>
-    5678<br/>
-    <strong>Activity</strong><br/>
-    9 - Telephone interviewing<br/>
-    <strong>Duration</strong><br/>
-    11:30 - 12:15
-</span>
--->
-
             <!--    **********************************************************************
         ********************     START OF REACT CONTENT    *******************
         ********************************************************************** -->
+            <!-- styles for react-tabs, can be moved into a .css file later -->
+            <style>
+                .react-tabs__tab-list {
+                    border-bottom: 1px solid #aaa;
+                    margin: 0 0 10px;
+                    padding: 0;
+                }
+
+                .react-tabs__tab {
+                    display: inline-block;
+                    border: 1px solid transparent;
+                    border-bottom: none;
+                    bottom: -1px;
+                    position: relative;
+                    list-style: none;
+                    padding: 6px 12px;
+                    cursor: pointer;
+                }
+
+                .react-tabs__tab--selected {
+                    background: #fff;
+                    border-color: #aaa;
+                    color: black;
+                    border-radius: 5px 5px 0 0;
+                }
+
+                .react-tabs__tab-panel {
+                    display: none;
+                }
+
+                .react-tabs__tab-panel--selected {
+                    display: block;
+                }
+
+                .react-tabs__tab--disabled {
+                    color: GrayText;
+                    cursor: default;
+                }
+
+                .react-tabs__tab:focus {
+                    box-shadow: 0 0 5px hsl(208, 99%, 50%);
+                    border-color: hsl(208,
+                    99%, 50%);
+                    outline: none;
+                }
+
+                .react-tabs__tab:focus:after {
+                    content: "";
+                    position: absolute;
+                    height: 5px;
+                    left: -4px;
+                    right: -4px;
+                    bottom: -5px;
+                    background: #fff;
+                }
+            </style>
 
             <div id="react-app"> </div>
             <script src="./src/index.js"></script>
@@ -3146,10 +3167,11 @@ claim:
     </footer>
     <!-- InstanceBeginEditable name="Footer-JS" -->
 
-    <!--<script src="https://wet-boew.github.io/v4.0-ci/wet-boew/js/wet-boew.min.js"></script>-->
     <script src="./js/jquery-ui/1.9.2/jquery-ui.min.js"></script>
     <script src="./js/statcan/jquery.maskedinput/jquery.maskedinput.js"></script>
     <script src="./js/dataTables/dataTables.js"></script>
+    <!--<script src="https://wet-boew.github.io/v4.0-ci/wet-boew/js/wet-boew.min.js"></script>-->
+
     <!-- tabs js -->
     <script type="application/javascript">
         $(document).on("wb-ready.wb", function () {

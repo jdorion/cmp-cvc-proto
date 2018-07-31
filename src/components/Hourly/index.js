@@ -18,8 +18,7 @@ class HourlyTab extends React.Component {
 
     render() {
         return (
-            <details id={this.props.hour.id}>
-                <summary>{this.props.hour.start}</summary>
+            <div>
                 <div className="row">
                     <div className="col-sm-3 col-md-3">
                         <h5 className="mrgn-lft-md">
@@ -53,7 +52,7 @@ class HourlyTab extends React.Component {
                     </div>
                 </div>
                 <HourlyCaseWorkDetails calls={this.props.calls} isCATI={this.props.isCATI} />
-            </details>
+            </div>
         );
     }
 }

@@ -6,8 +6,7 @@ import claimTypes from '../../codesets/claimTypes';
 class ShiftSummaryTab extends React.Component {
     render() {
         return (
-            <details id={this.props.date + '_' + this.props.shift.username + '_sum'} open>
-                <summary>Summary</summary>
+            <div>
                 <div className="row">
                     <div className="col-sm-10 col-md-10">
                         <div className="row">
@@ -56,7 +55,7 @@ class ShiftSummaryTab extends React.Component {
                     claims={this.props.shift.claims}
                     isPrintView={this.props.isPrintView}
                 />
-            </details>
+            </div>
         );
     }
 }
