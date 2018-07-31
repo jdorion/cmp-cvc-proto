@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactTooltip from 'react-tooltip';
 import claimTypes from '../../codesets/claimTypes';
 import outcomeCategories from '../../codesets/outcomeCategories';
 
@@ -7,16 +8,34 @@ class BarGraph extends React.Component {
         return (
             <div className="col-sm-12 col-md-12 cvc-barGraph mrgn-bttm-md">
                 <br />
+                <a data-tip data-for="happyFace">
+                    {' '}
+                    d(`･∀･)b{' '}
+                </a>
+                <ReactTooltip id="happyFace" type="error">
+                    <span>Show happy face</span>
+                </ReactTooltip>
+                <a data-tip data-for="sadFace">
+                    {' '}
+                    இдஇ{' '}
+                </a>
+                <ReactTooltip id="sadFace" type="warning" effect="solid">
+                    <span>Show sad face</span>
+                </ReactTooltip>
                 <BarGraphLine1 shiftStart={this.props.shiftStart} shiftEnd={this.props.shiftEnd} />
                 <BarGraphLine2
                     duration={this.props.duration}
                     calls={this.props.calls}
                     hourkey={this.props.hourkey}
+                    date={this.props.date}
+                    username={this.props.username}
                 />
                 <BarGraphLine3
                     duration={this.props.duration}
                     claims={this.props.claims}
                     hourkey={this.props.hourkey}
+                    date={this.props.date}
+                    username={this.props.username}
                 />
                 <table className="mrgn-lft-md width100">
                     <tbody>
@@ -29,8 +48,145 @@ class BarGraph extends React.Component {
                         />
                     </tbody>
                 </table>
+                <CallTooltips
+                    calls={this.props.calls}
+                    hourkey={this.props.hourkey}
+                    date={this.props.date}
+                    username={this.props.username}
+                />
+                <ClaimTooltips
+                    claims={this.props.claims}
+                    hourkey={this.props.hourkey}
+                    date={this.props.date}
+                    username={this.props.username}
+                />
             </div>
         );
+    }
+}
+
+class CallTooltips extends React.Component {
+    //TODO: this is duplicated in BarGraphLine2
+    getTooltipID(call) {
+        return (
+            'call_' +
+            this.props.date +
+            '_' +
+            this.props.username +
+            '_' +
+            this.props.hourkey +
+            call.id +
+            '-tt'
+        );
+    }
+
+    render() {
+        var tooltips = [];
+        this.props.calls.forEach(call => {
+            if (call.attempt) {
+                tooltips.push(
+                    <ReactTooltip
+                        key={call.id}
+                        id={this.getTooltipID(call)}
+                        type="light"
+                        effect="solid"
+                    >
+                        <span>
+                            <strong>Survey</strong>
+                            <br />
+                            {call.survey}
+                            <br />
+                            <strong>PE code</strong>
+                            <br />
+                            {call.pecode}
+                            <br />
+                            <strong>Outcome</strong>
+                            <br />
+                            {call.outcome}
+                            <br />
+                            <strong>Total system time</strong>
+                            <br />
+                            {call.totalsystemtime}
+                        </span>
+                    </ReactTooltip>
+                );
+            } else {
+                tooltips.push(
+                    <ReactTooltip
+                        key={call.id}
+                        id={this.getTooltipID(call)}
+                        type="light"
+                        effect="solid"
+                    >
+                        <span>
+                            <strong>Start time</strong>
+                            <br />
+                            {call.starttime}
+                            <br />
+                            <strong>End time</strong>
+                            <br />
+                            {call.endtime}
+                            <br />
+                            <strong>Off system time</strong>
+                            <br />
+                            {call.duration}
+                        </span>
+                    </ReactTooltip>
+                );
+            }
+        });
+        return <div>{tooltips}</div>;
+    }
+}
+
+class ClaimTooltips extends React.Component {
+    // TODO: this is duplicated in BarGraphLine3
+    getTooltipID(claim) {
+        return (
+            'claim_' +
+            this.props.date +
+            '_' +
+            this.props.username +
+            '_' +
+            this.props.hourkey +
+            claim.id +
+            '-tt'
+        );
+    }
+
+    render() {
+        var tooltips = [];
+        this.props.claims.forEach(claim => {
+            if (claim.claimtype !== claimTypes.OFF_SYSTEM_TIME) {
+                tooltips.push(
+                    <ReactTooltip
+                        key={claim.id}
+                        id={this.getTooltipID(claim)}
+                        type="light"
+                        effect="solid"
+                    >
+                        <span>
+                            <strong>Survey</strong>
+                            <br />
+                            {claim.surveyName}
+                            <br />
+                            <strong>PE code</strong>
+                            <br />
+                            {claim.pecode}
+                            <br />
+                            <strong>Activity</strong>
+                            <br />
+                            {claim.activity}
+                            <br />
+                            <strong>Duration</strong>
+                            <br />
+                            {claim.starttime + ' - ' + claim.endtime}
+                        </span>
+                    </ReactTooltip>
+                );
+            }
+        });
+        return <div>{tooltips}</div>;
     }
 }
 
@@ -72,6 +228,20 @@ class BarGraphLine1 extends React.Component {
 
 // this line of the bargraph renders all of the calls / visits for the given hour / shift
 class BarGraphLine2 extends React.Component {
+    //TODO: this is duplicated in CallTooltips
+    getTooltipID(call) {
+        return (
+            'call_' +
+            this.props.date +
+            '_' +
+            this.props.username +
+            '_' +
+            this.props.hourkey +
+            call.id +
+            '-tt'
+        );
+    }
+
     getClassName(attempt, index) {
         var className = 'zoom';
 
@@ -121,6 +291,8 @@ class BarGraphLine2 extends React.Component {
                         key={call.id}
                         style={this.getWidth(call)}
                         className={this.getClassName(call, i)}
+                        data-tip
+                        data-for={this.getTooltipID(call)}
                     >
                         &nbsp;
                     </td>
@@ -131,6 +303,8 @@ class BarGraphLine2 extends React.Component {
                         key={call.id}
                         style={this.getWidth(call)}
                         className={this.getClassName(call, i)}
+                        data-tip
+                        data-for={this.getTooltipID(call)}
                     />
                 );
             }
@@ -187,14 +361,31 @@ class BarGraphLine3 extends React.Component {
         return { width: calculatedWidth + '%' };
     }
 
+    // TODO: this is duplicated in ClaimTooltips
+    getTooltipID(claim) {
+        return (
+            'claim_' +
+            this.props.date +
+            '_' +
+            this.props.username +
+            '_' +
+            this.props.hourkey +
+            claim.id +
+            '-tt'
+        );
+    }
+
     render() {
         const rows = [];
         for (var i = 0; i < this.props.claims.length; i++) {
+            var claim = this.props.claims[i];
             rows.push(
                 <td
-                    key={this.props.claims[i].id}
-                    style={this.getWidth(this.props.claims[i])}
-                    className={this.getClassName(this.props.claims[i], i)}
+                    key={claim.id}
+                    style={this.getWidth(claim)}
+                    className={this.getClassName(claim, i)}
+                    data-tip
+                    data-for={this.getTooltipID(claim)}
                 >
                     &nbsp;
                 </td>

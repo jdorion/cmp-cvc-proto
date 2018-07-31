@@ -6,7 +6,7 @@ import claimTypes from '../../codesets/claimTypes';
 class ShiftSummaryTab extends React.Component {
     render() {
         return (
-            <details id="day1_int1_sum" open>
+            <details id={this.props.date + '_' + this.props.shift.username + '_sum'} open>
                 <summary>Summary</summary>
                 <div className="row">
                     <div className="col-sm-10 col-md-10">
@@ -28,6 +28,8 @@ class ShiftSummaryTab extends React.Component {
                             <BarGraph
                                 duration={this.props.shift.durationSeconds}
                                 hourkey="summary"
+                                date={this.props.date}
+                                username={this.props.shift.username}
                                 hours={this.props.shift.hours}
                                 calls={this.props.shift.calls}
                                 claims={this.props.shift.claims}

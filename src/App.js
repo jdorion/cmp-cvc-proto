@@ -3,8 +3,13 @@ import { hot } from 'react-hot-loader';
 import ShiftSummaryTab from './components/ShiftSummary';
 import Container from './components/Container';
 import HourlyTab from './components/Hourly';
+import ReactTooltip from 'react-tooltip';
 
 class App extends React.Component {
+    componentDidMount() {
+        ReactTooltip.rebuild();
+    }
+
     render() {
         const days = [];
         cvcData.days.forEach(day => {
@@ -15,6 +20,7 @@ class App extends React.Component {
                         key={shift.username}
                         shift={shift}
                         isPrintView={cvcData.isPrintView}
+                        date={day.date}
                         formattedDate={day.formattedDate}
                     />
                 );
@@ -32,7 +38,26 @@ class App extends React.Component {
             );
         });
 
-        return days;
+        return (
+            <div>
+                <a data-tip data-for="happyFace">
+                    {' '}
+                    d(`･∀･)b{' '}
+                </a>
+                <ReactTooltip id="happyFace" type="error">
+                    <span>Show happy face</span>
+                </ReactTooltip>
+                <a data-tip data-for="sadFace">
+                    {' '}
+                    இдஇ{' '}
+                </a>
+                <ReactTooltip id="sadFace" type="warning" effect="solid">
+                    <span>Show sad face</span>
+                </ReactTooltip>
+                {days}
+            </div>
+        );
+        //return days;
     }
 }
 
@@ -53,7 +78,6 @@ class InterviewerShift extends React.Component {
     }
 
     claimBelongsInHour(claim, hour) {
-        console.log('claim: ', claim);
         // if the claim starts inside the given hour, include it
         if (claim.starttime.startsWith(hour + ':')) {
             return true;
@@ -89,6 +113,8 @@ class InterviewerShift extends React.Component {
                 hours.push(
                     <HourlyTab
                         key={element.hour}
+                        date={this.props.date}
+                        username={this.props.shift.username}
                         hour={element}
                         formattedDate={this.props.formattedDate}
                         isCATI={this.props.shift.isCATI}
@@ -115,6 +141,7 @@ class InterviewerShift extends React.Component {
                     <div className="tabpanels">
                         <ShiftSummaryTab
                             shift={this.props.shift}
+                            date={this.props.date}
                             formattedDate={this.props.formattedDate}
                             isPrintView={this.props.isPrintView}
                         />

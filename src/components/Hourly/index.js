@@ -38,6 +38,8 @@ class HourlyTab extends React.Component {
                         <BarGraph
                             duration="3600"
                             hourkey={this.props.hour.hour}
+                            date={this.props.date}
+                            username={this.props.username}
                             hour={this.props.hour}
                             calls={this.props.calls}
                             claims={this.props.claims}
