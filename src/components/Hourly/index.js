@@ -51,13 +51,35 @@ class HourlyTab extends React.Component {
                         <p>Total off system {this.props.hour.totalOffSystemTime}</p>
                     </div>
                 </div>
-                <HourlyCaseWorkDetails calls={this.props.calls} isCATI={this.props.isCATI} />
+                <HourlyCaseWorkDetails
+                    calls={this.props.calls}
+                    isCATI={this.props.isCATI}
+                    uniqueKey={
+                        this.props.date + '_' + this.props.username + '_' + this.props.hour.hour
+                    }
+                />
             </div>
         );
     }
 }
 
 class HourlyCaseWorkDetails extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            showWhiteSpots: true,
+        };
+
+        this.handleCheckClicked = this.handleCheckClicked.bind(this);
+    }
+
+    handleCheckClicked(e) {
+        this.setState({
+            showWhiteSpots: e.target.checked,
+        });
+    }
+
     render() {
         const rows = [];
 
@@ -67,9 +89,15 @@ class HourlyCaseWorkDetails extends React.Component {
                     <AttemptRow key={element.id} attempt={element} isCATI={this.props.isCATI} />
                 );
             } else {
-                rows.push(
-                    <WhiteSpotRow key={element.id} whitespot={element} isCATI={this.props.isCATI} />
-                );
+                if (this.state.showWhiteSpots) {
+                    rows.push(
+                        <WhiteSpotRow
+                            key={element.id}
+                            whitespot={element}
+                            isCATI={this.props.isCATI}
+                        />
+                    );
+                }
             }
         });
 
@@ -85,7 +113,17 @@ class HourlyCaseWorkDetails extends React.Component {
                                 <th />
                                 <th>
                                     Outcome<br />
-                                    <label htmlFor="show-off-sys1" className="mrgn-lft-sm">
+                                    <input
+                                        id={this.props.uniqueKey + '_show-off-sys1'}
+                                        className="show-off-sys"
+                                        type="checkbox"
+                                        checked={this.state.showWhiteSpots}
+                                        onChange={this.handleCheckClicked}
+                                    />
+                                    <label
+                                        htmlFor={this.props.uniqueKey + '_show-off-sys1'}
+                                        className="mrgn-lft-sm"
+                                    >
                                         View off system time
                                     </label>
                                 </th>

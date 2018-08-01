@@ -125,7 +125,7 @@ class InterviewerShift extends React.Component {
                         </span>
                     </h4>
                 </div>
-                <Tabs forceRenderTabPanel>
+                <Tabs>
                     <TabList>
                         <Tab>Summary</Tab>
                         {hourlist}
