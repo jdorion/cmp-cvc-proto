@@ -39,6 +39,18 @@ class App extends React.Component {
 }
 
 class InterviewerShift extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { tabIndex: 0 };
+        this.handleTabLinkSelected = this.handleTabLinkSelected.bind(this);
+    }
+
+    handleTabLinkSelected(hourIndex) {
+        this.setState({
+            tabIndex: hourIndex,
+        });
+    }
+
     filterCalls(calls, hour) {
         var filteredCalls = [];
 
@@ -125,7 +137,10 @@ class InterviewerShift extends React.Component {
                         </span>
                     </h4>
                 </div>
-                <Tabs>
+                <Tabs
+                    selectedIndex={this.state.tabIndex}
+                    onSelect={tabIndex => this.setState({ tabIndex })}
+                >
                     <TabList>
                         <Tab>Summary</Tab>
                         {hourlist}
@@ -136,6 +151,7 @@ class InterviewerShift extends React.Component {
                             date={this.props.date}
                             formattedDate={this.props.formattedDate}
                             isPrintView={this.props.isPrintView}
+                            handleTabLinkSelected={this.handleTabLinkSelected}
                         />
                     </TabPanel>
                     {hours}

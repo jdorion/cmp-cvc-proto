@@ -34,6 +34,7 @@ class ShiftSummaryTab extends React.Component {
                                 claims={this.props.shift.claims}
                                 finalHourLabel={this.props.shift.finalHourLabel}
                                 renderLink={this.props.shift.renderLink}
+                                handleTabLinkSelected={this.props.handleTabLinkSelected}
                             />
                         </div>
                     </div>
@@ -50,6 +51,7 @@ class ShiftSummaryTab extends React.Component {
                 <SummaryCaseWorkDetailsAccordion
                     hours={this.props.shift.hours}
                     isPrintView={this.props.isPrintView}
+                    handleTabLinkSelected={this.props.handleTabLinkSelected}
                 />
                 <PayClaimSummaryAccordion
                     claims={this.props.shift.claims}
@@ -63,11 +65,21 @@ class ShiftSummaryTab extends React.Component {
 class SummaryCaseWorkDetailsAccordion extends React.Component {
     render() {
         const rows = [];
-        this.props.hours.forEach(element => {
+        var hourIndex = 0;
+        for (var i = 0; i < this.props.hours.length; i++) {
+            var element = this.props.hours[i];
             if (element.hasAttempt) {
-                rows.push(<SummaryCaseWorkDetailsHourRow key={element.start} hour={element} />);
+                hourIndex++; /* +1 bc shift summary is always first */
+                rows.push(
+                    <SummaryCaseWorkDetailsHourRow
+                        key={element.start}
+                        hour={element}
+                        hourIndex={hourIndex}
+                        handleTabLinkSelected={this.props.handleTabLinkSelected}
+                    />
+                );
             }
-        });
+        }
 
         return (
             <Container
@@ -113,12 +125,24 @@ class SummaryCaseWorkDetailsAccordion extends React.Component {
 }
 
 class SummaryCaseWorkDetailsHourRow extends React.Component {
+    constructor(props) {
+        super(props);
+        this.selectTab = this.selectTab.bind(this);
+    }
+
+    selectTab(e) {
+        e.preventDefault();
+        this.props.handleTabLinkSelected(this.props.hourIndex);
+    }
+
     render() {
         const hour = this.props.hour;
         return (
             <tr>
                 <td>
-                    <a href={'#' + hour.id}>{hour.description}</a>
+                    <a href="#" onClick={this.selectTab}>
+                        {hour.description}
+                    </a>
                 </td>
                 <td className="text-right">{hour.responses}</td>
                 <td className="text-right">{hour.refusals}</td>

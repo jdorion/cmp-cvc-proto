@@ -31,6 +31,7 @@ class BarGraph extends React.Component {
                             hourkey={this.props.hourkey}
                             finalHourLabel={this.props.finalHourLabel}
                             renderLink={this.props.renderLink}
+                            handleTabLinkSelected={this.props.handleTabLinkSelected}
                         />
                     </tbody>
                 </table>
@@ -421,34 +422,22 @@ class BarGraphLine4 extends React.Component {
 
 // this line of the bargraph renders the hourly labels / links at the bottom
 class BarGraphLine5 extends React.Component {
-    getClassName(index) {
-        return index === 0 ? 'ln-hght-30px' : 'text-center';
-    }
-
-    getColSpan(index) {
-        return index === 0 ? '1' : '2';
-    }
-
-    getTDValue(hour, renderLink) {
-        if (renderLink && hour.hasAttempt) {
-            return <a href={'#' + hour.id}>{hour.start}</a>;
-        } else {
-            return hour.start;
-        }
-    }
-
     render() {
         if (this.props.hours) {
             const rows = [];
+            var hourTabIndex = 0;
             for (var i = 0; i < this.props.hours.length; i++) {
+                if (this.props.hours[i].hasAttempt) {
+                    hourTabIndex++;
+                }
                 rows.push(
-                    <td
-                        key={this.props.hours[i].start}
-                        className={this.getClassName(i)}
-                        colSpan={this.getColSpan(i)}
-                    >
-                        {this.getTDValue(this.props.hours[i], this.props.renderLink)}
-                    </td>
+                    <BarGraphLine5TD
+                        isFirstHour={i === 0}
+                        hourTabIndex={hourTabIndex}
+                        hour={this.props.hours[i]}
+                        renderLink={this.props.renderLink}
+                        handleTabLinkSelected={this.props.handleTabLinkSelected}
+                    />
                 );
             }
             return (
@@ -467,6 +456,50 @@ class BarGraphLine5 extends React.Component {
                 </tr>
             );
         }
+    }
+}
+
+class BarGraphLine5TD extends React.Component {
+    constructor(props) {
+        super(props);
+        this.selectTab = this.selectTab.bind(this);
+    }
+
+    selectTab(e) {
+        e.preventDefault();
+        this.props.handleTabLinkSelected(this.props.hourTabIndex);
+    }
+
+    getClassName(isFirstHour) {
+        return isFirstHour ? 'ln-hght-30px' : 'text-center';
+    }
+
+    getColSpan(isFirstHour) {
+        return isFirstHour ? '1' : '2';
+    }
+
+    getTDValue(hour, renderLink) {
+        if (renderLink && hour.hasAttempt) {
+            return (
+                <a href="#" onClick={this.selectTab}>
+                    {hour.start}
+                </a>
+            );
+        } else {
+            return hour.start;
+        }
+    }
+
+    render() {
+        return (
+            <td
+                key={this.props.hour.start}
+                className={this.getClassName(this.props.isFirstHour)}
+                colSpan={this.getColSpan(this.props.isFirstHour)}
+            >
+                {this.getTDValue(this.props.hour, this.props.renderLink)}
+            </td>
+        );
     }
 }
 
