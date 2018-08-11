@@ -70,7 +70,32 @@ class CallTooltips extends React.Component {
     render() {
         var tooltips = [];
         this.props.calls.forEach(call => {
-            if (call.attempt) {
+            if (call.outcomecategory === outcomeCategories.PADDING) {
+                // do nothing
+            } else if (call.outcomecategory === outcomeCategories.WHITE_SPOT) {
+                tooltips.push(
+                    <ReactTooltip
+                        key={call.id}
+                        id={this.getTooltipID(call)}
+                        type="light"
+                        effect="solid"
+                    >
+                        <span>
+                            <strong>Start time</strong>
+                            <br />
+                            {call.starttime}
+                            <br />
+                            <strong>End time</strong>
+                            <br />
+                            {call.endtime}
+                            <br />
+                            <strong>Off system time</strong>
+                            <br />
+                            {call.duration}
+                        </span>
+                    </ReactTooltip>
+                );
+            } else {
                 tooltips.push(
                     <ReactTooltip
                         key={call.id}
@@ -94,29 +119,6 @@ class CallTooltips extends React.Component {
                             <strong>Total system time</strong>
                             <br />
                             {call.totalsystemtime}
-                        </span>
-                    </ReactTooltip>
-                );
-            } else {
-                tooltips.push(
-                    <ReactTooltip
-                        key={call.id}
-                        id={this.getTooltipID(call)}
-                        type="light"
-                        effect="solid"
-                    >
-                        <span>
-                            <strong>Start time</strong>
-                            <br />
-                            {call.starttime}
-                            <br />
-                            <strong>End time</strong>
-                            <br />
-                            {call.endtime}
-                            <br />
-                            <strong>Off system time</strong>
-                            <br />
-                            {call.duration}
                         </span>
                     </ReactTooltip>
                 );
@@ -230,7 +232,10 @@ class BarGraphLine2 extends React.Component {
     }
 
     getClassName(attempt, index) {
-        var className = 'zoom';
+        var className = '';
+        if (attempt.outcomecategory !== outcomeCategories.PADDING) {
+            className += 'zoom';
+        }
 
         // is the first element
         if (index === 0) {
@@ -242,16 +247,14 @@ class BarGraphLine2 extends React.Component {
             className += ' brdr-lft-drk';
         }
 
-        if (attempt.attempt) {
-            if (attempt.outcomecategory === outcomeCategories.RESPONSES) {
-                className += ' bg-res';
-            } else if (attempt.outcomecategory === outcomeCategories.REFUSALS) {
-                className += ' bg-ref';
-            } else if (attempt.outcomecategory === outcomeCategories.NO_CONTACTS) {
-                className += ' bg-nocon';
-            } else if (attempt.outcomecategory === outcomeCategories.OTHER_OUTCOMES) {
-                className += ' bg-other';
-            }
+        if (attempt.outcomecategory === outcomeCategories.RESPONSES) {
+            className += ' bg-res';
+        } else if (attempt.outcomecategory === outcomeCategories.REFUSALS) {
+            className += ' bg-ref';
+        } else if (attempt.outcomecategory === outcomeCategories.NO_CONTACTS) {
+            className += ' bg-nocon';
+        } else if (attempt.outcomecategory === outcomeCategories.OTHER_OUTCOMES) {
+            className += ' bg-other';
         } else {
             className += ' bg-off-sys';
         }
@@ -272,29 +275,17 @@ class BarGraphLine2 extends React.Component {
         const rows = [];
         for (var i = 0; i < this.props.calls.length; i++) {
             var call = this.props.calls[i];
-            if (i === 0) {
-                rows.push(
-                    <td
-                        key={call.id}
-                        style={this.getWidth(call)}
-                        className={this.getClassName(call, i)}
-                        data-tip
-                        data-for={this.getTooltipID(call)}
-                    >
-                        &nbsp;
-                    </td>
-                );
-            } else {
-                rows.push(
-                    <td
-                        key={call.id}
-                        style={this.getWidth(call)}
-                        className={this.getClassName(call, i)}
-                        data-tip
-                        data-for={this.getTooltipID(call)}
-                    />
-                );
-            }
+            rows.push(
+                <td
+                    key={call.id}
+                    style={this.getWidth(call)}
+                    className={this.getClassName(call, i)}
+                    data-tip
+                    data-for={this.getTooltipID(call)}
+                >
+                    {(i === 0) ? '\u00A0' : ''}
+                </td>
+            );
         }
 
         return (
@@ -432,6 +423,7 @@ class BarGraphLine5 extends React.Component {
                 }
                 rows.push(
                     <BarGraphLine5TD
+                        key={this.props.hours[i].start}
                         isFirstHour={i === 0}
                         hourTabIndex={hourTabIndex}
                         hour={this.props.hours[i]}
@@ -493,7 +485,6 @@ class BarGraphLine5TD extends React.Component {
     render() {
         return (
             <td
-                key={this.props.hour.start}
                 className={this.getClassName(this.props.isFirstHour)}
                 colSpan={this.getColSpan(this.props.isFirstHour)}
             >

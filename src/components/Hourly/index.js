@@ -84,11 +84,10 @@ class HourlyCaseWorkDetails extends React.Component {
         const rows = [];
 
         this.props.calls.forEach(element => {
-            if (element.attempt) {
-                rows.push(
-                    <AttemptRow key={element.id} attempt={element} isCATI={this.props.isCATI} />
-                );
-            } else {
+
+            if (element.outcomecategory === outcomeCategories.PADDING) {
+                // do nothing
+            } else if (element.outcomecategory === outcomeCategories.WHITE_SPOT) {
                 if (this.state.showWhiteSpots) {
                     rows.push(
                         <WhiteSpotRow
@@ -98,6 +97,10 @@ class HourlyCaseWorkDetails extends React.Component {
                         />
                     );
                 }
+            } else {
+                rows.push(
+                    <AttemptRow key={element.id} attempt={element} isCATI={this.props.isCATI} />
+                );
             }
         });
 
