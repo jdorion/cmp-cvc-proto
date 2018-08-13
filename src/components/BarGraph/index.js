@@ -231,6 +231,45 @@ class BarGraphLine2 extends React.Component {
         );
     }
 
+    countOutcomeCategories() {
+        var resCnt, refCnt, otherCnt, noconCnt;
+        resCnt = refCnt = otherCnt = noconCnt = 0;
+
+        this.props.calls.forEach(element => {
+            if (element.outcomecategory === outcomeCategories.RESPONSES) {
+                element["categorycount"] = resCnt;
+                switch(resCnt) {
+                    case 0: resCnt = 1; break;
+                    case 1: resCnt = 0; break;
+                } 
+                refCnt = otherCnt = noconCnt = 0;
+            } else if (element.outcomecategory === outcomeCategories.REFUSALS) {
+                element["categorycount"] = refCnt;
+                switch(refCnt) {
+                    case 0: refCnt = 1; break;
+                    case 1: refCnt = 0; break;
+                } 
+                resCnt = otherCnt = noconCnt = 0;
+            } else if (element.outcomecategory === outcomeCategories.NO_CONTACTS) {
+                element["categorycount"] = noconCnt;
+                switch(noconCnt) {
+                    case 0: noconCnt = 1; break;
+                    case 1: noconCnt = 2; break;
+                    case 2: noconCnt = 0; break;
+                } 
+                resCnt = otherCnt = refCnt = 0;
+            } else if (element.outcomecategory === outcomeCategories.OTHER_OUTCOMES) {
+                element["categorycount"] = otherCnt;
+                switch(otherCnt) {
+                    case 0: otherCnt = 1; break;
+                    case 1: otherCnt = 0; break;
+                    case 2: otherCnt = 0; break;
+                } 
+                resCnt = refCnt = noconCnt = 0;
+            }
+        });
+    }
+
     getClassName(attempt, index) {
         var className = '';
         if (attempt.outcomecategory !== outcomeCategories.PADDING) {
@@ -248,13 +287,13 @@ class BarGraphLine2 extends React.Component {
         }
 
         if (attempt.outcomecategory === outcomeCategories.RESPONSES) {
-            className += ' bg-res';
+            className += ' bg-res-' + attempt.categorycount;
         } else if (attempt.outcomecategory === outcomeCategories.REFUSALS) {
-            className += ' bg-ref';
+            className += ' bg-ref-' + attempt.categorycount;
         } else if (attempt.outcomecategory === outcomeCategories.NO_CONTACTS) {
-            className += ' bg-nocon';
+            className += ' bg-nocon-' + attempt.categorycount;
         } else if (attempt.outcomecategory === outcomeCategories.OTHER_OUTCOMES) {
-            className += ' bg-other';
+            className += ' bg-other-' + attempt.categorycount;
         } else {
             className += ' bg-off-sys';
         }
@@ -272,6 +311,7 @@ class BarGraphLine2 extends React.Component {
     }
 
     render() {
+        {this.countOutcomeCategories()}
         const rows = [];
         for (var i = 0; i < this.props.calls.length; i++) {
             var call = this.props.calls[i];
