@@ -1,6 +1,6 @@
 import React from 'react';
-import BarGraph from '/src/components/BarGraph';
-import Container from '/src/components/Container';
+import BarGraph from '../BarGraph';
+import Container from '../Container';
 import claimTypes from '../../codesets/claimTypes';
 
 class ShiftSummaryTab extends React.Component {
