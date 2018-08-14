@@ -1,599 +1,221 @@
-    	/******** COLLECTION MANAGEMENT PROGRAM CSS ********/
-    	
-    	.table-bordered>tbody>tr.report-total>td {
-    		border-top: 2px solid #000;
-    		border-bottom: 2px solid #000;
-    	}
-    	
-    	#cn-parentChild {
-    		position: relative;
-    		top: 0px;
-    		right: 0px;
-    		float: right;
-    		z-index: 9999999;
-    	}
-    	
-    	.modal-dialog.lg {
-    		width: 900px;
-    	}
-    	
-    	a.lnk-active {
-    		font-weight: 800;
-    		text-decoration: none;
-    	}
-    	/*------------------------------------*\
-	#Jessica
-\*------------------------------------*/
-    	/*Close gab between tabs*/
-    	
-    	.wb-tabs [role=tablist] li {
-    		margin: 0 3px 0 0;
-    	}
-    	
-    	.list-group-item-warning a .text-warning.fa.fa-pencil:hover {
-    		color: #333;
-    	}
-    	
-    	.list-group-item-warning a .text-warning.fa.fa-trash:hover {
-    		color: #333;
-    	}
-    	/*Align icon with toggle text*/
-    	
-    	.toggle .fa-plus-circle {
-    		line-height: 1.49;
-    	}
-    	
-    	.fa-star.star-yellow {
-    		color: #FBD850;
-    	}
-    	
-    	ul.search-results>li,
-    	ul.consolidated-search-results>li {
-    		padding-top: 8px;
-    		padding-bottom: 8px;
-    		border-bottom: 1px dotted #cccccc;
-    	}
-    	
-    	ul.search-results>li>address {
-    		margin: 0;
-    	}
-    	
-    	.nav-button>.row>.col-md-8>.pagination>li>a {
-    		margin-bottom: -8px !important;
-    	}
-    	
-    	.ui-datepicker-trigger {
-    		border: none;
-    		background: none;
-    	}
-    	
-    	.survey {
-    		padding: 0px 10px;
-    		margin: 15px 0;
-    		border: 1px solid #e3e3e3;
-    		border-radius: 3px;
-    		background: #f5f5f5;
-    	}
-    	
-    	.survey .cycle {
-    		border-left: 1px solid #C0C0C0;
-    	}
-    	
-    	.sp-done {
-    		background: #d8eeca;
-    		padding: 1px 8px 1px 6px;
-    		border-radius: 10px;
-    	}
-    	
-    	.sample-uploaded {
-    		background: #e5eed0;
-    		padding: 3px 8px 3px 6px;
-    		margin-left: 10px;
-    		border-radius: 10px;
-    	}
-    	
-    	.start-date,
-    	.end-date {
-    		margin: 5px 0 20px 0;
-    	}
-    	
-    	.panel-toggle ul.list-justified {
-    		display: table;
-    		width: 100%;
-    		list-style: none;
-    		padding: 0;
-    	}
-    	
-    	.panel-toggle ul.list-justified>li {
-    		float: none;
-    		display: table-cell;
-    		padding: 5px;
-    		border-right: 1px solid #eee;
-    		width: 33.33%;
-    	}
-    	
-    	.panel-toggle ul.list-justified>li:first-child {
-    		padding: 0px 15px 5px 0px !important;
-    	}
-    	
-    	.panel-toggle ul.list-justified>li:last-child {
-    		border: none;
-    		padding: 0px 0px 5px 15px !important;
-    	}
-    	
-    	.panel-toggle ul.list-justified>li p {
-    		margin: 0;
-    	}
-    	
-    	.sample-units {
-    		font-size: 25px;
-    		color: #176BA5;
-    		font-weight: bold;
-    	}
-    	
-    	.category {
-    		color: #176BA5;
-    		font-weight: bold;
-    		padding-bottom: 2px;
-    	}
-    	
-    	#parentSurvey tr:first-child .up,
-    	#parentSurvey tr:last-child .down {
-    		display: none;
-    	}
-    	
-    	.up,
-    	.down {
-    		display: block;
-    		margin: 0 auto;
-    		border-width: 0;
-    		height: 15px;
-    		overflow: hidden !important;
-    	}
-    	
-    	.down {
-    		padding-bottom: 18px;
-    	}
-    	
-    	.down i {
-    		line-height: 0em;
-    	}
-    	
-    	.highlight {
-    		background-color: #f2f9fe !important;
-    	}
-    	
-    	.panel-info-muted {
-    		border: 1px dotted #bebebe;
-    	}
-    	/*Outcome code*/
-    	
-    	.operations-tabs [role="tablist"] li.active a {
-    		height: 30px !important;
-    	}
-    	
-    	.operations-tabs [role="tablist"] li {}
-    	
-    	.outcome-tabs [role="tablist"] li.active a {
-    		height: 28px !important;
-    		background-color: transparent !important;
-    		/* -webkit-box-shadow: 4px 0px 0px 0px #fff; */
-    		box-shadow: 0px 4px 0px 0px #fff !important;
-    		-moz-box-shadow: 0px 4px 0px 0px #fff;
-    	}
-    	
-    	.outcome-tabs ul.generated {
-    		float: none !important;
-    		display: -webkit-box !important;
-    		display: -moz-box !important;
-    		display: -ms-flexbox !important;
-    		display: -webkit-flex !important;
-    		display: flex;
-    	}
-    	
-    	.outcome-tabs ul.generated li {
-    		border-bottom: 0 !important;
-    		top: 1px !important;
-    		margin: 0 10px 0 0 !important;
-    		border-top-left-radius: 5px !important;
-    		border-top-right-radius: 5px !important;
-    		border-bottom-right-radius: 0px !important;
-    		border-bottom-left-radius: 0px !important;
-    		border-color: #ccc !important;
-    		border-style: solid !important;
-    		border-width: 1px !important;
-    	}
-    	
-    	.outcome-tabs .generated li.active {
-    		border-bottom-color: white !important;
-    		cursor: default;
-    		padding-bottom: 1px;
-    	}
-    	
-    	.operations-tabs details {
-    		border-top-left-radius: 0px !important;
-    	}
-    	
-    	.light-blue-highlight {
-    		background-color: #EFF7FF !important;
-    		-moz-transition: background-color 2s;
-    		-webkit-transition: background-color 2s;
-    		-o-transition: background-color 2s;
-    		transition: background-color 2s;
-    	}
-    	
-    	#supervisorTable tbody tr {
-    		-moz-transition: background-color 2s;
-    		-webkit-transition: background-color 2s;
-    		-o-transition: background-color 2s;
-    		transition: background-color 2s;
-    	}
-    	/*------------------------------------*\
-	#Jessica - End
-\*------------------------------------*/
-    	/*------------------------------------*\
-	#Julie
-\*------------------------------------*/
-    	/* RMM */
-    	/* trying to fix the cell centering */
-    	
-    	.forecastCAPI td .input-group .form-control,
-    	.forecastCATI td .input-group .form-control {
-    		float: none;
-    		text-align: center;
-    	}
-    	/*------------------------------------*\
-	#Julie - End
-\*------------------------------------*/
-    	/*------------------------------------*\
-	#Delaney
-\*------------------------------------*/
-    	/*  Validation in progess page  */
-    	
-    	.spinner {
-    		float: left;
-    		width: 48px;
-    		height: 48px;
-    		animation: spin 3s linear infinite;
-    		padding: 5px;
-    		margin-right: 5px;
-    		position: relative;
-    		top: -8px;
-    	}
-    	
-    	@keyframes spin {
-    		0% {
-    			transform: rotate(0deg);
-    		}
-    		100% {
-    			transform: rotate(360deg);
-    		}
-    	}
-    	/* Survey Dashboard */
-    	
-    	.panel-heading-operation {
-    		color: #333;
-    		background-color: #f5f5f5;
-    		border-bottom: 2px solid #ccc;
-    		background-image: none;
-    		padding: 5px;
-    	}
-    	
-    	.operation-title-border {
-    		border-bottom: solid 1px #c9c9c9;
-    		padding: 5px;
-    	}
-    	
-    	.accordion-operation details summary:hover {
-    		text-decoration: none;
-    		color: #000;
-    	}
-    	
-    	.accordion-operation details summary {
-    		text-decoration: none;
-    		color: #000;
-    	}
-    	
-    	hr.mrgn-tp-sm.mrgn-bttm-0 {
-    		color: #c9c9c9;
-    	}
-    	
-    	h2.display-inline-block.mrgn-tp-md.mrgn-bttm-sm {
-    		font-size: 24px;
-    	}
-    	
-    	.progress-bar {
-    		background-color: #3055ba
-    	}
-    	
-    	.icon-light {
-    		color: #9EB8CA;
-    	}
-    	/**** Key indicator ***/
-    	
-    	#total thead tr {
-    		background-color: inherit;
-    	}
-    	/*-------------------------------------*\
-        Production plan report
-     /*-------------------------------------*/
-    	
-    	.commentBox,
-    	.commentSave,
-    	.commentCancel {
-    		display: none;
-    	}
-    	
-    	.good {
-    		color: green;
-    	}
-    	
-    	.caution {
-    		color: #ECDF1E;
-    	}
-    	
-    	.fail {
-    		color: red;
-    	}
-    	
-    	.noReport {
-    		color: #817c7c;
-    	}
-    	
-    	.no-comment-icon {
-    		padding: 6px 6px 6px;
-    		margin-left: 254px;
-    	}
-    	
-    	.milestoneMeters {
-    		margin-top: 5px;
-    		margin-left: 100px;
-    		margin-bottom: 10px;
-    	}
-    	
-    	.optionBorder {
-    		border: 1px solid lightgrey;
-    		border-radius: 2px;
-    		padding: 5 10 0 10;
-    	}
-    	
-    	.commentStandard {
-    		margin: 0px 2px -10px;
-    	}
-    	
-    	.commentShort {
-    		width: 144px;
-		}
-		
-/*-------------------------------------*\
-	Interviewer report
-/*-------------------------------------*/
-.reportLinks {
-	text-decoration: none;
+/****************************************************************
+					Call vs. Claim
+****************************************************************/
+
+/****************** COLOURS **********************************/
+
+.bg-res {
+	background-color: #03651b;
 }
 
-.plainLink a {
-	text-decoration: none;
-	border-bottom: 1px dotted #929292;
-	color: #000;
+.bg-res-2 {
+	background-color: #00bf00;
 }
-		/* Style the tab */
 
-		.verticalTab {
-			float: left;
+.bg-nocon {
+	background-color: #6080c0;
+}
 
-			width: 15%;
-		}
+.bg-nocon-2 {
+	background-color: #90bfdf;
+}
 
-		/* Style the buttons that are used to open the tab content */
+.bg-nocon-3 {
+	background-color: #3040a0;
+}
 
-		.verticalTab button {
-			display: block;
-			background: inherit;
-			border-color: #ccc;
-			border-style: solid;
-			border-width: 1px;
-			margin-left: 9px;
-			padding-bottom: 10px;
-			padding-top: 10px;
-			width: 100%;
-			color: #000;
-			cursor: pointer;
-			display: table-cell;
-			left: -10px;
-			position: relative;
-			text-align: center;
-		}
+.bg-other {
+	background-color: #7e60a0;
+}
 
-		/* Change background color of buttons on hover */
+.bg-other-2 {
+	background-color: #bf90cf;
+}
 
-		.verticalTab button:hover {
-			background-color: #ddd;
-		}
+.bg-other-3 {
+	background-color: #40306f;
+}
 
-		/* Create an active/current "tab button" class */
+.bg-ref {
+	background-color: #b30714;
+}
 
-		.verticalTab button.active {
-			background-color: #ccc;
-		}
+.bg-ref-2 {
+	background-color: #ff4d4d;
+}
 
-		/* Style the tab content */
+.bg-other-sur {
+	background-color: #949494;
+}
 
-		.tabcontent {
-			float: left;
-			padding: 20px;
-			border: 1px solid #ccc;
-			width: 85%;
-		}
+.bg-claimed {
+	background-color: #de630f;
+}
 
-	/*-------------------------------------*\
-#Delaney- End
-/*-------------------------------------*/
+.bg-other-task {
+	background-color: #f0de11;
+}
 
-		/****************************************************************
-                           Call vs. Claim - Survey
-        ****************************************************************/
+.bg-off-sys {
+	background-color: #ffffff;
+}
 
-        /****************** COLOURS **********************************/
+.bg-other-claim {
+	background-color: #CCCCCC;
+}
 
-        .bg-res {
-            background-color: #03651b;
-        }
+.text-outlier {
+	color: #D02B2C
+}
 
-        .bg-res-2 {
-            background-color: #00bf00;
-        }
+.cvc-colours {
+	width: 100%;
+	height: 30px;
+}
 
-        .bg-nocon {
-            background-color: #6080c0;
-        }
+.cvc-colours-tbl {
+	width: 20px;
+	height: 25px;
+}
 
-        .bg-nocon-2 {
-            background-color: #90bfdf;
-        }
+/************* FORMATTING *****************/
 
-        .bg-nocon-3 {
-            background-color: #3040a0;
-        }
+.cvc-mdl .dataTables_paginate .paginate_button.current {
+	padding: 10px 16px !important;
+}
 
-        .bg-other {
-            background-color: #7e60a0;
-        }
+.filterTag {
+	padding-left: 10px;
+	color: #ffffff;
+	background-color: #426D94;
+	display: inline-block;
+	border-radius: 5px;
+}
 
-        .bg-other-2 {
-            background-color: #bf90cf;
-        }
+.cvc-barGraph .zoom:hover {
+	transform: scaleY(1.2);
+	box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.2), 1px 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
 
-        .bg-other-3 {
-            background-color: #40306f;
-        }
+.cvc-barGraph .zoom.clickable:hover {
+	transform: scaleY(1.2);
+	box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.2), 1px 3px 10px 0 rgba(0, 0, 0, 0.19);
+	cursor: pointer;
+}
 
-        .bg-ref {
-			background-color: #b30714;
-        }
+#cvc-tooltip, .cvc-tooltip {
+	position: absolute;
+	display: none;
+	border: 2px solid #ddd;
+	padding: 15px;
+	background-color: #fff;
+	z-index: 500;
+	border-radius: 5px;
+}
 
-        .bg-ref-2 {
-            background-color: #ff4d4d;
-        }
+.view-details th {
+	vertical-align: top !important;
+}
 
-        .bg-other-sur {
-            background-color: #949494;
-        }
+/************** UTILS *********************/
+.pddng-8px {
+	padding: 8px;
+}
 
-		.bg-claimed {
-            background-color: #de630f;
-        }
+.brdr-lft-drk {
+	border-left: 2px solid #1f1f1f;
+}
 
-		.bg-other-task {
-            background-color: #f0de11;
-        }
+.brdr-rght-drk {
+	border-right: 2px solid #1f1f1f;
+}
 
-        .bg-off-sys {
-            background-color: #ffffff;
-        }
+.ln-hght-30px {
+	line-height: 30px;
+}
 
-		.bg-other-claim {
-			background-color: #CCCCCC;
-		}
+.brdr-lft-white {
+	border-left: 1px solid #ffffff;
+}
 
-		.text-outlier {
-			color: #D02B2C
-		}
+.brdr-rght-white {
+	border-right: 1px solid #ffffff;
+}
 
-        .cvc-colours {
-            width: 100%;
-            height: 30px;
-        }
+.width98 {
+	width: 98%;
+}
 
-		.cvc-colours-tbl {
-			width: 20px;
-			height: 25px;
-		}
+.height20px {
+	height: 20px;
+}
 
-        /************* FORMATTING *****************/
+.display-none {
+	display: none;
+}
 
-        .cvc-mdl .dataTables_paginate .paginate_button.current {
-            padding: 10px 16px !important;
-        }
+.brdr-all {
+	border: solid 1px #ccc;
+}
 
-        .filterTag {
-            padding-left: 10px;
-            color: #ffffff;
-            background-color: #426D94;
-            display: inline-block;
-            border-radius: 5px;
-        }
+.text-normal {
+	font-weight: normal;
+}
 
-        .cvc-barGraph .zoom:hover {
-            transform: scaleY(1.2);
-            box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.2), 1px 3px 10px 0 rgba(0, 0, 0, 0.19);
-        }
+/******************* REACT TABS *****************************/
+.react-tabs__tab-list {
+	border-bottom: 1px solid #aaa;
+	margin: 0 0 10px;
+	padding: 0;
+}
 
-		.cvc-barGraph .zoom.clickable:hover {
-			transform: scaleY(1.2);
-			box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.2), 1px 3px 10px 0 rgba(0, 0, 0, 0.19);
-			cursor: pointer;
-		}
+.react-tabs__tab {
+	display: inline-block;
+	border: 1px solid transparent;
+	border-bottom: none;
+	bottom: -1px;
+	position: relative;
+	list-style: none;
+	padding: 6px 12px;
+	cursor: pointer;
+}
 
-        #cvc-tooltip, .cvc-tooltip {
-            position: absolute;
-            display: none;
-            border: 2px solid #ddd;
-            padding: 15px;
-            background-color: #fff;
-            z-index: 500;
-            border-radius: 5px;
-        }
+.react-tabs__tab--selected {
+	background: #fff;
+	border-color: #aaa;
+	color: black;
+	border-radius: 5px 5px 0 0;
+}
 
-		.view-details th {
-			vertical-align: top !important;
-		}
+.react-tabs__tab-panel {
+	display: none;
+}
 
-        /************** UTILS *********************/
-        .pddng-8px {
-            padding: 8px;
-        }
+.react-tabs__tab-panel--selected {
+	display: block;
+}
 
-        .brdr-lft-drk {
-            border-left: 2px solid #1f1f1f;
-        }
+.react-tabs__tab--disabled {
+	color: GrayText;
+	cursor: default;
+}
 
-        .brdr-rght-drk {
-            border-right: 2px solid #1f1f1f;
-        }
+.react-tabs__tab:focus {
+	box-shadow: 0 0 5px hsl(208, 99%, 50%);
+	border-color: hsl(208,
+	99%, 50%);
+	outline: none;
+}
 
-        .ln-hght-30px {
-            line-height: 30px;
-        }
-
-        .brdr-lft-white {
-            border-left: 1px solid #ffffff;
-        }
-
-        .brdr-rght-white {
-            border-right: 1px solid #ffffff;
-        }
-
-        .width98 {
-			width: 98%;
-		}
-
-        .height20px {
-            height: 20px;
-        }
-
-        .display-none {
-            display: none;
-        }
-
-        .brdr-all {
-            border: solid 1px #ccc;
-        }
-
-        .text-normal {
-            font-weight: normal;
-        }
-
+.react-tabs__tab:focus:after {
+	content: "";
+	position: absolute;
+	height: 5px;
+	left: -4px;
+	right: -4px;
+	bottom: -5px;
+	background: #fff;
+}
 
 
 
