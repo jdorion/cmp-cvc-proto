@@ -8,7 +8,13 @@ class BarGraph extends React.Component {
         return (
             <div className="col-sm-12 col-md-12 cvc-barGraph mrgn-bttm-md">
                 <br />
-                <BarGraphLine1 shiftStart={this.props.shiftStart} shiftEnd={this.props.shiftEnd} />
+                <BarGraphLine1
+                    duration={this.props.duration}
+                    claims={this.props.claims}
+                    hourkey={this.props.hourkey}
+                    date={this.props.date}
+                    username={this.props.username}
+                />
                 <BarGraphLine2
                     duration={this.props.duration}
                     calls={this.props.calls}
@@ -179,36 +185,63 @@ class ClaimTooltips extends React.Component {
     }
 }
 
-// this component will always be three elements, it renders the top 'black bars' of the bar graph, based on the start and end of the interviewer's shift
 class BarGraphLine1 extends React.Component {
-    // these will require calculation based on props 'shiftStart' and 'shiftEnd'.
-    getWidth1() {
-        return '16.67%';
+    getClassName(claim, index) {
+        var className = '';
+
+        // is the first element
+        if (index === 0) {
+            className += 'ln-hght-30px';
+
+            // if the first element is padding, bar goes on right
+            if (claim.claimtype === claimTypes.OFF_SYSTEM_TIME) {
+                className += ' brdr-rght-drk';
+            } else {
+                className += ' brdr-lft-drk';
+            }
+        }
+
+        // is the last element
+        if (index === this.props.claims.length - 1) {
+            // if the last element is padding, bar goes on left
+            if (claim.claimtype === claimTypes.OFF_SYSTEM_TIME) {
+                className += ' brdr-lft-drk';
+            } else {
+                className += ' brdr-rght-drk';
+            }
+        }
+
+        return className;
     }
 
-    getWidth2() {
-        return '66.66%';
-    }
-
-    getWidth3() {
-        return '16.67%';
-    }
-
-    getDivStyle(width) {
-        return { width: width };
+    getWidth(claim) {
+        var claimduration = claim.durations[this.props.hourkey];
+        var calculatedWidth = 0;
+        if (this.props.duration > 0) {
+            calculatedWidth = ((claimduration / this.props.duration) * 100).toFixed(2);
+        }
+        return { width: calculatedWidth + '%' };
     }
 
     render() {
+        const rows = [];
+        for (var i = 0; i < this.props.claims.length; i++) {
+            var claim = this.props.claims[i];
+            rows.push(
+                <td
+                    key={claim.id}
+                    style={this.getWidth(claim)}
+                    className={this.getClassName(claim, i)}
+                >
+                    &nbsp;
+                </td>
+            );
+        }
+
         return (
             <table className="row_flags mrgn-lft-md brdr-lft-white brdr-rght-white width100">
                 <tbody>
-                    <tr className="brdr-bttm brdr-lft-white brdr-rght-white">
-                        <td style={this.getDivStyle(this.getWidth1())} className="ln-hght-30px">
-                            &nbsp;
-                        </td>
-                        <td style={this.getDivStyle(this.getWidth2())} className="brdr-lft-drk" />
-                        <td style={this.getDivStyle(this.getWidth3())} className="brdr-lft-drk" />
-                    </tr>
+                    <tr className="brdr-bttm brdr-lft-white brdr-rght-white">{rows}</tr>
                 </tbody>
             </table>
         );
@@ -239,12 +272,22 @@ class BarGraphLine2 extends React.Component {
 
         // is the first element
         if (index === 0) {
-            className += ' brdr-rght-drk ln-hght-30px';
+            className += ' ln-hght-30px';
+
+            if (attempt.outcomecategory === outcomeCategories.PADDING) {
+                className += ' brdr-rght-drk';
+            } else {
+                className += ' brdr-lft-drk';
+            }
         }
 
         // is the last element
         if (index === this.props.calls.length - 1) {
-            className += ' brdr-lft-drk';
+            if (attempt.outcomecategory === outcomeCategories.PADDING) {
+                className += ' brdr-lft-drk';
+            } else {
+                className += ' brdr-rght-drk';
+            }
         }
 
         if (attempt.outcomecategory === outcomeCategories.RESPONSES) {
@@ -283,7 +326,7 @@ class BarGraphLine2 extends React.Component {
                     data-tip
                     data-for={this.getTooltipID(call)}
                 >
-                    {(i === 0) ? '\u00A0' : ''}
+                    {i === 0 ? '\u00A0' : ''}
                 </td>
             );
         }
@@ -309,12 +352,24 @@ class BarGraphLine3 extends React.Component {
 
         // is the first element
         if (index === 0) {
-            className += ' brdr-rght-drk ln-hght-30px';
+            className += ' ln-hght-30px';
+
+            // if the first element is padding, bar goes on right
+            if (claim.claimtype === claimTypes.OFF_SYSTEM_TIME) {
+                className += ' brdr-rght-drk';
+            } else {
+                className += ' brdr-lft-drk';
+            }
         }
 
         // is the last element
         if (index === this.props.claims.length - 1) {
-            className += ' brdr-lft-drk';
+            // if the last element is padding, bar goes on left
+            if (claim.claimtype === claimTypes.OFF_SYSTEM_TIME) {
+                className += ' brdr-lft-drk';
+            } else {
+                className += ' brdr-rght-drk';
+            }
         }
 
         if (claim.claimtype === claimTypes.OFF_SYSTEM_TIME) {
