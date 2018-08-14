@@ -232,41 +232,36 @@ class BarGraphLine2 extends React.Component {
     }
 
     countOutcomeCategories() {
-        var resCnt, refCnt, otherCnt, noconCnt;
-        resCnt = refCnt = otherCnt = noconCnt = 0;
+        var count = 0;
+        var prevCall = null;
 
         this.props.calls.forEach(element => {
-            if (element.outcomecategory === outcomeCategories.RESPONSES) {
-                element["categorycount"] = resCnt;
-                switch(resCnt) {
-                    case 0: resCnt = 1; break;
-                    case 1: resCnt = 0; break;
-                } 
-                refCnt = otherCnt = noconCnt = 0;
-            } else if (element.outcomecategory === outcomeCategories.REFUSALS) {
-                element["categorycount"] = refCnt;
-                switch(refCnt) {
-                    case 0: refCnt = 1; break;
-                    case 1: refCnt = 0; break;
-                } 
-                resCnt = otherCnt = noconCnt = 0;
-            } else if (element.outcomecategory === outcomeCategories.NO_CONTACTS) {
-                element["categorycount"] = noconCnt;
-                switch(noconCnt) {
-                    case 0: noconCnt = 1; break;
-                    case 1: noconCnt = 2; break;
-                    case 2: noconCnt = 0; break;
-                } 
-                resCnt = otherCnt = refCnt = 0;
-            } else if (element.outcomecategory === outcomeCategories.OTHER_OUTCOMES) {
-                element["categorycount"] = otherCnt;
-                switch(otherCnt) {
-                    case 0: otherCnt = 1; break;
-                    case 1: otherCnt = 0; break;
-                    case 2: otherCnt = 0; break;
-                } 
-                resCnt = refCnt = noconCnt = 0;
-            }
+            if (element.outcomecategory !== outcomeCategories.WHITE_SPOT && element.outcomecategory !== outcomeCategories.PADDING) {
+                if (prevCall === null) {
+                    element["categorycount"] = count;
+                    prevCall = element;
+                } else {
+                    if (prevCall.outcomecategory === element.outcomecategory) {
+                        if (element.outcomecategory === outcomeCategories.RESPONSES || element.outcomecategory === outcomeCategories.REFUSALS) {
+                            switch(prevCall.categorycount) {
+                                case 0: count = 1; break;
+                                case 1: count = 0; break;
+                            } 
+                        } else {
+                            switch(count) {
+                                case 0: count = 1; break;
+                                case 1: count = 2; break;
+                                case 2: count = 0; break;
+                            }
+                        }
+                        element["categorycount"] = count;
+                    } else {
+                        count = 0;
+                        element["categorycount"] = count;
+                    }
+                    prevCall = element;
+                }
+            }  
         });
     }
 
