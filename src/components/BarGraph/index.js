@@ -248,7 +248,7 @@ class BarGraphLine2 extends React.Component {
                                 case 1: count = 0; break;
                             } 
                         } else {
-                            switch(count) {
+                            switch(prevCall.categorycount) {
                                 case 0: count = 1; break;
                                 case 1: count = 2; break;
                                 case 2: count = 0; break;
