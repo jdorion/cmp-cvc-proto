@@ -226,6 +226,18 @@ class AttemptRow extends React.Component {
         return className;
     }
 
+    getPlusMinus(value) {
+        if (value.outlier) {
+            if (value.plusminus > 0) {
+                return "(+" + value.plusminus + " min)";
+            } else {
+                return "("+ value.plusminus + " min)";
+            }
+        } else {
+            return "";
+        }
+    }
+
     getIconClassName() {
         var className = 'fa';
 
@@ -257,8 +269,12 @@ class AttemptRow extends React.Component {
                 </td>
                 <td className="text-right">{this.props.attempt.starttime}</td>
                 <td className="text-right">{this.props.attempt.endtime}</td>
-                <td className="text-right">{this.props.attempt.interviewlength}</td>
-                <td className="text-right">{this.props.attempt.totalsystemtime}</td>
+                <td className="text-right">{this.props.attempt.interviewlength.length}
+                    <br/><span className="text-outlier">{this.getPlusMinus(this.props.attempt.interviewlength)}</span>
+                </td>
+                <td className="text-right">{this.props.attempt.totalsystemtime.length}
+                    <br/><span className="text-outlier">{this.getPlusMinus(this.props.attempt.totalsystemtime)}</span>
+                </td>
                 <td className={'text-right' + HourlyTab.getAccessMethodClass(this.props.isCATI)}>
                     <abbr title={this.props.attempt.accessmethod.text}>
                         {this.props.attempt.accessmethod.value}

@@ -124,7 +124,7 @@ class CallTooltips extends React.Component {
                             <br />
                             <strong>Total system time</strong>
                             <br />
-                            {call.totalsystemtime}
+                            {call.totalsystemtime.length}
                         </span>
                     </ReactTooltip>
                 );
