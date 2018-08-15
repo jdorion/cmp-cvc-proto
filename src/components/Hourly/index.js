@@ -214,16 +214,28 @@ class AttemptRow extends React.Component {
         var className = 'pddng-8px brdr-all';
 
         if (this.props.attempt.outcomecategory === outcomeCategories.NO_CONTACTS) {
-            className += ' bg-nocon';
+            className += ' bg-nocon-0';
         } else if (this.props.attempt.outcomecategory === outcomeCategories.OTHER_OUTCOMES) {
-            className += ' bg-other';
+            className += ' bg-other-0';
         } else if (this.props.attempt.outcomecategory === outcomeCategories.RESPONSES) {
-            className += ' bg-res';
+            className += ' bg-res-0';
         } else if (this.props.attempt.outcomecategory === outcomeCategories.REFUSALS) {
-            className += ' bg-ref';
+            className += ' bg-ref-0';
         }
 
         return className;
+    }
+
+    getPlusMinus(value) {
+        if (value.outlier) {
+            if (value.plusminus > 0) {
+                return "(+" + value.plusminus + " min)";
+            } else {
+                return "("+ value.plusminus + " min)";
+            }
+        } else {
+            return "";
+        }
     }
 
     getIconClassName() {
@@ -257,8 +269,12 @@ class AttemptRow extends React.Component {
                 </td>
                 <td className="text-right">{this.props.attempt.starttime}</td>
                 <td className="text-right">{this.props.attempt.endtime}</td>
-                <td className="text-right">{this.props.attempt.interviewlength}</td>
-                <td className="text-right">{this.props.attempt.totalsystemtime}</td>
+                <td className="text-right">{this.props.attempt.interviewlength.length}
+                    <br/><span className="text-outlier">{this.getPlusMinus(this.props.attempt.interviewlength)}</span>
+                </td>
+                <td className="text-right">{this.props.attempt.totalsystemtime.length}
+                    <br/><span className="text-outlier">{this.getPlusMinus(this.props.attempt.totalsystemtime)}</span>
+                </td>
                 <td className={'text-right' + HourlyTab.getAccessMethodClass(this.props.isCATI)}>
                     <abbr title={this.props.attempt.accessmethod.text}>
                         {this.props.attempt.accessmethod.value}
