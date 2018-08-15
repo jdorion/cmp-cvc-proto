@@ -214,13 +214,13 @@ class AttemptRow extends React.Component {
         var className = 'pddng-8px brdr-all';
 
         if (this.props.attempt.outcomecategory === outcomeCategories.NO_CONTACTS) {
-            className += ' bg-nocon';
+            className += ' bg-nocon-0';
         } else if (this.props.attempt.outcomecategory === outcomeCategories.OTHER_OUTCOMES) {
-            className += ' bg-other';
+            className += ' bg-other-0';
         } else if (this.props.attempt.outcomecategory === outcomeCategories.RESPONSES) {
-            className += ' bg-res';
+            className += ' bg-res-0';
         } else if (this.props.attempt.outcomecategory === outcomeCategories.REFUSALS) {
-            className += ' bg-ref';
+            className += ' bg-ref-0';
         }
 
         return className;

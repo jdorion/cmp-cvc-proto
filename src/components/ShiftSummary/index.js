@@ -99,19 +99,19 @@ class SummaryCaseWorkDetailsAccordion extends React.Component {
                                     </span>
                                 </th>
                                 <th className="text-right width20">
-                                    <span className="bg-res display-inline-block pddng-8px" />{' '}
+                                    <span className="bg-res-0 display-inline-block pddng-8px" />{' '}
                                     Responses
                                 </th>
                                 <th className="text-right width20">
-                                    <span className="bg-ref display-inline-block pddng-8px" />{' '}
+                                    <span className="bg-ref-0 display-inline-block pddng-8px" />{' '}
                                     Refusals
                                 </th>
                                 <th className="text-right width20">
-                                    <span className="bg-nocon display-inline-block pddng-8px" /> No
+                                    <span className="bg-nocon-0 display-inline-block pddng-8px" /> No
                                     contacts
                                 </th>
                                 <th className="text-right width20">
-                                    <span className="bg-other display-inline-block pddng-8px" />{' '}
+                                    <span className="bg-other-0 display-inline-block pddng-8px" />{' '}
                                     Other outcomes
                                 </th>
                             </tr>
