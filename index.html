@@ -220,7 +220,6 @@
         <!--    **************************************************************************
                 ********************     START OF MAIN CONTENT     *******************
                 ********************************************************************** -->
-
         <h1 id="wb-cont" class="hd-collection-forecast page-header">Call vs claim report
             <span class="hd-suffix">Survey:
                 <abbr title="Rabbit Cycle Survey">RCS</abbr> | Cycle: 05-2017</span>
@@ -228,7 +227,8 @@
         <section>
             <div class="row">
                 <div class="col-md-9">
-                    <p class="small">Updated Thurs. February 15, 2018 - 15:27 </p>
+                    <p class="small capitalize">Updated
+                        <abbr title="Thursday">Thurs.</abbr> February 15, 2018 - 15:27 </p>
                     <div class="wb-inv">
                         <h3>Interviewer view</h3>
                     </div>
@@ -242,10 +242,8 @@
                     <strong>Generate report</strong> button. Definitions are found in the
                     <a href="#glossary">glossary</a> at the bottom of the page.</span>
             </p>
-            <p>All fields marked with an asterisk (
-                <span class="text-outlier">*</span>) are mandatory.</p>
+            <p>All fields marked with an asterisk (<span class="text-outlier">*</span>) are mandatory.</p>
         </div>
-        <!-- data selection filters -->
         <div class="well width100 text-center center-block">
             <div class="btn-group btn-group-lg width100 mrgn-bttm-lg">
                 <a href="#" role="button" class="btn btn-primary width50">Interviewer view</a>
@@ -253,81 +251,100 @@
             </div>
             <div>
                 <form>
-                    <div class="row">
-                        <div class="col-sm-5 col-md-5">
-                            <div class="form-group text-left">
-                                <label for="startdate" class="width40 text-right">
-                                    <span class="text-outlier">*</span> From (
-                                    <abbr title="Four digits year, dash, two digits month, dash, two digits day">YYYY-MM-DD</abbr>)
-                                    <span class="datepicker-format"> (
-                                        <abbr title="Four digits year, dash, two digits month, dash, two digits day">YYYY-MM-DD</abbr>)</span>
-                                </label>
-                                <input class="form-control display-inline-block mrgn-rght-sm" type="text" id="startdate" name="startdate" value="2018-01-14"
-                                    size="10" maxlength="10">
+                    <div class="row mrgn-bttm-md">
+                        <div class="col-sm-6 col-md-5">
+                            <div class="row">
+                                <div class="col-sm-5 col-md-5 text-right pddng-rght-0">
+                                    <label for="startdate" class="text-right mrgn-tp-sm">
+                                        <span class="text-outlier">*</span> From (
+                                        <abbr title="Four digits year, dash, two digits month, dash, two digits day">YYYY-MM-DD</abbr>)</label>
+                                </div>
+                                <div class="col-sm-7 col-md-7 text-left">
+                                    <input class="form-control display-inline-block mrgn-rght-sm" type="text" id="startdate" name="startdate" value="2018-01-14"
+                                        size="10" maxlength="10" required>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-sm-7 col-md-7">
-                            <div class="form-group">
-                                <label for="survey" class="width20 text-right">
-                                    <span id="sur-mandatory" class="text-outlier">*</span> Survey</label>
-                                <select name="survey" class="form-control width70 display-inline-block" id="survey">
-                                    <option value="select">Select...</option>
-                                    <option value="RCS" selected>RCS - Rabbit Care Survey</option>
-                                    <option value="">-</option>
-                                    <option value="">-</option>
-                                    <option value="">-</option>
-                                </select>
+                        <div class="col-sm-6 col-md-7">
+                            <div class="row mrgn-tp-sm">
+                                <div class="col-sm-3 col-md-2"></div>
+                                <div class="col-sm-9 col-md-10 text-left">
+                                    <input id="all-surveys" type="checkbox" value="">
+                                    <label for="all-surveys" class="mrgn-lft-sm">Display all surveys</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mrgn-bttm-md">
+                        <div class="col-sm-6 col-md-5">
+                            <div class="row">
+                                <div class="col-sm-5 col-md-5 text-right pddng-rght-0">
+                                    <label for="enddate" class="text-right mrgn-tp-sm">To (
+                                        <abbr title="Four digits year, dash, two digits month, dash, two digits day">YYYY-MM-DD</abbr>)</label>
+                                </div>
+                                <div class="col-sm-7 col-md-7 text-left">
+                                    <input class="form-control display-inline-block mrgn-rght-sm" type="text" id="enddate" name="enddate" value="2018-01-14"
+                                        size="10" maxlength="10">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-7">
+                            <div class="row">
+                                <div class="col-sm-3 col-md-2 text-right pddng-rght-0">
+                                    <label for="survey" class="text-right mrgn-tp-sm">
+                                        <span id="sur-mandatory" class="text-outlier">*</span> Survey</label>
+                                </div>
+                                <div class="col-sm-9 col-md-10 text-left">
+                                    <select name="survey" class="form-control width100 display-inline-block" id="survey" required>
+                                        <option value="">Select...</option>
+                                        <option value="RCS" selected>RCS - Rabbit Care Survey</option>
+                                        <option value="">-</option>
+                                        <option value="">-</option>
+                                        <option value="">-</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-sm-5 col-md-5">
-                            <div class="form-group text-left">
-                                <label for="enddate" class="width40 text-right">To (
-                                    <abbr title="Four digits year, dash, two digits month, dash, two digits day">YYYY-MM-DD</abbr>)
-                                    <span class="datepicker-format"> (
-                                        <abbr title="Four digits year, dash, two digits month, dash, two digits day">YYYY-MM-DD</abbr>)</span>
-                                </label>
-                                <input class="form-control display-inline-block mrgn-rght-sm" type="text" id="enddate" name="enddate" value="2018-01-14"
-                                    size="10" maxlength="10">
+                        <div class="col-sm-6 col-md-5 text-left">
+                            <div class="row">
+                                <div class="col-sm-5 col-md-5"></div>
+                                <div class="col-sm-7 col-md-7 text-left">
+                                    <a href="#mdl-int" role="button" class="btn btn-default display-inline-block wb-lbx lbx-modal">Select interviewers</a>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-sm-7 col-md-7">
-                            <div class="form-group">
-                                <label for="cycle" class="width20 text-right">Cycle</label>
-                                <select name="cycle" class="form-control width70 display-inline-block" id="cycle">
-                                    <option value="select">Select...</option>
-                                    <option value="05-17" selected>05-17</option>
-                                    <option value="">-</option>
-                                    <option value="">-</option>
-                                    <option value="">-</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-5 col-md-5 text-left">
-                            <div class="width40 display-inline-block">&nbsp;</div>
-                            <a href="#mdl-int" role="button" class="btn btn-default display-inline-block wb-lbx lbx-modal">Select interviewers</a>
-                        </div>
-                        <div class="col-sm-7 col-md-7 text-left">
-                            <div class="width25 display-inline-block">&nbsp;</div>
-                            <div class="display-inline-block text-left">
-                                <input id="all-surveys" type="checkbox" value="">
-                                <label for="all-surveys" class="mrgn-lft-sm">Display all surveys</label>
+                        <div class="col-sm-6 col-md-7 text-left">
+                            <div class="row">
+                                <div class="col-sm-3 col-md-2 text-right pddng-rght-0">
+                                    <label for="cycle" class="text-right mrgn-tp-sm">Cycle</label>
+                                </div>
+                                <div class="col-sm-9 col-md-10 text-left">
+                                    <select name="cycle" class="form-control width100 display-inline-block" id="cycle">
+                                        <option value="">Select...</option>
+                                        <option value="05-17" selected>05-17</option>
+                                        <option value="">-</option>
+                                        <option value="">-</option>
+                                        <option value="">-</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-sm-5 col-md-5 text-left">
-                            <div class="width40 display-inline-block">&nbsp;</div>
-                            <div class="text-left display-inline-block">
-                                <p>Interviewers:</p>
-                                <ul class="list-unstyled">
-                                    <li>April Gardiner - CATI Interviewer</li>
-                                    <li>Interviewer XXX - CATI Interviewer</li>
-                                </ul>
+                    <div class="row mrgn-tp-md">
+                        <div class="col-sm-6 col-md-5 text-left">
+                            <div class="row">
+                                <div class="col-sm-5 col-md-5"></div>
+                                <div class="col-sm-7 col-md-7 text-left">
+                                    <p class="pddng-lft-0 mrgn-bttm-sm">
+                                        <strong>Interviewers</strong>
+                                    </p>
+                                    <ul class="pddng-lft-lg nowrap">
+                                        <li>Gardiner, April - CATI Interviewer</li>
+                                        <li>Interviewer XXX - CATI Interviewer</li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -336,13 +353,11 @@
                     </div>
                 </form>
             </div>
-
-
         </div>
         <section>
             <div class="row mrgn-tp-xl mrgn-bttm-md">
                 <div class="col-md-9 col-sm-9">
-                    <h2 class="mrgn-0 pddng-bttm-sm">Interviewers</h2>
+                    <h2 class="mrgn-0">Interviewers</h2>
                 </div>
                 <div class="col-md-3 col-sm-3 text-right text-left-xs">
                     <a href="#glossary-anchor" class="mrgn-rght-md">Glossary</a>&nbsp;
