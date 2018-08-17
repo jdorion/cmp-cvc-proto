@@ -98,7 +98,7 @@ class InterviewerShift extends React.Component {
     render() {
         const filteredHours = [];
         this.props.shift.hours.forEach(element => {
-            if (element.hasAttempt) {
+            if (element.hasAttempt || element.hasClaim) {
                 filteredHours.push(element);
             }
         });
