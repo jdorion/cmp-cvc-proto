@@ -81,16 +81,12 @@
 
         /************* FORMATTING *****************/
 
-        .cvc-mdl .dataTables_paginate .paginate_button.current {
-            padding: 10px 16px !important;
-        }
-
-        .filterTag {
-            padding-left: 10px;
-            color: #ffffff;
-            background-color: #426D94;
-            display: inline-block;
-            border-radius: 5px;
+      .filterTag {
+        padding-left: 10px;
+        color: #ffffff;
+        background-color: #426D94;
+        display: inline-block;
+        border-radius: 5px;
         }
 
         .cvc-barGraph .zoom:hover {
@@ -98,11 +94,11 @@
             box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.2), 1px 3px 10px 0 rgba(0, 0, 0, 0.19);
         }
 
-		.cvc-barGraph .zoom.clickable:hover {
-			transform: scaleY(1.2);
-			box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.2), 1px 3px 10px 0 rgba(0, 0, 0, 0.19);
-			cursor: pointer;
-		}
+        .cvc-barGraph .zoom.clickable:hover {
+        transform: scaleY(1.2);
+        box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.2), 1px 3px 10px 0 rgba(0, 0, 0, 0.19);
+        cursor: pointer;
+        }
 
         #cvc-tooltip, .cvc-tooltip {
             position: absolute;
@@ -114,9 +110,29 @@
             border-radius: 5px;
         }
 
-		.view-details th {
-			vertical-align: top !important;
-		}
+        .view-details th {
+        vertical-align: top !important;
+        }
+
+        .summary-casework th:nth-child(n+2), .summary-casework td:nth-child(n+2) {
+        text-align: center;
+        }
+
+        .summary-payclaim th:nth-child(2), .summary-payclaim th:nth-child(3) {
+        text-align: center;
+        }
+
+        .summary-payclaim td:nth-child(2), .summary-payclaim td:nth-child(3) {
+        text-align: center;
+        }
+
+        .view-details td:last-child.text-center {
+        text-align: center;
+        }
+
+        .view-details th:nth-child(n+4), .view-details td:nth-child(n+4) {
+        text-align: right;
+        }
 
         /************** UTILS *********************/
         .pddng-8px {
@@ -143,12 +159,12 @@
             border-right: 1px solid #ffffff;
         }
 
-        .width98 {
-			width: 98%;
-		}
-
         .height20px {
             height: 20px;
+        }
+
+        .height100 {
+        height: 100%;
         }
 
         .display-none {
@@ -159,11 +175,6 @@
             border: solid 1px #ccc;
         }
 
-        .text-normal {
-            font-weight: normal;
+        .well h4 .small {
+        color: #333;
         }
-
-
-
-
-
