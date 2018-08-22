@@ -100,14 +100,18 @@
         cursor: pointer;
         }
 
-        #cvc-tooltip, .cvc-tooltip {
-            position: absolute;
-            display: none;
-            border: 2px solid #ddd;
+        .cvc-tooltip {
+            border: 1px solid #ddd;
             padding: 15px;
-            background-color: #fff;
-            z-index: 500;
+            background-color: #fff !important;
             border-radius: 5px;
+            opacity: 1 !important;
+        }
+
+        .cvc-tooltip.place-top:after {
+            border-top-color: #ddd !important;
+            border-top-style: solid !important;
+            border-top-width: 6px !important;
         }
 
         .view-details th {
