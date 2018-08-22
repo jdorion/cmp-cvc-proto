@@ -1,23 +1,17 @@
 <!DOCTYPE html>
-
 <!--[if lt IE 9]><html class="no-js lt-ie9" lang="en"><![endif]-->
 <!--[if gt IE 8]><!-->
 <html class="no-js" lang="en">
-<script>
-    function MM_goToURL() { //v3.0
-        var i, args = MM_goToURL.arguments;
-        document.MM_returnValue = false;
-        for (i = 0; i < (args.length - 1); i += 2) eval(args[i] + ".location='" + args[i + 1] + "'");
-    }
-</script>
 <!-- InstanceBegin template="/Templates/CMP - 1 Column.dwt" codeOutsideHTMLIsLocked="false" -->
 <!--<![endif]-->
 
 <head>
     <meta charset="utf-8" />
+
     <!-- InstanceBeginEditable name="doctitle" -->
     <title>Collection Management Portal</title>
     <!-- InstanceEndEditable -->
+
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta name="description" content="" />
     <meta name="dcterms.title" content="" />
@@ -41,26 +35,35 @@
     <link rel="stylesheet" href="./css/prototype.css" />
     <link rel="stylesheet" href="./css/font-awesome.min.css" />
 
+    <!--[if lt IE 9]>
+    <link href="../assets/favicon.ico" rel="shortcut icon" />
+    <link rel="stylesheet" href="../css/ie8-theme.min.css" />
+    <script src="../js/jquery/1.11.1/jquery.min"></script>
+    <script src="../js/ie8-wet-boew.min.js"></script>
+    <![endif]-->
+
     <noscript>
         <link rel="stylesheet" href="./css/noscript.min.css" />
     </noscript>
 
+    <!--[if gte IE 9 | !IE ]><!-->
+    <script src="./js/jquery/2.1.4/jquery.js"></script>
+    <!--<![endif]-->
+
+    <!--[if lt IE 9]>
+    <script src="../js/ie8-wet-boew2.min.js"></script>
+    <![endif]-->
+
     <!-- InstanceBeginEditable name="Head-JS" -->
-    <script src="./js/jquery/jquery.3.2.1.js"></script>
-    <script src="./js/3.3.7-bootstrap.min.js"></script>
     <!-- InstanceEndEditable -->
 
     <!-- CustomScriptsCSSStart -->
-
     <link href="./css/themes/statcan/jquery-ui.css" rel="stylesheet" />
     <link href="./css/cmp-pgc.css" rel="stylesheet" />
+
     <!-- InstanceBeginEditable name="Head-CSS" -->
     <!-- to be added into main css -->
-
-
-
     <!-- end tab css (to be added to main css) -->
-
     <!-- InstanceEndEditable -->
     <!-- InstanceParam name="IsFieldStaff" type="boolean" value="false" -->
     <!-- InstanceParam name="IsSeniorFieldStaff" type="boolean" value="false" -->
@@ -71,8 +74,8 @@
     <!-- InstanceParam name="IsSurveyOfficer" type="boolean" value="false" -->
     <!-- InstanceParam name="IsCollectionClient" type="boolean" value="false" -->
     <!-- InstanceParam name="IsOfficeStaff" type="boolean" value="false" -->
-
     <!-- CustomScriptsCSSEnd -->
+
 </head>
 
 <body vocab="http://schema.org/" typeof="WebPage">
@@ -89,8 +92,7 @@
             <div id="wb-bar">
                 <div class="container">
                     <div class="row">
-                        <object id="gcwu-sig" type="image/svg+xml" tabindex="-1" role="img" data="./assets/sig-en.svg" aria-label="Government of Canada">
-                        </object>
+                        <object id="gcwu-sig" type="image/svg+xml" tabindex="-1" role="img" data="./assets/sig-en.svg" aria-label="Government of Canada"></object>
                         <ul id="gc-bar" class="list-inline">
                             <li>
                                 <a href="http://www.canada.ca/en/index.html" rel="external">Canada.ca</a>
@@ -104,9 +106,7 @@
                             <li id="wb-lng">
                                 <h2>Language selection</h2>
                                 <ul class="list-inline">
-                                    <li>
-                                        <a lang="fr" href="#">Français</a>
-                                    </li>
+                                    <li><a lang="fr" href="#">Français</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -114,13 +114,9 @@
                             <h2>Search and menus</h2>
                             <ul class="pnl-btn list-inline text-right">
                                 <li>
-                                    <a href="#mb-pnl" title="Search and menus" aria-controls="mb-pnl" class="overlay-lnk btn btn-sm btn-default" role="button">
-                                        <span class="glyphicon glyphicon-search">
-                                            <span class="glyphicon glyphicon-th-list">
-                                                <span class="wb-inv">Search and menus</span>
-                                            </span>
-                                        </span>
-                                    </a>
+                                    <a href="#mb-pnl" title="Search and menus" aria-controls="mb-pnl" class="overlay-lnk btn btn-sm btn-default" role="button"><span
+                                            class="glyphicon glyphicon-search"><span class="glyphicon glyphicon-th-list"><span
+                                                    class="wb-inv">Search and menus</span></span></span></a>
                                 </li>
                             </ul>
                             <div id="mb-pnl"></div>
@@ -131,45 +127,26 @@
             <div class="container">
                 <div class="row">
                     <div id="wb-sttl" class="col-md-5">
-                        <a href="#">
-                            <span>Collection Management Portal</span>
-                        </a>
+                        <a href="#"><span>Collection Management Portal</span></a>
                     </div>
-                    <object id="wmms" type="image/svg+xml" tabindex="-1" role="img" data="./assets/wmms.svg" aria-label="Symbol of the Government of Canada">
-                    </object>
+                    <object id="wmms" type="image/svg+xml" tabindex="-1" role="img" data="./assets/wmms.svg" aria-label="Symbol of the Government of Canada"></object>
                 </div>
             </div>
         </div>
-        <nav role="navigation" id="wb-sm" data-ajax-fetch="./includes/menu-collectionManager.txt" data-trgt="mb-pnl" class="wb-menu visible-md visible-lg"
-            typeof="SiteNavigationElement">
+        <nav role="navigation" id="wb-sm" data-ajax-fetch="/CMP-Corporate/includes/menu-collectionManager.txt" data-trgt="mb-pnl"
+            class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement">
             <div class="container nvbar">
                 <h2>Topics menu</h2>
                 <div class="row">
                     <ul class="list-inline menu">
-                        <li>
-                            <a href="#">Inbox</a>
-                        </li>
-                        <li>
-                            <a href="#">Surveys</a>
-                        </li>
-                        <li>
-                            <a href="#">Cases</a>
-                        </li>
-                        <li>
-                            <a href="#">Reports</a>
-                        </li>
-                        <li>
-                            <a href="#">Administration</a>
-                        </li>
-                        <li>
-                            <a href="#">Shipping</a>
-                        </li>
-                        <li>
-                            <a href="#">Tools</a>
-                        </li>
-                        <li>
-                            <a href="#">Help</a>
-                        </li>
+                        <li><a href="#">Inbox</a></li>
+                        <li><a href="#">Surveys</a></li>
+                        <li><a href="#">Cases</a></li>
+                        <li><a href="#">Reports</a></li>
+                        <li><a href="#">Administration</a></li>
+                        <li><a href="#">Shipping</a></li>
+                        <li><a href="#">Tools</a></li>
+                        <li><a href="#">Help</a></li>
                     </ul>
                 </div>
             </div>
@@ -184,9 +161,7 @@
                                 <a href="#">Home</a>
                             </li>
                             <!-- InstanceBeginEditable name="Breadcrumb" -->
-                            <li>
-                                <a href="#">Reports</a>
-                            </li>
+                            <li><a href="#">Reports</a></li>
                             <li>Call vs claim</li>
                             <!-- InstanceEndEditable -->
                         </ol>
@@ -197,12 +172,10 @@
                                 <h2 class="wb-invisible">Access to account profile and logout</h2>
                                 <ul class="list-inline list-bullet-none">
                                     <li>
-                                        <i class="fa fa-user fa-fw"></i>
-                                        <a href="#">Peter Simons</a>
+                                        <i class="fa fa-user fa-fw"></i><a href="#">Peter Simons</a>
                                     </li>
                                     <li>
-                                        <i class="fa fa-sign-out fa-fw"></i>
-                                        <a href="#">Logout</a>
+                                        <i class="fa fa-sign-out fa-fw"></i><a href="#">Logout</a>
                                     </li>
                                 </ul>
                             </aside>
@@ -213,6 +186,7 @@
         </nav>
         <!-- HeaderEnd -->
     </header>
+
     <main role="main" property="mainContentOfPage" class="container">
         <!-- MainContentStart -->
         <!-- InstanceBeginEditable name="Content" -->
@@ -311,7 +285,9 @@
                             <div class="row">
                                 <div class="col-sm-5 col-md-5"></div>
                                 <div class="col-sm-7 col-md-7 text-left">
-                                    <a href="#mdl-int" role="button" class="btn btn-default display-inline-block wb-lbx lbx-modal">Select interviewers</a>
+                                    <a href="#mdl-int" role="button" class="btn btn-default display-inline-block wb-lbx lbx-modal">Select
+                                        interviewers
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -360,7 +336,7 @@
                     <h2 class="mrgn-0">Interviewers</h2>
                 </div>
                 <div class="col-md-3 col-sm-3 text-right text-left-xs">
-                    <a href="#glossary-anchor" class="mrgn-rght-md">Glossary</a>&nbsp;
+                    <a href="#glossary" class="mrgn-rght-md">Glossary</a>&nbsp;
                     <span class="wb-lbx lbx-modal">
                         <a href="#mdl-legend">Legend</a>
                     </span>
@@ -527,7 +503,7 @@
                                         },
                                         {
                                             id: '2',
-                                            
+
                                             outcomecategory: outcomeCategories.NO_CONTACTS,
                                             outcome: '105 - Recorded message service',
                                             survey: 'Rabbit Care',
@@ -564,7 +540,7 @@
                                         },
                                         {
                                             id: '4',
-                                            
+
                                             outcomecategory: outcomeCategories.NO_CONTACTS,
                                             outcome: '105 - Recorded message service',
                                             survey: 'Rabbit Care',
@@ -601,7 +577,7 @@
                                         },
                                         {
                                             id: '6',
-                                            
+
                                             outcomecategory: outcomeCategories.RESPONSES,
                                             outcome: '400 - Complete',
                                             survey: 'Rabbit Care',
@@ -612,7 +588,7 @@
                                             endtime: '11:40:00',
                                             interviewlength: {
                                                 length: '00:07:00',
-                                                outlier: false 
+                                                outlier: false
                                             },
                                             totalsystemtime: {
                                                 length: '00:07:45',
@@ -638,7 +614,7 @@
                                         },
                                         {
                                             id: '8',
-                                            
+
                                             outcomecategory: outcomeCategories.NO_CONTACTS,
                                             outcome: '105 - Recorded message service',
                                             survey: 'Rabbit Care',
@@ -675,7 +651,7 @@
                                         },
                                         {
                                             id: '10',
-                                            
+
                                             outcomecategory: outcomeCategories.RESPONSES,
                                             outcome: '400 - Complete',
                                             survey: 'Rabbit Care',
@@ -713,7 +689,7 @@
                                         },
                                         {
                                             id: '12',
-                                            
+
                                             outcomecategory: outcomeCategories.RESPONSES,
                                             outcome: '400 - Complete',
                                             survey: 'Rabbit Care',
@@ -751,7 +727,7 @@
                                         },
                                         {
                                             id: '15',
-                                            
+
                                             outcomecategory: outcomeCategories.NO_CONTACTS,
                                             outcome: '105 - Recorded message service',
                                             survey: 'Rabbit Care',
@@ -788,7 +764,7 @@
                                         },
                                         {
                                             id: '17',
-                                            
+
                                             outcomecategory: outcomeCategories.RESPONSES,
                                             outcome: '400 - Complete',
                                             survey: 'Rabbit Care',
@@ -825,7 +801,7 @@
                                         },
                                         {
                                             id: '19',
-                                            
+
                                             outcomecategory: outcomeCategories.NO_CONTACTS,
                                             outcome: '105 - Recorded message service',
                                             survey: 'Rabbit Care',
@@ -862,7 +838,7 @@
                                         },
                                         {
                                             id: '21',
-                                            
+
                                             outcomecategory: outcomeCategories.RESPONSES,
                                             outcome: '400 - Complete',
                                             survey: 'Rabbit Care',
@@ -899,7 +875,7 @@
                                         },
                                         {
                                             id: '23',
-                                            
+
                                             outcomecategory: outcomeCategories.RESPONSES,
                                             outcome: '400 - Complete',
                                             survey: 'Rabbit Care',
@@ -936,7 +912,7 @@
                                         },
                                         {
                                             id: '25',
-                                            
+
                                             outcomecategory: outcomeCategories.RESPONSES,
                                             outcome: '400 - Complete',
                                             survey: 'Rabbit Care',
@@ -974,7 +950,7 @@
                                         },
                                         {
                                             id: '28',
-                                            
+
                                             outcomecategory: outcomeCategories.NO_CONTACTS,
                                             outcome: '105 - Recorded message service',
                                             survey: 'Rabbit Care',
@@ -1011,7 +987,7 @@
                                         },
                                         {
                                             id: '30',
-                                            
+
                                             outcomecategory: outcomeCategories.NO_CONTACTS,
                                             outcome: '105 - Recorded message service',
                                             survey: 'Rabbit Care',
@@ -1048,7 +1024,7 @@
                                         },
                                         {
                                             id: '32',
-                                            
+
                                             outcomecategory: outcomeCategories.NO_CONTACTS,
                                             outcome: '105 - Recorded message service',
                                             survey: 'Rabbit Care',
@@ -1085,7 +1061,7 @@
                                         },
                                         {
                                             id: '34',
-                                            
+
                                             outcomecategory: outcomeCategories.REFUSALS,
                                             outcome: '503 - First refusal',
                                             survey: 'Rabbit Care',
@@ -1122,7 +1098,7 @@
                                         },
                                         {
                                             id: '36',
-                                            
+
                                             outcomecategory: outcomeCategories.NO_CONTACTS,
                                             outcome: '105 - Recorded message service',
                                             survey: 'Rabbit Care',
@@ -1159,7 +1135,7 @@
                                         },
                                         {
                                             id: '38',
-                                            
+
                                             outcomecategory: outcomeCategories.NO_CONTACTS,
                                             outcome: '105 - Recorded message service',
                                             survey: 'Rabbit Care',
@@ -1196,7 +1172,7 @@
                                         },
                                         {
                                             id: '40',
-                                            
+
                                             outcomecategory: outcomeCategories.OTHER_OUTCOMES,
                                             outcome: '300 - Out of scope',
                                             survey: 'Rabbit Care',
@@ -1408,7 +1384,7 @@
                                         },
                                         {
                                             id: '2',
-                                            
+
                                             outcomecategory: outcomeCategories.REFUSALS,
                                             outcome: '503 - First refusal',
                                             survey: 'Rabbit Care',
@@ -1446,7 +1422,7 @@
                                         },
                                         {
                                             id: '4',
-                                            
+
                                             outcomecategory: outcomeCategories.NO_CONTACTS,
                                             outcome: '105 - Recorded message service',
                                             survey: 'Rabbit Care',
@@ -1483,7 +1459,7 @@
                                         },
                                         {
                                             id: '6',
-                                            
+
                                             outcomecategory: outcomeCategories.REFUSALS,
                                             outcome: '503 - First refusal',
                                             survey: 'Rabbit Care',
@@ -1499,7 +1475,7 @@
                                             totalsystemtime: {
                                                 length: '00:00:30',
                                                 outlier: true,
-                                                plusminus: -4 
+                                                plusminus: -4
                                             },
                                             accessmethod: accessMethods.SA,
                                             attemptedvia: attemptedVias.PHONE,
@@ -1521,7 +1497,7 @@
                                         },
                                         {
                                             id: '8',
-                                            
+
                                             outcomecategory: outcomeCategories.RESPONSES,
                                             outcome: '400 - Complete',
                                             survey: 'Rabbit Care',
@@ -1559,7 +1535,7 @@
                                         },
                                         {
                                             id: '10',
-                                            
+
                                             outcomecategory: outcomeCategories.NO_CONTACTS,
                                             outcome: '105 - Recorded message service',
                                             survey: 'Rabbit Care',
@@ -1597,7 +1573,7 @@
                                         },
                                         {
                                             id: '12',
-                                            
+
                                             outcomecategory: outcomeCategories.RESPONSES,
                                             outcome: '400 - Complete',
                                             survey: 'Rabbit Care',
@@ -1635,7 +1611,7 @@
                                         },
                                         {
                                             id: '14',
-                                            
+
                                             outcomecategory: outcomeCategories.REFUSALS,
                                             outcome: '503 - First refusal',
                                             survey: 'Rabbit Care',
@@ -1672,7 +1648,7 @@
                                         },
                                         {
                                             id: '16',
-                                            
+
                                             outcomecategory: outcomeCategories.NO_CONTACTS,
                                             outcome: '105 - Recorded message service',
                                             survey: 'Rabbit Care',
@@ -1710,7 +1686,7 @@
                                         },
                                         {
                                             id: '18',
-                                            
+
                                             outcomecategory: outcomeCategories.REFUSALS,
                                             outcome: '503 - First refusal',
                                             survey: 'Rabbit Care',
@@ -1748,7 +1724,7 @@
                                         },
                                         {
                                             id: '20',
-                                            
+
                                             outcomecategory: outcomeCategories.NO_CONTACTS,
                                             outcome: '105 - Recorded message service',
                                             survey: 'Rabbit Care',
@@ -1786,7 +1762,7 @@
                                         },
                                         {
                                             id: '22',
-                                            
+
                                             outcomecategory: outcomeCategories.RESPONSES,
                                             outcome: '400 - Complete',
                                             survey: 'Rabbit Care',
@@ -1823,7 +1799,7 @@
                                         },
                                         {
                                             id: '24',
-                                            
+
                                             outcomecategory: outcomeCategories.NO_CONTACTS,
                                             outcome: '105 - Recorded message service',
                                             survey: 'Rabbit Care',
@@ -1860,7 +1836,7 @@
                                         },
                                         {
                                             id: '26',
-                                            
+
                                             outcomecategory: outcomeCategories.RESPONSES,
                                             outcome: '400 - Complete',
                                             survey: 'Rabbit Care',
@@ -2213,7 +2189,7 @@
                                         },
                                         {
                                             id: '1',
-                                            
+
                                             outcomecategory: outcomeCategories.RESPONSES,
                                             outcome: '400 - Complete',
                                             survey: 'Rabbit Care',
@@ -2250,7 +2226,7 @@
                                         },
                                         {
                                             id: '3',
-                                            
+
                                             outcomecategory: outcomeCategories.NO_CONTACTS,
                                             outcome: '105 - Recorded message service',
                                             survey: 'Rabbit Care',
@@ -2287,7 +2263,7 @@
                                         },
                                         {
                                             id: '5',
-                                            
+
                                             outcomecategory: outcomeCategories.RESPONSES,
                                             outcome: '400 - Complete',
                                             survey: 'Rabbit Care',
@@ -2324,7 +2300,7 @@
                                         },
                                         {
                                             id: '7',
-                                            
+
                                             outcomecategory: outcomeCategories.NO_CONTACTS,
                                             outcome: '105 - Recorded message service',
                                             survey: 'Rabbit Care',
@@ -2361,7 +2337,7 @@
                                         },
                                         {
                                             id: '9',
-                                            
+
                                             outcomecategory: outcomeCategories.NO_CONTACTS,
                                             outcome: '105 - Recorded message service',
                                             survey: 'Rabbit Care',
@@ -2374,7 +2350,7 @@
                                                 length: '00:00:00',
                                                 outlier: false
                                             },
-                                            totalsystemtime: { 
+                                            totalsystemtime: {
                                                 length: '00:00:45',
                                                 outlier: false
                                             },
@@ -2400,7 +2376,7 @@
                                         },
                                         {
                                             id: '11',
-                                            
+
                                             outcomecategory: outcomeCategories.RESPONSES,
                                             outcome: '400 - Complete',
                                             survey: 'Rabbit Care',
@@ -2437,7 +2413,7 @@
                                         },
                                         {
                                             id: '13',
-                                            
+
                                             outcomecategory: outcomeCategories.NO_CONTACTS,
                                             outcome: '105 - Recorded message service',
                                             survey: 'Rabbit Care',
@@ -2474,7 +2450,7 @@
                                         },
                                         {
                                             id: '15',
-                                            
+
                                             outcomecategory: outcomeCategories.NO_CONTACTS,
                                             outcome: '105 - Recorded message service',
                                             survey: 'Rabbit Care',
@@ -2511,7 +2487,7 @@
                                         },
                                         {
                                             id: '17',
-                                            
+
                                             outcomecategory: outcomeCategories.RESPONSES,
                                             outcome: '400 - Complete',
                                             survey: 'Rabbit Care',
@@ -2549,7 +2525,7 @@
                                         },
                                         {
                                             id: '19',
-                                            
+
                                             outcomecategory: outcomeCategories.RESPONSES,
                                             outcome: '400 - Complete',
                                             survey: 'Rabbit Care',
@@ -2586,7 +2562,7 @@
                                         },
                                         {
                                             id: '21',
-                                            
+
                                             outcomecategory: outcomeCategories.OTHER_OUTCOMES,
                                             outcome: '300 - Out of scope',
                                             survey: 'Rabbit Care',
@@ -2882,7 +2858,7 @@
                                         },
                                         {
                                             id: '1',
-                                            
+
                                             outcomecategory: outcomeCategories.RESPONSES,
                                             outcome: '400 - Complete',
                                             survey: 'Rabbit Care',
@@ -2921,7 +2897,7 @@
                                         },
                                         {
                                             id: '3',
-                                            
+
                                             outcomecategory: outcomeCategories.RESPONSES,
                                             outcome: '400 - Complete',
                                             survey: 'Rabbit Care',
@@ -2960,7 +2936,7 @@
                                         },
                                         {
                                             id: '5',
-                                            
+
                                             outcomecategory: outcomeCategories.RESPONSES,
                                             outcome: '400 - Complete',
                                             survey: 'Rabbit Care',
@@ -3084,9 +3060,6 @@
         ********************************************************************* -->
         </section>
 
-
-
-
         <!-- #BeginLibraryItem "/Library/Glossary.lbi" -->
         <section>
             <h2 class="mrgn-tp-lg">Glossary</h2>
@@ -3096,7 +3069,7 @@
                         <h3 class="titleOperations mrgn-tp-sm mrgn-bttm-0">Terms</h3>
                     </summary>
                     <dl>
-                        <dt id="glossary-anchor">Responses</dt>
+                        <dt>Responses</dt>
                         <dd>The number of resolving attempts with submitted responses that meet the Minimum Content Criteria
                             and are not Out of Scope.</dd>
                         <dt>Refusals</dt>
@@ -3104,13 +3077,13 @@
                         <dt>No contacts</dt>
                         <dd>The number of attempts with an outcome code in the 100 and 200 series.</dd>
                         <dt>Other outcomes</dt>
-                        <dd>The number of attempts with an outcome code that does not fall into the Response, Refusals, and No
-                            Contacts categories.</dd>
+                        <dd>The number of attempts with an outcome code that does not fall into the Response, Refusals, and
+                            No Contacts categories.</dd>
                         <dt>Interview length</dt>
                         <dd>Time spent inside the electronic questionnaire within an attempt.</dd>
                         <dt>System time</dt>
-                        <dd>Total time spent on an attempt. Includes time contacting respondent, performing the interview, and
-                            applying an outcome code.</dd>
+                        <dd>Total time spent on an attempt. Includes time contacting respondent, performing the interview,
+                            and applying an outcome code.</dd>
                         <dt>Calls</dt>
                         <dd>The number of attempts made via telephone during this period.</dd>
                         <dt>Visits</dt>
@@ -3132,8 +3105,8 @@
                             </ul>
                         </dd>
                         <dt>Attempted via</dt>
-                        <dd>Whether the attempt was made via a telephone call (
-                            <i class="fa fa-phone"></i>), or a field visit (
+                        <dd>Whether the attempt was made via a telephone call (<i class="fa fa-phone"></i>), or a field visit
+                            (
                             <i class="fa fa-user"></i>).</dd>
                     </dl>
                 </details>
@@ -3466,20 +3439,26 @@
             </div>
         </div>
     </footer>
-    <!-- InstanceBeginEditable name="Footer-JS" -->
+    <!--[if gte IE 9 | !IE ]><!-->
+    <script src="./js/jquery/2.1.4/jquery.js"></script>
+    <script src="./js/wet-boew.min.js"></script>
+    <!--<![endif]-->
 
+    <!-- InstanceBeginEditable name="Footer-JS" -->
     <script src="./js/jquery-ui/1.9.2/jquery-ui.min.js"></script>
     <script src="./js/statcan/jquery.maskedinput/jquery.maskedinput.js"></script>
-    <script src="./js/dataTables/dataTables.js"></script>
-    <!--<script src="https://wet-boew.github.io/v4.0-ci/wet-boew/js/wet-boew.min.js"></script>-->
 
-    <!-- tabs js -->
     <script type="application/javascript">
-        $(document).on("wb-ready.wb", function () {
+        $(document).ready(function () {
 
             //back to top link closes all accordions
             $("#backToTop").on("click", function () {
                 $(".acc-group").prop("open", false);
+            });
+
+            //glossary link - opens glossary accordion
+            $("a[href='#glossary']").on("click", function () {
+                $("#glossary").prop("open", true);
             });
 
             //****************** DATE PICKER *****************************
@@ -3497,8 +3476,8 @@
             }).mask("9999-99-99");
 
             /*****************************************************************
-             *                          FILTERS
-             *****************************************************************/
+            * FILTERS
+            *****************************************************************/
             //If the checkbox is de-selected, the survey selector will enable.
             //Selecting the Display all surveys checkbox will clear and disable the Survey and Cycle selectors.
             $("#all-surveys").on("change", function () {
@@ -3513,7 +3492,7 @@
 
             //Once a survey is selected, the cycle selector will enable.
             $("#survey").on("change", function () {
-                if ($(this).val() != "select") {
+                if ($(this).val() != "") {
                     $("#cycle").prop("disabled", false);
                 } else {
                     disableCycle();
@@ -3529,58 +3508,43 @@
                 toggleGenerateButton();
             });
 
-            //Once the required information is provided the generate report button will be enabled.
+            //Restrict the end date based off the selected start date.
             $("#startdate").on("change", function () {
                 var minDate = $(this).datepicker("getDate");
                 var maxDate = new Date();
-                maxDate.setDate(minDate.getDate() + 4);
-
+                var yesterday = new Date();
+                maxDate.setTime(minDate.getTime() + (4 * 86400000)); //work around, adding 4 days is buggy
+                yesterday.setTime(yesterday.getTime() - (1 * 86400000)); //work around, subtracting 1 day is buggy
                 $("#enddate").datepicker("option", "minDate", minDate);
-                $("#enddate").datepicker("option", "maxDate", maxDate);
-
+                if (maxDate < yesterday) {
+                    $("#enddate").datepicker("option", "maxDate", maxDate);
+                } else {
+                    $("#enddate").datepicker("option", "maxDate", yesterday);
+                }
                 toggleGenerateButton();
             });
-
             toggleGenerateButton();
 
-            //******************** VIEW CASE WORK DETAILS *******************
-            //make table paginated
-            $(".view-details").dataTable({
-                "ordering": false,
-                "info": false,
-                "searching": false
-            });
-
             /******************************************************************
-             *                  INTERVIEWER MODAL - TABLE
-             ******************************************************************/
-
-            //************* SEARCH TABLE ******************
-            $("#mdlTbl-int").dataTable({
-                "ordering": false,
-                "info": false,
-                "lengthChange": false,
-                "language": { search: "" }
-            });
-
+            * INTERVIEWER MODAL - TABLE
+            ******************************************************************
             //************ TABLE FORMATTING *****************
-            var searchFilter = $("#mdlTbl-int_filter");
-            var searchLabel = $("#mdlTbl-int_filter label");
-            var searchInput = $("#mdlTbl-int_filter label input");
-            searchInput.addClass("form-control width98");
-            searchInput.prop("placeholder", "Search")
+            var searchFilter = $("#table_mdl_filter");
+            var searchLabel = $("#table_mdl_filter label");
+            var searchInput = $("#table_mdl_filter label input");
+            searchInput.addClass("form-control width95 mrgn-tp-sm");
+            searchInput.prop("placeholder", "Search");
+            searchInput.prop("title", "Search interviewers");
             searchFilter.addClass("width100 center-block");
             searchLabel.addClass("width100");
-
             /*************************************************************
-             *                  INTERVIEWER MODAL - TAGS
-             *************************************************************/
+            * INTERVIEWER MODAL - TAGS
+            *************************************************************
             //hide error message
-            $("#limitMsg-int").hide();
-
+            $("#limitMsg-mdl").hide();
             //hides tag and unchecks checkbox when click "x"
-            $("#tags-int").on("click", ".dismissTag", function () {
-                var section = $(this).closest("div").prop("id").split("-")[1]; //determine which section's modal the tag is in
+            $("#tags-mdl").on("click", ".dismissTag", function () {
+                var section = $(this).closest("div").prop("id").split("_")[1]; //determine which section's modal the tag is in
                 var tagID = $(this).parent().prop("id");
                 var chbxID = (tagID.split("_"))[1];
                 $(this).parent().remove();
@@ -3590,14 +3554,12 @@
                 });
                 toggleViewButton(section);
             });
-
             //shows tag when select checkbox, removes tag when deselect checkbox
             $(".interviewerTable").on("change", ".checkbox input", function () {
-                var section = $(this).closest("table").prop("id").split("-")[1]; //determine which section's modal the checkbox is in
+                var section = $(this).closest("table").prop("id").split("_")[1]; //determine which section's modal the checkbox is in
                 var chbxHTML = $(this).siblings("label").text();
                 var chbxID = $(this).prop("id");
                 var tagID = "tag_" + chbxID;
-
                 //limit 5 interviewers and error msg
                 var tagContainer = $("#tags-" + section);
                 if ((tagContainer.children("span").length) > 4) {
@@ -3607,7 +3569,6 @@
                         return;
                     }
                 }
-
                 if (this.checked) {
                     $("#tags-" + section).append(createTag(chbxID, chbxHTML));
                 } else {
@@ -3615,58 +3576,51 @@
                 }
                 toggleViewButton(section);
             });
-
-            toggleViewButton("int");
+            toggleViewButton("int"); */
         });
-
-
         /********************************************************************
-         *                  INTERVIEWER MODAL - TAGS
-         * @param id    :id of checkbox creating tag element
-         * @param name  :name of interviewer from checkbox
-         * @returns {jQuery}    :html element of tag as jquery object
-         ********************************************************************/
-
+        * INTERVIEWER MODAL - TAGS
+        * @param id :id of checkbox creating tag element
+        * @param name :name of interviewer from checkbox
+        * @returns {jQuery} :html element of tag as jquery object
+        ********************************************************************
         function createTag(id, name) {
             var tag = $("<span id=\"tag_" + id + "\" class=\"filterTag mrgn-lft-sm mrgn-tp-sm\"></span>").html(
                 "<span class=\"interviewerName\">" + name + "</span><a class=\"dismissTag btn\"><i class=\"fa fa-times\"></i></a>");
-
             return tag;
         };
-
         function toggleViewButton(section) {
             var tagContainer = $("#tags-" + section);
-
             if (tagContainer.children("span").length == 0) {
                 $("#sbmtBtn-" + section).prop("disabled", true);
             } else {
                 $("#sbmtBtn-" + section).prop("disabled", false);
             }
         }
-
         /*****************************************************************
-         *                       FILTERS
-         ****************************************************************/
-
+        * FILTERS
+        *****************************************************************/
         function disableSurvey() {
             $("#survey").prop("disabled", true);
-            $("#survey").val("select");
+            $("#survey").val("");
+            $("#survey").prop("required", false);
             $("#sur-mandatory").addClass("display-none");
         }
 
         function enableSurvey() {
             $("#survey").prop("disabled", false);
+            $("#survey").prop("required", true);
             $("#sur-mandatory").removeClass("display-none");
         }
 
         function disableCycle() {
             $("#cycle").prop("disabled", true);
-            $("#cycle").val("select");
+            $("#cycle").val("");
         }
 
         function toggleGenerateButton() {
             if (surveyEnabled()) {
-                if (($("#startdate").val() != "") && ($("#survey").val() != "select")) {
+                if (($("#startdate").val() != "") && ($("#survey").val() != "")) {
                     $("#gen-report").prop("disabled", false);
                 } else {
                     $("#gen-report").prop("disabled", true);
@@ -3684,8 +3638,7 @@
             if ($("#survey").prop("disabled") == false) {
                 return true;
             }
-        }
-
+        } 
     </script>
 
     <!-- charting js -->
@@ -3694,8 +3647,6 @@
     <script src="./js/statcan/jquery.flot/jquery.flot.categories.js"></script>
     <script src="./js/statcan/jquery.flot/jquery.flot.orderBars.js"></script>
     <script src="./js/statcan/jquery.flot/jquery.flot.axislabels.js"></script>
-    <link rel="stylesheet" href="./js/dataTables/dataTables.css" />
-    <!-- InstanceEndEditable -->
 </body>
 <!-- InstanceEnd -->
 
