@@ -31,10 +31,7 @@ class PrintViewPanel extends React.Component {
 
 class Accordion extends React.Component {
     getCssClasses(includeH3) {
-        var classes = 'panel-heading-collapsible pddng-sm';
-        if (includeH3) {
-            classes += ' h3';
-        }
+        var classes = 'panel-heading-collapsible'
 
         return classes;
     }

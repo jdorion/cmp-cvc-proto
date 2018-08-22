@@ -20,15 +20,11 @@ class HourlyTab extends React.Component {
         return (
             <div>
                 <div className="row">
-                    <div className="col-sm-3 col-md-3">
-                        <h5 className="mrgn-lft-md">
-                            <i className="fa fa-calendar" /> {this.props.formattedDate}
-                        </h5>
-                    </div>
-                    <div className="col-sm-3 col-md-3">
-                        <h5>
-                            <i className="fa fa-clock-o" />
-                            {' ' + this.props.hour.description + ' '}
+                    <div className="col-md-12">
+                        <h5 className="mrgn-lft-md mrgn-bttm-0 capitalize">
+                            <i className="fa fa-calendar"/>&nbsp;
+                            {this.props.formattedDate}
+                            <span className="mrgn-lft-lg"><i className="fa fa-clock-o" /> {' ' + this.props.hour.description + ' '}</span>
                         </h5>
                     </div>
                 </div>
@@ -45,7 +41,7 @@ class HourlyTab extends React.Component {
                             renderLink={false}
                         />
                     </div>
-                    <div className="col-sm-2 col-md-2 text-right">
+                    <div className="col-sm-2 col-md-2">
                         <p>Calls: {this.props.hour.totalcalls}</p>
                         <p>Cases touched: {this.props.hour.casestouched}</p>
                         <p>Total off system {this.props.hour.totalOffSystemTime}</p>
@@ -110,49 +106,51 @@ class HourlyCaseWorkDetails extends React.Component {
                     View case work details
                 </summary>
                 <div>
-                    <table className="table table-striped mrgn-bttm-0 view-details">
+                    <table className="wb-tables table table-striped mrgn-bttm-0 view-details">
                         <thead>
                             <tr>
                                 <th />
                                 <th>
                                     Outcome<br />
-                                    <input
-                                        id={this.props.uniqueKey + '_show-off-sys1'}
-                                        className="show-off-sys"
-                                        type="checkbox"
-                                        checked={this.state.showWhiteSpots}
-                                        onChange={this.handleCheckClicked}
-                                    />
-                                    <label
-                                        htmlFor={this.props.uniqueKey + '_show-off-sys1'}
-                                        className="mrgn-lft-sm"
-                                    >
-                                        View off system time
-                                    </label>
+                                    <div className="mrgn-tp-sm no-wrap">
+                                        <input
+                                            id={this.props.uniqueKey + '_show-off-sys1'}
+                                            className="show-off-sys"
+                                            type="checkbox"
+                                            checked={this.state.showWhiteSpots}
+                                            onChange={this.handleCheckClicked}
+                                        />
+                                        <label
+                                            htmlFor={this.props.uniqueKey + '_show-off-sys1'}
+                                            className="mrgn-lft-sm"
+                                        >
+                                            View off system time
+                                        </label>
+                                    </div>
                                 </th>
                                 <th>Survey</th>
-                                <th className="text-right">Cycle</th>
-                                <th className="text-right">Operation</th>
-                                <th className="text-right">Case Id</th>
-                                <th className="text-right">
+                                <th>Cycle</th>
+                                <th>Operation</th>
+                                <th>Case ID</th>
+                                <th>
                                     Start time<br />
                                     <span className="text-normal">
                                         (<abbr title="hours, minutes and seconds">hh:mm:ss</abbr>)
                                     </span>
                                 </th>
-                                <th className="text-right">
+                                <th>
                                     End time<br />
                                     <span className="text-normal">
                                         (<abbr title="hours, minutes and seconds">hh:mm:ss</abbr>)
                                     </span>
                                 </th>
-                                <th className="text-right">
+                                <th>
                                     Interview<br />length<br />
                                     <span className="text-normal">
                                         (<abbr title="hours, minutes and seconds">hh:mm:ss</abbr>)
                                     </span>
                                 </th>
-                                <th className="text-right">
+                                <th>
                                     Total<br />system time<br />
                                     <span className="text-normal">
                                         (<abbr title="hours, minutes and seconds">hh:mm:ss</abbr>)
@@ -160,7 +158,6 @@ class HourlyCaseWorkDetails extends React.Component {
                                 </th>
                                 <th
                                     className={
-                                        'text-right' +
                                         HourlyTab.getAccessMethodClass(this.props.isCATI)
                                     }
                                 >
@@ -168,7 +165,6 @@ class HourlyCaseWorkDetails extends React.Component {
                                 </th>
                                 <th
                                     className={
-                                        'text-right' +
                                         HourlyTab.getAttemptedViaClass(this.props.isCATI)
                                     }
                                 >
@@ -188,22 +184,20 @@ class WhiteSpotRow extends React.Component {
     render() {
         return (
             <tr>
-                <td>
-                    <span className="bg-off-sys pddng-8px brdr-all" />
-                </td>
+                <td className="bg-off-sys"></td>
                 <td>Off system time</td>
-                <td />
-                <td className="text-right" />
-                <td className="text-right">
+                <td/>
+                <td/>
+                <td>
                     <a href="#" />
                 </td>
-                <td className="text-right" />
-                <td className="text-right">{this.props.whitespot.starttime}</td>
-                <td className="text-right">{this.props.whitespot.endtime}</td>
-                <td className="text-right" />
-                <td className="text-right">{this.props.whitespot.duration}</td>
-                <td className={'text-right' + HourlyTab.getAccessMethodClass(this.props.isCATI)} />
-                <td className={'text-center' + HourlyTab.getAttemptedViaClass(this.props.isCATI)} />
+                <td/>
+                <td>{this.props.whitespot.starttime}</td>
+                <td>{this.props.whitespot.endtime}</td>
+                <td/>
+                <td>{this.props.whitespot.duration}</td>
+                <td className={HourlyTab.getAccessMethodClass(this.props.isCATI)} />
+                <td className={HourlyTab.getAttemptedViaClass(this.props.isCATI)} />
             </tr>
         );
     }
@@ -211,19 +205,31 @@ class WhiteSpotRow extends React.Component {
 
 class AttemptRow extends React.Component {
     getBGColourClassName() {
-        var className = 'pddng-8px brdr-all';
+        var className;
 
         if (this.props.attempt.outcomecategory === outcomeCategories.NO_CONTACTS) {
-            className += ' bg-nocon';
+            className += ' bg-nocon-0';
         } else if (this.props.attempt.outcomecategory === outcomeCategories.OTHER_OUTCOMES) {
-            className += ' bg-other';
+            className += ' bg-other-0';
         } else if (this.props.attempt.outcomecategory === outcomeCategories.RESPONSES) {
-            className += ' bg-res';
+            className += ' bg-res-0';
         } else if (this.props.attempt.outcomecategory === outcomeCategories.REFUSALS) {
-            className += ' bg-ref';
+            className += ' bg-ref-0';
         }
 
         return className;
+    }
+
+    getPlusMinus(value) {
+        if (value.outlier) {
+            if (value.plusminus > 0) {
+                return "(+" + value.plusminus + " min)";
+            } else {
+                return "("+ value.plusminus + " min)";
+            }
+        } else {
+            return "";
+        }
     }
 
     getIconClassName() {
@@ -241,30 +247,32 @@ class AttemptRow extends React.Component {
     render() {
         return (
             <tr>
-                <td>
-                    <span className={this.getBGColourClassName()} />
-                </td>
+                <td className={this.getBGColourClassName()}></td>
                 <td>{this.props.attempt.outcome}</td>
                 <td>{this.props.attempt.survey}</td>
-                <td className="text-right">{this.props.attempt.cycle}</td>
-                <td className="text-right">
+                <td>{this.props.attempt.cycle}</td>
+                <td>
                     <abbr title={this.props.attempt.operation.text}>
                         {this.props.attempt.operation.value}
                     </abbr>
                 </td>
-                <td className="text-right">
+                <td>
                     <a href="#">{this.props.attempt.caseId}</a>
                 </td>
-                <td className="text-right">{this.props.attempt.starttime}</td>
-                <td className="text-right">{this.props.attempt.endtime}</td>
-                <td className="text-right">{this.props.attempt.interviewlength}</td>
-                <td className="text-right">{this.props.attempt.totalsystemtime}</td>
-                <td className={'text-right' + HourlyTab.getAccessMethodClass(this.props.isCATI)}>
+                <td>{this.props.attempt.starttime}</td>
+                <td>{this.props.attempt.endtime}</td>
+                <td>{this.props.attempt.interviewlength.length}
+                    <br/><span className="text-outlier">{this.getPlusMinus(this.props.attempt.interviewlength)}</span>
+                </td>
+                <td>{this.props.attempt.totalsystemtime.length}
+                    <br/><span className="text-outlier">{this.getPlusMinus(this.props.attempt.totalsystemtime)}</span>
+                </td>
+                <td className={HourlyTab.getAccessMethodClass(this.props.isCATI)}>
                     <abbr title={this.props.attempt.accessmethod.text}>
                         {this.props.attempt.accessmethod.value}
                     </abbr>
                 </td>
-                <td className={'text-right' + HourlyTab.getAttemptedViaClass(this.props.isCATI)}>
+                <td className={HourlyTab.getAttemptedViaClass(this.props.isCATI)}>
                     <i className={this.getIconClassName()} />
                 </td>
             </tr>

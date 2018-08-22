@@ -124,7 +124,7 @@ class CallTooltips extends React.Component {
                             <br />
                             <strong>Total system time</strong>
                             <br />
-                            {call.totalsystemtime}
+                            {call.totalsystemtime.length}
                         </span>
                     </ReactTooltip>
                 );
@@ -264,6 +264,40 @@ class BarGraphLine2 extends React.Component {
         );
     }
 
+    countOutcomeCategories() {
+        var count = 0;
+        var prevCall = null;
+
+        this.props.calls.forEach(element => {
+            if (element.outcomecategory !== outcomeCategories.WHITE_SPOT && element.outcomecategory !== outcomeCategories.PADDING) {
+                if (prevCall === null) {
+                    element["categorycount"] = count;
+                    prevCall = element;
+                } else {
+                    if (prevCall.outcomecategory === element.outcomecategory) {
+                        if (element.outcomecategory === outcomeCategories.RESPONSES || element.outcomecategory === outcomeCategories.REFUSALS) {
+                            switch(prevCall.categorycount) {
+                                case 0: count = 1; break;
+                                case 1: count = 0; break;
+                            } 
+                        } else {
+                            switch(prevCall.categorycount) {
+                                case 0: count = 1; break;
+                                case 1: count = 2; break;
+                                case 2: count = 0; break;
+                            }
+                        }
+                        element["categorycount"] = count;
+                    } else {
+                        count = 0;
+                        element["categorycount"] = count;
+                    }
+                    prevCall = element;
+                }
+            }  
+        });
+    }
+
     getClassName(attempt, index) {
         var className = '';
         if (attempt.outcomecategory !== outcomeCategories.PADDING) {
@@ -291,13 +325,13 @@ class BarGraphLine2 extends React.Component {
         }
 
         if (attempt.outcomecategory === outcomeCategories.RESPONSES) {
-            className += ' bg-res';
+            className += ' bg-res-' + attempt.categorycount;
         } else if (attempt.outcomecategory === outcomeCategories.REFUSALS) {
-            className += ' bg-ref';
+            className += ' bg-ref-' + attempt.categorycount;
         } else if (attempt.outcomecategory === outcomeCategories.NO_CONTACTS) {
-            className += ' bg-nocon';
+            className += ' bg-nocon-' + attempt.categorycount;
         } else if (attempt.outcomecategory === outcomeCategories.OTHER_OUTCOMES) {
-            className += ' bg-other';
+            className += ' bg-other-' + attempt.categorycount;
         } else {
             className += ' bg-off-sys';
         }
@@ -315,6 +349,7 @@ class BarGraphLine2 extends React.Component {
     }
 
     render() {
+        {this.countOutcomeCategories()}
         const rows = [];
         for (var i = 0; i < this.props.calls.length; i++) {
             var call = this.props.calls[i];

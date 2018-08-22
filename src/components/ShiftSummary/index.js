@@ -10,16 +10,12 @@ class ShiftSummaryTab extends React.Component {
                 <div className="row">
                     <div className="col-sm-10 col-md-10">
                         <div className="row">
-                            <div className="col-sm-3 col-md-3">
-                                <h5 className="mrgn-lft-md">
-                                    <i className="fa fa-calendar" />
+                            <div className="col-md-12">
+                                <h5 className="mrgn-lft-md mrgn-bttm-0 capitalize">
+                                    <i className="fa fa-calendar"/>&nbsp;
                                     {this.props.formattedDate}
-                                </h5>
-                            </div>
-                            <div className="col-sm-3 col-md-3">
-                                <h5>
-                                    <i className="fa fa-clock-o" /> {this.props.shift.shiftStart} -{' '}
-                                    {this.props.shift.shiftEnd}
+                                    <span className="mrgn-lft-lg"><i className="fa fa-clock-o" /> {this.props.shift.shiftStart} -{' '}
+                                    {this.props.shift.shiftEnd}</span>
                                 </h5>
                             </div>
                         </div>
@@ -39,7 +35,7 @@ class ShiftSummaryTab extends React.Component {
                         </div>
                     </div>
                     <div className="col-sm-2 col-md-2">
-                        <div className="text-right mrgn-tp-md">
+                        <div className="mrgn-tp-md">
                             <p>Calls: {this.props.shift.callsTaken}</p>
                             <p>Cases touched: {this.props.shift.casesTouched}</p>
                             <p>Surveys: {this.props.shift.surveys}</p>
@@ -99,19 +95,19 @@ class SummaryCaseWorkDetailsAccordion extends React.Component {
                                     </span>
                                 </th>
                                 <th className="text-right width20">
-                                    <span className="bg-res display-inline-block pddng-8px" />{' '}
+                                    <span className="bg-res-0 display-inline-block pddng-8px" />{' '}
                                     Responses
                                 </th>
                                 <th className="text-right width20">
-                                    <span className="bg-ref display-inline-block pddng-8px" />{' '}
+                                    <span className="bg-ref-0 display-inline-block pddng-8px" />{' '}
                                     Refusals
                                 </th>
                                 <th className="text-right width20">
-                                    <span className="bg-nocon display-inline-block pddng-8px" /> No
+                                    <span className="bg-nocon-0 display-inline-block pddng-8px" /> No
                                     contacts
                                 </th>
                                 <th className="text-right width20">
-                                    <span className="bg-other display-inline-block pddng-8px" />{' '}
+                                    <span className="bg-other-0 display-inline-block pddng-8px" />{' '}
                                     Other outcomes
                                 </th>
                             </tr>
