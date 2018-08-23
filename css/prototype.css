@@ -1,184 +1,253 @@
+/****************************************************************
+                    Call vs. Claim 
+****************************************************************/
 
-		/****************************************************************
-                           Call vs. Claim 
-        ****************************************************************/
+/****************** COLOURS **********************************/
 
-        /****************** COLOURS **********************************/
+.bg-res-0 {
+    background-color: #03651b;
+}
 
-        .bg-res-0 {
-            background-color: #03651b;
-        }
+.bg-res-1 {
+    background-color: #00bf00;
+}
 
-        .bg-res-1 {
-            background-color: #00bf00;
-        }
+.bg-nocon-0 {
+    background-color: #6080c0;
+}
 
-        .bg-nocon-0 {
-            background-color: #6080c0;
-        }
+.bg-nocon-1 {
+    background-color: #90bfdf;
+}
 
-        .bg-nocon-1 {
-            background-color: #90bfdf;
-        }
+.bg-nocon-2 {
+    background-color: #3040a0;
+}
 
-        .bg-nocon-2 {
-            background-color: #3040a0;
-        }
+.bg-other-0 {
+    background-color: #7e60a0;
+}
 
-        .bg-other-0 {
-            background-color: #7e60a0;
-        }
+.bg-other-1 {
+    background-color: #bf90cf;
+}
 
-        .bg-other-1 {
-            background-color: #bf90cf;
-        }
+.bg-other-2 {
+    background-color: #40306f;
+}
 
-        .bg-other-2 {
-            background-color: #40306f;
-        }
+.bg-ref-0 {
+    background-color: #b30714;
+}
 
-        .bg-ref-0 {
-			background-color: #b30714;
-        }
+.bg-ref-1 {
+    background-color: #ff4d4d;
+}
 
-        .bg-ref-1 {
-            background-color: #ff4d4d;
-        }
+.bg-other-sur {
+    background-color: #949494;
+}
 
-        .bg-other-sur {
-            background-color: #949494;
-        }
+.bg-claimed {
+    background-color: #de630f;
+}
 
-		.bg-claimed {
-            background-color: #de630f;
-        }
+.bg-other-task {
+    background-color: #f0de11;
+}
 
-		.bg-other-task {
-            background-color: #f0de11;
-        }
+.bg-off-sys {
+    background-color: #ffffff;
+}
 
-        .bg-off-sys {
-            background-color: #ffffff;
-        }
+.bg-other-claim {
+    background-color: #CCCCCC;
+}
 
-		.bg-other-claim {
-			background-color: #CCCCCC;
-		}
+.text-outlier {
+    color: #D02B2C
+}
 
-		.text-outlier {
-			color: #D02B2C
-		}
+.cvc-colours {
+    width: 100%;
+    height: 30px;
+}
 
-        .cvc-colours {
-            width: 100%;
-            height: 30px;
-        }
+.cvc-colours-tbl {
+    width: 20px;
+    height: 25px;
+}
 
-		.cvc-colours-tbl {
-			width: 20px;
-			height: 25px;
-		}
+/************* FORMATTING *****************/
 
-        /************* FORMATTING *****************/
+.filterTag {
+    padding-left: 10px;
+    color: #ffffff;
+    background-color: #426D94;
+    display: inline-block;
+    border-radius: 5px;
+}
 
-      .filterTag {
-        padding-left: 10px;
-        color: #ffffff;
-        background-color: #426D94;
-        display: inline-block;
-        border-radius: 5px;
-        }
+.cvc-barGraph .zoom:hover {
+    transform: scaleY(1.2);
+    box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.2), 1px 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
 
-        .cvc-barGraph .zoom:hover {
-            transform: scaleY(1.2);
-            box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.2), 1px 3px 10px 0 rgba(0, 0, 0, 0.19);
-        }
+.cvc-barGraph .zoom.clickable:hover {
+    transform: scaleY(1.2);
+    box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.2), 1px 3px 10px 0 rgba(0, 0, 0, 0.19);
+    cursor: pointer;
+}
 
-        .cvc-barGraph .zoom.clickable:hover {
-        transform: scaleY(1.2);
-        box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.2), 1px 3px 10px 0 rgba(0, 0, 0, 0.19);
-        cursor: pointer;
-        }
+.cvc-tooltip {
+    border: 1px solid #ddd;
+    padding: 15px;
+    background-color: #fff !important;
+    border-radius: 5px;
+    opacity: 1 !important;
+}
 
-        .cvc-tooltip {
-            border: 1px solid #ddd;
-            padding: 15px;
-            background-color: #fff !important;
-            border-radius: 5px;
-            opacity: 1 !important;
-        }
+.cvc-tooltip.place-top:after {
+    border-top-color: #ddd !important;
+    border-top-style: solid !important;
+    border-top-width: 6px !important;
+}
 
-        .cvc-tooltip.place-top:after {
-            border-top-color: #ddd !important;
-            border-top-style: solid !important;
-            border-top-width: 6px !important;
-        }
+.view-details th {
+    vertical-align: top !important;
+}
 
-        .view-details th {
-        vertical-align: top !important;
-        }
+.summary-casework th:nth-child(n+2), .summary-casework td:nth-child(n+2) {
+    text-align: center;
+}
 
-        .summary-casework th:nth-child(n+2), .summary-casework td:nth-child(n+2) {
-        text-align: center;
-        }
+.summary-payclaim th:nth-child(2), .summary-payclaim th:nth-child(3) {
+    text-align: center;
+}
 
-        .summary-payclaim th:nth-child(2), .summary-payclaim th:nth-child(3) {
-        text-align: center;
-        }
+.summary-payclaim td:nth-child(2), .summary-payclaim td:nth-child(3) {
+    text-align: center;
+}
 
-        .summary-payclaim td:nth-child(2), .summary-payclaim td:nth-child(3) {
-        text-align: center;
-        }
+.view-details td:last-child.text-center {
+    text-align: center;
+}
 
-        .view-details td:last-child.text-center {
-        text-align: center;
-        }
+.view-details th:nth-child(n+4), .view-details td:nth-child(n+4) {
+    text-align: right;
+}
 
-        .view-details th:nth-child(n+4), .view-details td:nth-child(n+4) {
-        text-align: right;
-        }
+/************** UTILS *********************/
+.pddng-8px {
+    padding: 8px;
+}
 
-        /************** UTILS *********************/
-        .pddng-8px {
-            padding: 8px;
-        }
+.brdr-lft-drk {
+    border-left: 2px solid #1f1f1f;
+}
 
-        .brdr-lft-drk {
-            border-left: 2px solid #1f1f1f;
-        }
+.brdr-rght-drk {
+    border-right: 2px solid #1f1f1f;
+}
 
-        .brdr-rght-drk {
-            border-right: 2px solid #1f1f1f;
-        }
+.ln-hght-30px {
+    line-height: 30px;
+}
 
-        .ln-hght-30px {
-            line-height: 30px;
-        }
+.brdr-lft-white {
+    border-left: 1px solid #ffffff;
+}
 
-        .brdr-lft-white {
-            border-left: 1px solid #ffffff;
-        }
+.brdr-rght-white {
+    border-right: 1px solid #ffffff;
+}
 
-        .brdr-rght-white {
-            border-right: 1px solid #ffffff;
-        }
+.height20px {
+    height: 20px;
+}
 
-        .height20px {
-            height: 20px;
-        }
+.height100 {
+    height: 100%;
+}
 
-        .height100 {
-        height: 100%;
-        }
+.display-none {
+    display: none;
+}
 
-        .display-none {
-            display: none;
-        }
+.brdr-all {
+    border: solid 1px #ccc;
+}
 
-        .brdr-all {
-            border: solid 1px #ccc;
-        }
+.well h4 .small {
+    color: #333;
+}
 
-        .well h4 .small {
-        color: #333;
-        }
+/******************************************************************
+                            React Tabs
+/******************************************************************/
+.react-tabs__tab-list {
+    border-bottom: none;
+    margin: 0;
+    padding: 0;
+}
+
+.react-tabs__tab {
+    display: inline-block;
+    border: 1px solid #aaa;
+    bottom: -1px;
+    position: relative;
+    list-style: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    background: linear-gradient(to bottom, rgba(247, 247, 247, 1) 1%, rgba(232, 232, 232, 1) 100%);
+    border-radius: 5px 5px 0 0;
+    margin: 0 5px 0 5px;
+}
+
+.react-tabs__tab:nth-child(1) {
+    margin-left: 0;
+}
+
+.react-tabs__tab--selected {
+    display: inline-block;
+    background: #fff;
+    border: 1px solid #aaa;
+    border-bottom: 1px solid white;
+    color: black;
+    border-radius: 5px 5px 0 0;
+}
+
+.react-tabs__tab-panel {
+    display: none;
+}
+
+.react-tabs__tab-panel--selected {
+    display: block;
+    border: 1px solid #aaa;
+    border-radius: 0 5px 5px 5px;
+    padding: 10px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.react-tabs__tab--disabled {
+    color: grey;
+    cursor: default;
+}
+
+.react-tabs__tab:focus {
+    box-shadow: 0 0 5px hsl(208, 99%, 50%);
+    border-color: hsl(208,
+    99%, 50%);
+    outline: none;
+}
+
+.react-tabs__tab:focus:after {
+    content: "";
+    position: absolute;
+    height: 5px;
+    left: -4px;
+    right: -4px;
+    bottom: -5px;
+    background: #fff;
+}

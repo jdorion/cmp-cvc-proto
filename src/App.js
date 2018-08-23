@@ -127,7 +127,7 @@ class InterviewerShift extends React.Component {
 
         return (
             <div className="mrgn-tp-md mrgn-bttm-md" id="day1">
-                <div className="well well-sm">
+                <div className="well well-sm mrgn-bttm-sm">
                     <h4 className="panel-title">
                         {this.props.shift.name} <span className="small">- {this.props.shift.position}</span>
                         <span className="pull-right">
