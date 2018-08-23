@@ -81,6 +81,7 @@ class CallTooltips extends React.Component {
             } else if (call.outcomecategory === outcomeCategories.WHITE_SPOT) {
                 tooltips.push(
                     <ReactTooltip
+                        className="cvc-tooltip"
                         key={call.id}
                         id={this.getTooltipID(call)}
                         type="light"
@@ -104,6 +105,7 @@ class CallTooltips extends React.Component {
             } else {
                 tooltips.push(
                     <ReactTooltip
+                        className="cvc-tooltip"
                         key={call.id}
                         id={this.getTooltipID(call)}
                         type="light"
@@ -155,6 +157,7 @@ class ClaimTooltips extends React.Component {
             if (claim.claimtype !== claimTypes.OFF_SYSTEM_TIME) {
                 tooltips.push(
                     <ReactTooltip
+                        className="cvc-tooltip"
                         key={claim.id}
                         id={this.getTooltipID(claim)}
                         type="light"
