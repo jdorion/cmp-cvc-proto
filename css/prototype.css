@@ -1,180 +1,249 @@
+/******************************************************************
+                            React Tabs
+/******************************************************************/
+.react-tabs__tab-list {
+    border-bottom: none;
+    margin: 0;
+    padding: 0;
+}
 
-		/****************************************************************
-                           Call vs. Claim 
-        ****************************************************************/
+.react-tabs__tab {
+    display: inline-block;
+    border: 1px solid #aaa;
+    bottom: -1px;
+    position: relative;
+    list-style: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    background: linear-gradient(to bottom, rgba(247, 247, 247, 1) 1%, rgba(232, 232, 232, 1) 100%);
+    border-radius: 5px 5px 0 0;
+    margin: 0 5px 0 5px;
+}
 
-        /****************** COLOURS **********************************/
+.react-tabs__tab:nth-child(1) {
+    margin-left: 0;
+}
 
-        .bg-res-0 {
-            background-color: #03651b;
-        }
+.react-tabs__tab--selected {
+    display: inline-block;
+    background: #fff;
+    border: 1px solid #aaa;
+    border-bottom: 1px solid white;
+    color: black;
+    border-radius: 5px 5px 0 0;
+}
 
-        .bg-res-1 {
-            background-color: #00bf00;
-        }
+.react-tabs__tab-panel {
+    display: none;
+}
 
-        .bg-nocon-0 {
-            background-color: #6080c0;
-        }
+.react-tabs__tab-panel--selected {
+    display: block;
+    border: 1px solid #aaa;
+    border-radius: 0 5px 5px 5px;
+    padding: 10px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
 
-        .bg-nocon-1 {
-            background-color: #90bfdf;
-        }
+.react-tabs__tab--disabled {
+    color: grey;
+    cursor: default;
+}
 
-        .bg-nocon-2 {
-            background-color: #3040a0;
-        }
+.react-tabs__tab:focus {
+    box-shadow: 0 0 5px hsl(208, 99%, 50%);
+    border-color: hsl(208,
+    99%, 50%);
+    outline: none;
+}
 
-        .bg-other-0 {
-            background-color: #7e60a0;
-        }
+.react-tabs__tab:focus:after {
+    content: "";
+    position: absolute;
+    height: 5px;
+    left: -4px;
+    right: -4px;
+    bottom: -5px;
+    background: #fff;
+}
 
-        .bg-other-1 {
-            background-color: #bf90cf;
-        }
+/****************************************************************
+                    Call vs. Claim 
+****************************************************************/
 
-        .bg-other-2 {
-            background-color: #40306f;
-        }
+/****************** COLOURS **********************************/
 
-        .bg-ref-0 {
-			background-color: #b30714;
-        }
+.bg-res-0 {
+    background-color: #03651b;
+}
 
-        .bg-ref-1 {
-            background-color: #ff4d4d;
-        }
+.bg-res-1 {
+    background-color: #00bf00;
+}
 
-        .bg-other-sur {
-            background-color: #949494;
-        }
+.bg-nocon-0 {
+    background-color: #6080c0;
+}
 
-		.bg-claimed {
-            background-color: #de630f;
-        }
+.bg-nocon-1 {
+    background-color: #90bfdf;
+}
 
-		.bg-other-task {
-            background-color: #f0de11;
-        }
+.bg-nocon-2 {
+    background-color: #3040a0;
+}
 
-        .bg-off-sys {
-            background-color: #ffffff;
-        }
+.bg-other-0 {
+    background-color: #7e60a0;
+}
 
-		.bg-other-claim {
-			background-color: #CCCCCC;
-		}
+.bg-other-1 {
+    background-color: #bf90cf;
+}
 
-		.text-outlier {
-			color: #D02B2C
-		}
+.bg-other-2 {
+    background-color: #40306f;
+}
 
-        .cvc-colours {
-            width: 100%;
-            height: 30px;
-        }
+.bg-ref-0 {
+    background-color: #b30714;
+}
 
-		.cvc-colours-tbl {
-			width: 20px;
-			height: 25px;
-		}
+.bg-ref-1 {
+    background-color: #ff4d4d;
+}
 
-        /************* FORMATTING *****************/
+.bg-other-sur {
+    background-color: #949494;
+}
 
-      .filterTag {
-        padding-left: 10px;
-        color: #ffffff;
-        background-color: #426D94;
-        display: inline-block;
-        border-radius: 5px;
-        }
+.bg-claimed {
+    background-color: #de630f;
+}
 
-        .cvc-barGraph .zoom:hover {
-            transform: scaleY(1.2);
-            box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.2), 1px 3px 10px 0 rgba(0, 0, 0, 0.19);
-        }
+.bg-other-task {
+    background-color: #f0de11;
+}
 
-        .cvc-barGraph .zoom.clickable:hover {
-        transform: scaleY(1.2);
-        box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.2), 1px 3px 10px 0 rgba(0, 0, 0, 0.19);
-        cursor: pointer;
-        }
+.bg-off-sys {
+    background-color: #ffffff;
+}
 
-        #cvc-tooltip, .cvc-tooltip {
-            position: absolute;
-            display: none;
-            border: 2px solid #ddd;
-            padding: 15px;
-            background-color: #fff;
-            z-index: 500;
-            border-radius: 5px;
-        }
+.bg-other-claim {
+    background-color: #CCCCCC;
+}
 
-        .view-details th {
-        vertical-align: top !important;
-        }
+.text-outlier {
+    color: #D02B2C
+}
 
-        .summary-casework th:nth-child(n+2), .summary-casework td:nth-child(n+2) {
-        text-align: center;
-        }
+.cvc-colours {
+    width: 100%;
+    height: 30px;
+}
 
-        .summary-payclaim th:nth-child(2), .summary-payclaim th:nth-child(3) {
-        text-align: center;
-        }
+.cvc-colours-tbl {
+    width: 20px;
+    height: 25px;
+}
 
-        .summary-payclaim td:nth-child(2), .summary-payclaim td:nth-child(3) {
-        text-align: center;
-        }
+/************* FORMATTING *****************/
 
-        .view-details td:last-child.text-center {
-        text-align: center;
-        }
+.filterTag {
+padding-left: 10px;
+color: #ffffff;
+background-color: #426D94;
+display: inline-block;
+border-radius: 5px;
+}
 
-        .view-details th:nth-child(n+4), .view-details td:nth-child(n+4) {
-        text-align: right;
-        }
+.cvc-barGraph .zoom:hover {
+    transform: scaleY(1.2);
+    box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.2), 1px 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
 
-        /************** UTILS *********************/
-        .pddng-8px {
-            padding: 8px;
-        }
+.cvc-barGraph .zoom.clickable:hover {
+transform: scaleY(1.2);
+box-shadow: 1px 2px 4px 0 rgba(0, 0, 0, 0.2), 1px 3px 10px 0 rgba(0, 0, 0, 0.19);
+cursor: pointer;
+}
 
-        .brdr-lft-drk {
-            border-left: 2px solid #1f1f1f;
-        }
+#cvc-tooltip, .cvc-tooltip {
+    position: absolute;
+    display: none;
+    border: 2px solid #ddd;
+    padding: 15px;
+    background-color: #fff;
+    z-index: 500;
+    border-radius: 5px;
+}
 
-        .brdr-rght-drk {
-            border-right: 2px solid #1f1f1f;
-        }
+.view-details th {
+vertical-align: top !important;
+}
 
-        .ln-hght-30px {
-            line-height: 30px;
-        }
+.summary-casework th:nth-child(n+2), .summary-casework td:nth-child(n+2) {
+text-align: center;
+}
 
-        .brdr-lft-white {
-            border-left: 1px solid #ffffff;
-        }
+.summary-payclaim th:nth-child(2), .summary-payclaim th:nth-child(3) {
+text-align: center;
+}
 
-        .brdr-rght-white {
-            border-right: 1px solid #ffffff;
-        }
+.summary-payclaim td:nth-child(2), .summary-payclaim td:nth-child(3) {
+text-align: center;
+}
 
-        .height20px {
-            height: 20px;
-        }
+.view-details td:last-child.text-center {
+text-align: center;
+}
 
-        .height100 {
-        height: 100%;
-        }
+.view-details th:nth-child(n+4), .view-details td:nth-child(n+4) {
+text-align: right;
+}
 
-        .display-none {
-            display: none;
-        }
+/************** UTILS *********************/
+.pddng-8px {
+    padding: 8px;
+}
 
-        .brdr-all {
-            border: solid 1px #ccc;
-        }
+.brdr-lft-drk {
+    border-left: 2px solid #1f1f1f;
+}
 
-        .well h4 .small {
-        color: #333;
-        }
+.brdr-rght-drk {
+    border-right: 2px solid #1f1f1f;
+}
+
+.ln-hght-30px {
+    line-height: 30px;
+}
+
+.brdr-lft-white {
+    border-left: 1px solid #ffffff;
+}
+
+.brdr-rght-white {
+    border-right: 1px solid #ffffff;
+}
+
+.height20px {
+    height: 20px;
+}
+
+.height100 {
+height: 100%;
+}
+
+.display-none {
+    display: none;
+}
+
+.brdr-all {
+    border: solid 1px #ccc;
+}
+
+.well h4 .small {
+color: #333;
+}
