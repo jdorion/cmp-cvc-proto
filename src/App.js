@@ -69,6 +69,7 @@ class InterviewerShift extends React.Component {
     claimBelongsInHour(claim, hour) {
         var claimStart = parseInt(claim.starttime.split(":")[0]);
         var claimEnd = parseInt(claim.endtime.split(":")[0]);
+        
         // if the claim starts inside the given hour, include it
         if (claim.starttime.startsWith(hour + ':')) {
             return true;
