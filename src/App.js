@@ -5,7 +5,7 @@ import ShiftSummaryTab from './components/ShiftSummary';
 import Container from './components/Container';
 import HourlyTab from './components/Hourly';
 
-class App extends React.Component {
+class App extends React.Component {    
     render() {
         const days = [];
         cvcData.days.forEach(day => {
@@ -66,25 +66,48 @@ class InterviewerShift extends React.Component {
         return filteredCalls;
     }
 
-    claimBelongsInHour(claim, hour) {
-        var claimStart = parseInt(claim.starttime.split(":")[0]);
-        var claimEnd = parseInt(claim.endtime.split(":")[0]);
+    processJSON() {
+        this.props.shift.hours.forEach( hour => {
+            this.props.shift.calls.forEach( call => {
+                if ( 
+                    this.belongsInHour(call, hour.hour) && 
+                    call.outcomecategory !== outcomeCategories.WHITE_SPOT 
+                ) {
+                    hour["hasAttempt"]  = true;
+                }
+            });
+
+            this.props.shift.claims.forEach( claim => {
+                if ( 
+                    this.belongsInHour(claim, hour.hour) && 
+                    claim.claimtype != claimTypes.OFF_SYSTEM_TIME
+                ) {
+                    hour["hasClaim"]  = true;
+                }
+            });
+        });
+
+    }
+
+    belongsInHour(band, hour) {
+        var start = parseInt(band.starttime.split(":")[0]);
+        var end = parseInt(band.endtime.split(":")[0]);
         
-        // if the claim starts inside the given hour, include it
-        if (claim.starttime.startsWith(hour + ':')) {
+        // if the claim/call starts inside the given hour, include it
+        if (band.starttime.startsWith(hour + ':')) {
             return true;
         }
-        // if the claim ends right at the start of the given hour, don't include it
-        if (claim.endtime.startsWith(hour + ':00')) {
+        // if the claim/call ends right at the start of the given hour, don't include it
+        if (band.endtime.startsWith(hour + ':00')) {
             return false;
         }
-        // if the claim ends within the given hour, include it
-        if (claim.endtime.startsWith(hour + ':')) {
+        // if the claim/call ends within the given hour, include it
+        if (band.endtime.startsWith(hour + ':')) {
             return true;
         }
 
-        // if the claim spans the given hour, include it
-        if (hour > claimStart && hour < claimEnd) {
+        // if the claim/call spans the given hour, include it
+        if (hour > start && hour < end) {
             return true;
         }
 
@@ -95,7 +118,7 @@ class InterviewerShift extends React.Component {
         var filteredClaims = [];
 
         claims.forEach(element => {
-            if (this.claimBelongsInHour(element, hour)) {
+            if (this.belongsInHour(element, hour)) {
                 filteredClaims.push(element);
             }
         });
@@ -104,6 +127,8 @@ class InterviewerShift extends React.Component {
     }
 
     render() {
+        {this.processJSON()}
+
         const filteredHours = [];
         this.props.shift.hours.forEach(element => {
             if (element.hasAttempt || element.hasClaim) {

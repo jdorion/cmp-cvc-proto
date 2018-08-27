@@ -272,13 +272,19 @@ class BarGraphLine2 extends React.Component {
         var prevCall = null;
 
         this.props.calls.forEach(element => {
-            if (element.outcomecategory !== outcomeCategories.WHITE_SPOT && element.outcomecategory !== outcomeCategories.PADDING) {
+            if (
+                element.outcomecategory !== outcomeCategories.WHITE_SPOT && 
+                element.outcomecategory !== outcomeCategories.PADDING
+            ) {
                 if (prevCall === null) {
                     element["categorycount"] = count;
                     prevCall = element;
                 } else {
                     if (prevCall.outcomecategory === element.outcomecategory) {
-                        if (element.outcomecategory === outcomeCategories.RESPONSES || element.outcomecategory === outcomeCategories.REFUSALS) {
+                        if (
+                            element.outcomecategory === outcomeCategories.RESPONSES || 
+                            element.outcomecategory === outcomeCategories.REFUSALS
+                        ) {
                             switch(prevCall.categorycount) {
                                 case 0: count = 1; break;
                                 case 1: count = 0; break;
