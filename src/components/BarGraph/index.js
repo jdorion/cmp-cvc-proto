@@ -272,13 +272,19 @@ class BarGraphLine2 extends React.Component {
         var prevCall = null;
 
         this.props.calls.forEach(element => {
-            if (element.outcomecategory !== outcomeCategories.WHITE_SPOT && element.outcomecategory !== outcomeCategories.PADDING) {
+            if (
+                element.outcomecategory !== outcomeCategories.WHITE_SPOT && 
+                element.outcomecategory !== outcomeCategories.PADDING
+            ) {
                 if (prevCall === null) {
                     element["categorycount"] = count;
                     prevCall = element;
                 } else {
                     if (prevCall.outcomecategory === element.outcomecategory) {
-                        if (element.outcomecategory === outcomeCategories.RESPONSES || element.outcomecategory === outcomeCategories.REFUSALS) {
+                        if (
+                            element.outcomecategory === outcomeCategories.RESPONSES || 
+                            element.outcomecategory === outcomeCategories.REFUSALS
+                        ) {
                             switch(prevCall.categorycount) {
                                 case 0: count = 1; break;
                                 case 1: count = 0; break;
@@ -354,21 +360,33 @@ class BarGraphLine2 extends React.Component {
     render() {
         {this.countOutcomeCategories()}
         const rows = [];
-        for (var i = 0; i < this.props.calls.length; i++) {
-            var call = this.props.calls[i];
+        if (this.props.calls.length === 0) {
             rows.push(
                 <td
-                    key={call.id}
-                    style={this.getWidth(call)}
-                    className={this.getClassName(call, i)}
-                    data-tip
-                    data-for={this.getTooltipID(call)}
+                    key="no-data"
+                    style={{width: "100%" }}
+                    className="no-data ln-hght-30px"
                 >
-                    {i === 0 ? '\u00A0' : ''}
+                    &nbsp;
                 </td>
             );
+        } else {
+            for (var i = 0; i < this.props.calls.length; i++) {
+                var call = this.props.calls[i];
+                rows.push(
+                    <td
+                        key={call.id}
+                        style={this.getWidth(call)}
+                        className={this.getClassName(call, i)}
+                        data-tip
+                        data-for={this.getTooltipID(call)}
+                    >
+                        {i === 0 ? '\u00A0' : ''}
+                    </td>
+                );
+            }
         }
-
+        
         return (
             <table className="mrgn-lft-md width100">
                 <tbody>
