@@ -4,8 +4,10 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import ShiftSummaryTab from './components/ShiftSummary';
 import Container from './components/Container';
 import HourlyTab from './components/Hourly';
+import outcomeCategories from './codesets/outcomeCategories';
+import claimTypes from './codesets/claimTypes';
 
-class App extends React.Component {    
+class App extends React.Component {
     render() {
         const days = [];
         cvcData.days.forEach(day => {
@@ -67,32 +69,37 @@ class InterviewerShift extends React.Component {
     }
 
     processJSON() {
-        this.props.shift.hours.forEach( hour => {
-            this.props.shift.calls.forEach( call => {
-                if ( 
-                    this.belongsInHour(call, hour.hour) && 
-                    call.outcomecategory !== outcomeCategories.WHITE_SPOT 
-                ) {
-                    hour["hasAttempt"]  = true;
-                }
-            });
+        this.props.shift.hours.forEach(hour => {
+            if (this.props.shift.calls.some(call => this.testIfCallBelongsInHour(call, hour))) {
+                hour['hasAttempt'] = true;
+            }
 
-            this.props.shift.claims.forEach( claim => {
-                if ( 
-                    this.belongsInHour(claim, hour.hour) && 
-                    claim.claimtype != claimTypes.OFF_SYSTEM_TIME
-                ) {
-                    hour["hasClaim"]  = true;
-                }
-            });
+            if (this.props.shift.claims.some(claim => this.testIfClaimBelongsInHour(claim, hour))) {
+                hour['hasClaim'] = true;
+            }
         });
+    }
 
+    testIfCallBelongsInHour(call, hour) {
+        if (call.outcomecategory === outcomeCategories.WHITE_SPOT) {
+            return false;
+        }
+
+        return this.belongsInHour(call, hour.hour);
+    }
+
+    testIfClaimBelongsInHour(claim, hour) {
+        if (claim.claimtype === claimTypes.OFF_SYSTEM_TIME) {
+            return false;
+        }
+
+        return this.belongsInHour(claim, hour.hour);
     }
 
     belongsInHour(band, hour) {
-        var start = parseInt(band.starttime.split(":")[0]);
-        var end = parseInt(band.endtime.split(":")[0]);
-        
+        var start = parseInt(band.starttime.split(':')[0]);
+        var end = parseInt(band.endtime.split(':')[0]);
+
         // if the claim/call starts inside the given hour, include it
         if (band.starttime.startsWith(hour + ':')) {
             return true;
@@ -127,7 +134,9 @@ class InterviewerShift extends React.Component {
     }
 
     render() {
-        {this.processJSON()}
+        {
+            this.processJSON();
+        }
 
         const filteredHours = [];
         this.props.shift.hours.forEach(element => {
@@ -162,7 +171,8 @@ class InterviewerShift extends React.Component {
             <div className="mrgn-tp-md mrgn-bttm-md" id="day1">
                 <div className="well well-sm mrgn-bttm-sm">
                     <h4 className="panel-title">
-                        {this.props.shift.name} <span className="small">- {this.props.shift.position}</span>
+                        {this.props.shift.name}{' '}
+                        <span className="small">- {this.props.shift.position}</span>
                         <span className="pull-right">
                             <a href="./interviewer_printView.html">
                                 <i className="fa fa-print" />
