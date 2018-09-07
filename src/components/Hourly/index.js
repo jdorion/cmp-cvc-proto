@@ -22,9 +22,12 @@ class HourlyTab extends React.Component {
                 <div className="row">
                     <div className="col-md-12">
                         <h5 className="mrgn-lft-md mrgn-bttm-0 capitalize">
-                            <i className="fa fa-calendar"/>&nbsp;
+                            <i className="fa fa-calendar" />&nbsp;
                             {this.props.formattedDate}
-                            <span className="mrgn-lft-lg"><i className="fa fa-clock-o" /> {' ' + this.props.hour.description + ' '}</span>
+                            <span className="mrgn-lft-lg">
+                                <i className="fa fa-clock-o" />{' '}
+                                {' ' + this.props.hour.description + ' '}
+                            </span>
                         </h5>
                     </div>
                 </div>
@@ -80,7 +83,6 @@ class HourlyCaseWorkDetails extends React.Component {
         const rows = [];
 
         this.props.calls.forEach(element => {
-
             if (element.outcomecategory === outcomeCategories.PADDING) {
                 // do nothing
             } else if (element.outcomecategory === outcomeCategories.WHITE_SPOT) {
@@ -156,18 +158,10 @@ class HourlyCaseWorkDetails extends React.Component {
                                         (<abbr title="hours, minutes and seconds">hh:mm:ss</abbr>)
                                     </span>
                                 </th>
-                                <th
-                                    className={
-                                        HourlyTab.getAccessMethodClass(this.props.isCATI)
-                                    }
-                                >
+                                <th className={HourlyTab.getAccessMethodClass(this.props.isCATI)}>
                                     Access<br />method
                                 </th>
-                                <th
-                                    className={
-                                        HourlyTab.getAttemptedViaClass(this.props.isCATI)
-                                    }
-                                >
+                                <th className={HourlyTab.getAttemptedViaClass(this.props.isCATI)}>
                                     Attempted<br />via
                                 </th>
                             </tr>
@@ -183,18 +177,18 @@ class HourlyCaseWorkDetails extends React.Component {
 class WhiteSpotRow extends React.Component {
     render() {
         return (
-            <tr>
-                <td className="bg-off-sys"></td>
+            <tr id={this.props.whitespot.hrefId}>
+                <td className="bg-off-sys" />
                 <td>Off system time</td>
-                <td/>
-                <td/>
+                <td />
+                <td />
                 <td>
                     <a href="#" />
                 </td>
-                <td/>
+                <td />
                 <td>{this.props.whitespot.starttime}</td>
                 <td>{this.props.whitespot.endtime}</td>
-                <td/>
+                <td />
                 <td>{this.props.whitespot.duration}</td>
                 <td className={HourlyTab.getAccessMethodClass(this.props.isCATI)} />
                 <td className={HourlyTab.getAttemptedViaClass(this.props.isCATI)} />
@@ -223,12 +217,12 @@ class AttemptRow extends React.Component {
     getPlusMinus(value) {
         if (value.outlier) {
             if (value.plusminus > 0) {
-                return "(+" + value.plusminus + " min)";
+                return '(+' + value.plusminus + ' min)';
             } else {
-                return "("+ value.plusminus + " min)";
+                return '(' + value.plusminus + ' min)';
             }
         } else {
-            return "";
+            return '';
         }
     }
 
@@ -246,8 +240,8 @@ class AttemptRow extends React.Component {
 
     render() {
         return (
-            <tr>
-                <td className={this.getBGColourClassName()}></td>
+            <tr id={this.props.attempt.hrefId}>
+                <td className={this.getBGColourClassName()} />
                 <td>{this.props.attempt.outcome}</td>
                 <td>{this.props.attempt.survey}</td>
                 <td>{this.props.attempt.cycle}</td>
@@ -261,11 +255,19 @@ class AttemptRow extends React.Component {
                 </td>
                 <td>{this.props.attempt.starttime}</td>
                 <td>{this.props.attempt.endtime}</td>
-                <td>{this.props.attempt.interviewlength.length}
-                    <br/><span className="text-outlier">{this.getPlusMinus(this.props.attempt.interviewlength)}</span>
+                <td>
+                    {this.props.attempt.interviewlength.length}
+                    <br />
+                    <span className="text-outlier">
+                        {this.getPlusMinus(this.props.attempt.interviewlength)}
+                    </span>
                 </td>
-                <td>{this.props.attempt.totalsystemtime.length}
-                    <br/><span className="text-outlier">{this.getPlusMinus(this.props.attempt.totalsystemtime)}</span>
+                <td>
+                    {this.props.attempt.totalsystemtime.length}
+                    <br />
+                    <span className="text-outlier">
+                        {this.getPlusMinus(this.props.attempt.totalsystemtime)}
+                    </span>
                 </td>
                 <td className={HourlyTab.getAccessMethodClass(this.props.isCATI)}>
                     <abbr title={this.props.attempt.accessmethod.text}>

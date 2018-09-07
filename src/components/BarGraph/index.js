@@ -59,20 +59,6 @@ class BarGraph extends React.Component {
 }
 
 class CallTooltips extends React.Component {
-    //TODO: this is duplicated in BarGraphLine2
-    getTooltipID(call) {
-        return (
-            'call_' +
-            this.props.date +
-            '_' +
-            this.props.username +
-            '_' +
-            this.props.hourkey +
-            call.id +
-            '-tt'
-        );
-    }
-
     render() {
         var tooltips = [];
         this.props.calls.forEach(call => {
@@ -83,7 +69,7 @@ class CallTooltips extends React.Component {
                     <ReactTooltip
                         className="cvc-tooltip"
                         key={call.id}
-                        id={this.getTooltipID(call)}
+                        id={call.hrefId + '-tt'}
                         type="light"
                         effect="solid"
                     >
@@ -107,7 +93,7 @@ class CallTooltips extends React.Component {
                     <ReactTooltip
                         className="cvc-tooltip"
                         key={call.id}
-                        id={this.getTooltipID(call)}
+                        id={call.hrefId + '-tt'}
                         type="light"
                         effect="solid"
                     >
@@ -137,20 +123,6 @@ class CallTooltips extends React.Component {
 }
 
 class ClaimTooltips extends React.Component {
-    // TODO: this is duplicated in BarGraphLine3
-    getTooltipID(claim) {
-        return (
-            'claim_' +
-            this.props.date +
-            '_' +
-            this.props.username +
-            '_' +
-            this.props.hourkey +
-            claim.id +
-            '-tt'
-        );
-    }
-
     render() {
         var tooltips = [];
         this.props.claims.forEach(claim => {
@@ -159,7 +131,7 @@ class ClaimTooltips extends React.Component {
                     <ReactTooltip
                         className="cvc-tooltip"
                         key={claim.id}
-                        id={this.getTooltipID(claim)}
+                        id={claim.hrefId + '-tt'}
                         type="light"
                         effect="solid"
                     >
@@ -253,57 +225,53 @@ class BarGraphLine1 extends React.Component {
 
 // this line of the bargraph renders all of the calls / visits for the given hour / shift
 class BarGraphLine2 extends React.Component {
-    //TODO: this is duplicated in CallTooltips
-    getTooltipID(call) {
-        return (
-            'call_' +
-            this.props.date +
-            '_' +
-            this.props.username +
-            '_' +
-            this.props.hourkey +
-            call.id +
-            '-tt'
-        );
-    }
-
     countOutcomeCategories() {
         var count = 0;
         var prevCall = null;
 
         this.props.calls.forEach(element => {
             if (
-                element.outcomecategory !== outcomeCategories.WHITE_SPOT && 
+                element.outcomecategory !== outcomeCategories.WHITE_SPOT &&
                 element.outcomecategory !== outcomeCategories.PADDING
             ) {
                 if (prevCall === null) {
-                    element["categorycount"] = count;
+                    element['categorycount'] = count;
                     prevCall = element;
                 } else {
                     if (prevCall.outcomecategory === element.outcomecategory) {
                         if (
-                            element.outcomecategory === outcomeCategories.RESPONSES || 
+                            element.outcomecategory === outcomeCategories.RESPONSES ||
                             element.outcomecategory === outcomeCategories.REFUSALS
                         ) {
-                            switch(prevCall.categorycount) {
-                                case 0: count = 1; break;
-                                case 1: count = 0; break;
-                            } 
+                            switch (prevCall.categorycount) {
+                                case 0:
+                                    count = 1;
+                                    break;
+                                case 1:
+                                    count = 0;
+                                    break;
+                            }
                         } else {
-                            switch(prevCall.categorycount) {
-                                case 0: count = 1; break;
-                                case 1: count = 2; break;
-                                case 2: count = 0; break;
+                            switch (prevCall.categorycount) {
+                                case 0:
+                                    count = 1;
+                                    break;
+                                case 1:
+                                    count = 2;
+                                    break;
+                                case 2:
+                                    count = 0;
+                                    break;
                             }
                         }
-                        element["categorycount"] = count;
+                        element['categorycount'] = count;
                     } else {
                         count = 0;
-                        element["categorycount"] = count;
+                        element['categorycount'] = count;
                     }
                     prevCall = element;
                 }
-            }  
+            }
         });
     }
 
@@ -358,15 +326,13 @@ class BarGraphLine2 extends React.Component {
     }
 
     render() {
-        {this.countOutcomeCategories()}
+        {
+            this.countOutcomeCategories();
+        }
         const rows = [];
         if (this.props.calls.length === 0) {
             rows.push(
-                <td
-                    key="no-data"
-                    style={{width: "100%" }}
-                    className="no-data ln-hght-30px"
-                >
+                <td key="no-data" style={{ width: '100%' }} className="no-data ln-hght-30px">
                     &nbsp;
                 </td>
             );
@@ -374,25 +340,48 @@ class BarGraphLine2 extends React.Component {
             for (var i = 0; i < this.props.calls.length; i++) {
                 var call = this.props.calls[i];
                 rows.push(
-                    <td
+                    <BarGraphLine2TD
                         key={call.id}
+                        call={call}
                         style={this.getWidth(call)}
-                        className={this.getClassName(call, i)}
-                        data-tip
-                        data-for={this.getTooltipID(call)}
-                    >
-                        {i === 0 ? '\u00A0' : ''}
-                    </td>
+                        cssclass={this.getClassName(call, i)}
+                        isFirst={i === 0}
+                    />
                 );
             }
         }
-        
+
         return (
             <table className="mrgn-lft-md width100">
                 <tbody>
                     <tr className="brdr-bttm brdr-lft brdr-rght">{rows}</tr>
                 </tbody>
             </table>
+        );
+    }
+}
+
+class BarGraphLine2TD extends React.Component {
+    constructor(props) {
+        super(props);
+        this.gotoLocation = this.gotoLocation.bind(this);
+    }
+
+    gotoLocation() {
+        location = '#' + this.props.call.hrefId;
+    }
+
+    render() {
+        return (
+            <td
+                style={this.props.style}
+                className={this.props.cssclass}
+                data-tip
+                data-for={this.props.call.hrefId + '-tt'}
+                onClick={this.gotoLocation}
+            >
+                {this.props.isFirst ? '\u00A0' : ''}
+            </td>
         );
     }
 }
@@ -450,20 +439,6 @@ class BarGraphLine3 extends React.Component {
         return { width: calculatedWidth + '%' };
     }
 
-    // TODO: this is duplicated in ClaimTooltips
-    getTooltipID(claim) {
-        return (
-            'claim_' +
-            this.props.date +
-            '_' +
-            this.props.username +
-            '_' +
-            this.props.hourkey +
-            claim.id +
-            '-tt'
-        );
-    }
-
     render() {
         const rows = [];
         for (var i = 0; i < this.props.claims.length; i++) {
@@ -474,7 +449,7 @@ class BarGraphLine3 extends React.Component {
                     style={this.getWidth(claim)}
                     className={this.getClassName(claim, i)}
                     data-tip
-                    data-for={this.getTooltipID(claim)}
+                    data-for={claim.hrefId + '-tt'}
                 >
                     &nbsp;
                 </td>

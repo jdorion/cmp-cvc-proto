@@ -68,7 +68,37 @@ class InterviewerShift extends React.Component {
         return filteredCalls;
     }
 
+    filterClaims(claims, hour) {
+        var filteredClaims = [];
+
+        claims.forEach(element => {
+            if (this.belongsInHour(element, hour)) {
+                filteredClaims.push(element);
+            }
+        });
+
+        return filteredClaims;
+    }
+
+    includeHour(element) {
+        return element.hasAttempt || element.hasClaim;
+    }
+
+    filterHours(hours) {
+        var filteredHours = [];
+        hours.forEach(element => {
+            if (this.includeHour(element)) {
+                filteredHours.push(element);
+            }
+        });
+
+        return filteredHours;
+    }
+
     processJSON() {
+        // this is 1 because the shift summary will always be index 0.
+        var hourTabIndex = 1;
+
         this.props.shift.hours.forEach(hour => {
             if (this.props.shift.calls.some(call => this.testIfCallBelongsInHour(call, hour))) {
                 hour['hasAttempt'] = true;
@@ -77,6 +107,21 @@ class InterviewerShift extends React.Component {
             if (this.props.shift.claims.some(claim => this.testIfClaimBelongsInHour(claim, hour))) {
                 hour['hasClaim'] = true;
             }
+
+            if (this.includeHour(hour)) {
+                hour['tabIndex'] = hourTabIndex;
+                hourTabIndex++;
+            }
+        });
+
+        this.props.shift.calls.forEach(attempt => {
+            attempt['hrefId'] =
+                'attempt_' + this.props.date + '_' + this.props.shift.username + '_' + attempt.id;
+        });
+
+        this.props.shift.claims.forEach(claim => {
+            claim['hrefId'] =
+                'claim_' + this.props.date + '_' + this.props.shift.username + '_' + claim.id;
         });
     }
 
@@ -121,29 +166,12 @@ class InterviewerShift extends React.Component {
         return false;
     }
 
-    filterClaims(claims, hour) {
-        var filteredClaims = [];
-
-        claims.forEach(element => {
-            if (this.belongsInHour(element, hour)) {
-                filteredClaims.push(element);
-            }
-        });
-
-        return filteredClaims;
-    }
-
     render() {
         {
             this.processJSON();
         }
 
-        const filteredHours = [];
-        this.props.shift.hours.forEach(element => {
-            if (element.hasAttempt || element.hasClaim) {
-                filteredHours.push(element);
-            }
-        });
+        const filteredHours = this.filterHours(this.props.shift.hours);
 
         const hourlist = [];
         filteredHours.forEach(element => {
